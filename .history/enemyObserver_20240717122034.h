@@ -1,0 +1,2 @@
+#ifndef ENEMY
+#define ENEMY

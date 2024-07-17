@@ -49,7 +49,7 @@ void Player::move(std::string dir, int tick) {
         }
         pos_check = next->charAt(x + new_block_x, y + new_block_y, tick);
         if (pos_check == '-' && pos_check == '|' && pos_check == ' ') ;
-    
+     
     x += new_block_x;
     y += new_block_y;
 }
