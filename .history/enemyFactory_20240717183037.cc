@@ -1,8 +1,3 @@
-#ifndef ENEMYFACTORY_H
-#define ENEMYFACTORY_H
-
-#include "enemies.h"
-
 class EnemyFactory {
 public:
     std::unique_ptr<Enemy> createEnemy(const std::string& type, AsciiArt* next, int x, int y) {
@@ -25,5 +20,3 @@ public:
         }
     }
 };
-
-#endif 

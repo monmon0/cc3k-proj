@@ -14,8 +14,6 @@ char Player::charAt(int row, int col, int tick) {
     return next->charAt(row, col, tick);
 }
 
-void Player::loseHP(int x) { hp -= x; }
-
 void Player::move(std::string dir, int tick) {
     // no,so,ea,we,ne,nw,se,sw
     // new block 

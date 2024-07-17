@@ -32,7 +32,7 @@ class Enemy : public Decorator, public Subject {
         int getAtk() const { return atk; }
         int getDef() const { return def; }
         void loseHP(int damage) { hp -= damage; }
-        bool isDead() { return hp <= 0; }
+        bool isDead() { return  }
         virtual char charAt(int row, int col, int tick) = 0;
         virtual void attack(Player& pc) = 0;
 };
