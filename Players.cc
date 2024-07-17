@@ -1,9 +1,10 @@
 #include "players.h"
 #include "decorator.h"
 #include <iostream>
-#include<string>
+#include <string>
 
-Player::Player(char race, AsciiArt * next, int x, int y, int hp, int atk, int def): 
+Player::Player(char race, AsciiArt * next, int x, 
+    int y, int hp, int atk, int def): 
     Decorator{next}, race{race} ,x{x}, y{y}, hp{hp}, atk{atk}, def{def}{
 }
 
