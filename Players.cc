@@ -4,52 +4,7 @@
 #include<string>
 
 Player::Player(char race, AsciiArt * next, int x, int y, int hp, int atk, int def): 
-    Decorator{next}, x{x}, y{y}, hp{hp}, atk{atk}, def{def}, race{race} {
-}
-
-// Factory Method implementation
-std::unique_ptr<Player> Player::createPlayer(char race, AsciiArt *next, int x, int y, int hp, int atk, int def) {
-    switch (race) {
-        case 'S':
-            return std::make_unique<Shade>(next, x, y, hp, atk, def);
-        case 'D':
-            return std::make_unique<Drow>(next, x, y, hp, atk, def);
-        case 'V':
-            return std::make_unique<Vampire>(next, x, y, hp, atk, def);
-        case 'G':
-            return std::make_unique<Goblin>(next, x, y, hp, atk, def);
-        default:
-            throw std::invalid_argument("Invalid player race");
-    }
-}
-
-// Method implementations for Shade, Drow, Vampire, and Goblin
-Shade::Shade(AsciiArt *next, int x, int y, int hp, int atk, int def)
-    : Player('S', next, x, y, hp, atk, def) {}
-
-void Shade::attack() {
-    // Shade-specific attack implementation
-}
-
-Drow::Drow(AsciiArt *next, int x, int y, int hp, int atk, int def)
-    : Player('D', next, x, y, hp, atk, def) {}
-
-void Drow::attack() {
-    // Drow-specific attack implementation
-}
-
-Vampire::Vampire(AsciiArt *next, int x, int y, int hp, int atk, int def)
-    : Player('V', next, x, y, hp, atk, def) {}
-
-void Vampire::attack() {
-    // Vampire-specific attack implementation
-}
-
-Goblin::Goblin(AsciiArt *next, int x, int y, int hp, int atk, int def)
-    : Player('G', next, x, y, hp, atk, def) {}
-
-void Goblin::attack() {
-    // Goblin-specific attack implementation
+    Decorator{next}, race{race} ,x{x}, y{y}, hp{hp}, atk{atk}, def{def}{
 }
 
 char Player::charAt(int row, int col, int tick) {

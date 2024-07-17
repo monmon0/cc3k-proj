@@ -16,8 +16,16 @@ class RandomPos {
                 x = 38 + rand() % 11;
                 y = 10 + rand() % 2;
             } else if (chamber == 3) {
-                
+                int inner_chamber = rand() % 3;
+                if (inner_chamber == 0) {
+                    
+                } else if (inner_chamber == 1) {
+
+                } else if (inner_chamber == 2) {
+
+                }
             } else if (chamber == 4) {
+
             } 
 
         };
