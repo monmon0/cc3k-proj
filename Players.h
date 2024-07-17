@@ -13,9 +13,10 @@ class Player : public Decorator {
 
     public:
     // Constructor and destructor 
-    Player(char race, AsciiArt *next); 
+    Player(char race, AsciiArt *next, int x, int y); 
     char charAt(int row, int col, int tick) override;
     void move(std::string dir, int tick);
+    void loseHP(int x);
 }; 
 
 class Shade: public Player {

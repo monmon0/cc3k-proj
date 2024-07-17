@@ -16,12 +16,13 @@ int main() {
     Dungeon s{canvas};
 
     // std::string command;
-    Player *pc =  new Player{'s', s.picture()};
+    Player *pc =  new Player{'s', s.picture(), 4, 6};
     s.picture() = pc;
-
-
+    s.render();
+    
     pc->move("ea", 1);
-    pc->move("ea", 1);
+    s.render();
+    pc->move("so", 1);
     // player.move("no");
     s.render();
 }
