@@ -1,38 +1,35 @@
 #include "dungeon.h"
 #include "asciiart.h"
 
+#define ESC "\033["
+#define LIGHT_BLUE "34"
+#define RED "91"
+#define RESET "\033[m"
+
 // reset for new chambers?
 void Dungeon::reset() { ticks = 0; }
 
 void Dungeon::render() {
-  // depends on different floor print out diff thing
-  if (floor == 1) {
-    // draws the first floor
-    // 74 x 30
-    out << '|';
-    for (int j = 0; j < cols; ++j) out << '-';
-    out << '|' << std::endl;
-    for (int i = 0; i < rows - 6; ++i) {
-      out << '|';
-      for (int j = 0; j < cols; ++j) {
+  // draws current map
+  // 79 x 25
+  for (int i = 0; i < rows - 5; ++i) {
+    for (int j = 0; j < cols; ++j) {
+      char curr = picture()->charAt(i, j, ticks);
+      if (curr == '#' || curr == '@') {
+        out << ESC << LIGHT_BLUE <<"m"<< picture()->charAt(i, j, ticks) << RESET;
+      } else if (curr == 'E') {
+        out << ESC << RED <<"m"<< picture()->charAt(i, j, ticks) << RESET;
+      }
+      else {
         out << picture()->charAt(i, j, ticks);
       }
-      out << '|' << std::endl;
     }
-    out << '|';
-    for (int j = 0; j < cols; ++j) out << '-';
-    out << '|' << std::endl;
-
-    // make a printStat function in players, and print it here
-    
+    out << std::endl;
   }
+  // display stat
+
+  //
   ++ticks;
 }
 
-// not sure if need
-// void Dungeon::animate(int numTicks) {
-//   for (int i = 0; i < numTicks; ++i) render();
-// }
-
-Dungeon::~Dungeon() { 
-  delete thePicture; }
+Dungeon::~Dungeon() { delete thePicture; }

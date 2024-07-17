@@ -3,13 +3,21 @@
 #include <iostream>
 class AsciiArt;
 
+// class randomPos {
+//   int x,y;
+//   friend Dungeon;
+
+//   public:
+//   int getX();
+//   int getY();
+// }
+
 class Dungeon {
   // change rows n nums
   int rows = 30, cols = 79, ticks = 0;
-  int floor = 1;                            // dungeon chamber number
-  std::ostream &out = std::cout;           // print
+  std::ostream &out = std::cout;          
+  AsciiArt *thePicture;             
 
-  AsciiArt *thePicture;                  
 
  public:
   explicit Dungeon(AsciiArt *picture): thePicture{picture} {}
@@ -18,7 +26,8 @@ class Dungeon {
   void render();
   void reset();
   void printStat();
-  // void animate(int numTicks);
+  // randomPos getRandomPos();
+
   ~Dungeon();
 };
 
