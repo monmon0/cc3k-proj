@@ -15,7 +15,6 @@ void Dwarf::attack(Player& pc) {
 }
 
 void Elf::attack(Player& pc) {
-    // gets two attacks against every race except drow
     if (pc.getID() == "drow") { pc.loseHP(Elf::getAtk()); }
     else {
         pc.loseHP(Elf::getAtk());

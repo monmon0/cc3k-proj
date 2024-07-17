@@ -10,12 +10,10 @@ void Human::attack(Player& pc) {
 }
 
 void Dwarf::attack(Player& pc) {
-    // Vampires are allergic to dwarves and lose 5 HP rather than gain
     pc.loseHP(Dwarf::getAtk());
 }
 
 void Elf::attack(Player& pc) {
-    // gets two attacks against every race except drow
     if (pc.getID() == "drow") { pc.loseHP(Elf::getAtk()); }
     else {
         pc.loseHP(Elf::getAtk());
