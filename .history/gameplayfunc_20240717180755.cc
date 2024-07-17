@@ -16,7 +16,7 @@ class RandomPos {
                 x = 38 + rand() % 11;
                 y = 10 + rand() % 2;
             } else if (chamber == 3) {
-                
+
             } else if (chamber == 4) {
             } 
 

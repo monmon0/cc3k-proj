@@ -7,16 +7,15 @@ class RandomPos {
         RandomPos() {
             int chamber = rand() % 5;
             if (chamber == 0) {
-                x = 3 + rand() % 26;
+                x = 2 + rand() % 26;
                 y = 3 + rand() % 3;
             } else if (chamber == 1) {
-                x = 4 + rand() % 21;
-                y = 15 + rand() % 6;
+                x = 2 + rand() % 26;
+                y = 3 + rand() % 3;
             } else if (chamber == 2) {
-                x = 38 + rand() % 11;
-                y = 10 + rand() % 2;
+
             } else if (chamber == 3) {
-                
+
             } else if (chamber == 4) {
             } 
 
