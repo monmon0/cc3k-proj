@@ -37,6 +37,8 @@ class Enemy : public Decorator, public Subject {
         virtual void attack(Player& pc) = 0;
 };
 
+// ------------------------------------------------------------------
+
 class Human : public Enemy {
     public:
         Human(AsciiArt *next, int xCoord, int yCoord); 
@@ -59,13 +61,13 @@ void Human::attack(Player& pc) {
 }
 
 
-// class Dwarf : public Enemy {
-//         int randNum1 = std::rand() % 79;
-//         int randNum2 = std::rand() % 30;
-//     public:
-//         Dwarf() { randNum1; randNum2; hp = 100; atk = 20; def = 30; }
-//         void attack(Player& pc) override;
-// };
+class Dwarf : public Enemy {
+        int randNum1 = std::rand() % 79;
+        int randNum2 = std::rand() % 30;
+    public:
+        Dwarf() { randNum1; randNum2; hp = 100; atk = 20; def = 30; }
+        void attack(Player& pc) override;
+};
 
 // class Elf : public Enemy {
 //         int randNum1 = std::rand() % 79;

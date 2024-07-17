@@ -2,7 +2,6 @@
 #define ENEMIES_H
 #include "asciiart.h"
 #include "Subject.h"
-#include "Players.h"
 
 #include <string>
 #include <vector>
@@ -55,7 +54,7 @@ char Human::charAt(int row, int col, int tick) {
 }
 
 void Human::attack(Player& pc) {
-    pc.changeHP(- this->getAtk());
+    pc.loseHP(this->getAtk());
 }
 
 

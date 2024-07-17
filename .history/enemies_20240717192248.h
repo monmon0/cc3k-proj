@@ -37,6 +37,8 @@ class Enemy : public Decorator, public Subject {
         virtual void attack(Player& pc) = 0;
 };
 
+// ------------------------------------------------------------------
+
 class Human : public Enemy {
     public:
         Human(AsciiArt *next, int xCoord, int yCoord); 
@@ -58,14 +60,31 @@ void Human::attack(Player& pc) {
     pc.changeHP(- this->getAtk());
 }
 
+// ------------------------------------------------------------------
 
-// class Dwarf : public Enemy {
-//         int randNum1 = std::rand() % 79;
-//         int randNum2 = std::rand() % 30;
-//     public:
-//         Dwarf() { randNum1; randNum2; hp = 100; atk = 20; def = 30; }
-//         void attack(Player& pc) override;
-// };
+class Dwarf : public Enemy {
+        int randNum1 = std::rand() % 79;
+        int randNum2 = std::rand() % 30;
+    public:
+        Dwarf() { randNum1; randNum2; hp = 100; atk = 20; def = 30; }
+        void attack(Player& pc) override;
+};
+
+Dwarf::Dwarf(AsciiArt *next, int xCoord, int yCoord)
+    : Enemy(next, xCoord, yCoord, 140, 20, 20) {
+    // Attach observer here if necessary 
+}
+
+char Dwarf::charAt(int row, int col, int tick) {
+    if (row == xCoord && col == yCoord) return 'H'; 
+    return next->charAt(row, col, tick); 
+}
+
+void Dwarf::attack(Player& pc) {
+    pc.changeHP(- this->getAtk());
+}
+
+// ------------------------------------------------------------------
 
 // class Elf : public Enemy {
 //         int randNum1 = std::rand() % 79;

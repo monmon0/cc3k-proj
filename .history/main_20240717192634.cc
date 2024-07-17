@@ -5,9 +5,13 @@
 #include "asciiart.h"
 #include "blank.h"
 #include "decorator.h"
-#include "players.h"
+<<<<<<< HEAD
+#include "Players.h"
 // #include "enemies.h"
-// #include "enemyFactory.h"
+=======
+
+>>>>>>> 5475c7d7f98073cdd5aaf3010c1b239df32850ff
+
 #include <string>
 
 int main() {

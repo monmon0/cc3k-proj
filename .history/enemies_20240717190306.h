@@ -55,7 +55,7 @@ char Human::charAt(int row, int col, int tick) {
 }
 
 void Human::attack(Player& pc) {
-    pc.changeHP(- this->getAtk());
+    pc.changeHP(this->getAtk());
 }
 
 

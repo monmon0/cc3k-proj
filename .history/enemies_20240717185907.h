@@ -2,7 +2,6 @@
 #define ENEMIES_H
 #include "asciiart.h"
 #include "Subject.h"
-#include "Players.h"
 
 #include <string>
 #include <vector>
@@ -47,6 +46,7 @@ class Human : public Enemy {
 Human::Human(AsciiArt *next, int xCoord, int yCoord)
     : Enemy(next, xCoord, yCoord, 140, 20, 20) {
     // Attach observer here if necessary 
+    EnemyObserver(this, xCoord, yCoord); 
 }
 
 char Human::charAt(int row, int col, int tick) {
@@ -55,7 +55,7 @@ char Human::charAt(int row, int col, int tick) {
 }
 
 void Human::attack(Player& pc) {
-    pc.changeHP(- this->getAtk());
+    pc.loseHP(this->getAtk());
 }
 
 

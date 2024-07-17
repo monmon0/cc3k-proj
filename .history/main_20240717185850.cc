@@ -5,9 +5,9 @@
 #include "asciiart.h"
 #include "blank.h"
 #include "decorator.h"
-#include "players.h"
-// #include "enemies.h"
-// #include "enemyFactory.h"
+#include "Players.h"
+#include "enemies.h"
+
 #include <string>
 
 int main() {
@@ -17,9 +17,10 @@ int main() {
     Dungeon s{canvas};
 
     // std::string command;
-    Player * pc =  new Player{'s', s.picture(), 4, 6, 10, 10, 10};
+    // Player * pc =  new Player{'s', s.picture(), 4, 6, 10, 10, 10};
+    std::unique_ptr<Player> pc = Player::createPlayer('S', s.picture(), 4, 6, 100, 15, 10);
 
-    s.picture() = pc;
+    s.picture() = pc.get();
     s.render();
 
     pc->move("ea", 1);
