@@ -85,28 +85,13 @@ void Dwarf::attack(Player& pc) {
 
 // ------------------------------------------------------------------
 
-class Elf : public Enemy {
-    public:
-        Elf(AsciiArt *next, int xCoord, int yCoord); 
-        char charAt(int row, int col, int tick) override;
-        void attack(Player& pc) override;
-};
-
-Elf::Elf(AsciiArt *next, int xCoord, int yCoord)
-    : Enemy(next, xCoord, yCoord, 140, 30, 10) {
-    // Attach observer here if necessary 
-}
-
-char Elf::charAt(int row, int col, int tick) {
-    if (row == xCoord && col == yCoord) return 'H'; 
-    return next->charAt(row, col, tick); 
-}
-
-void Elf::attack(Player& pc) {
-    pc.changeHP(- this->getAtk());
-}
-
-// ------------------------------------------------------------------
+// class Elf : public Enemy {
+//         int randNum1 = std::rand() % 79;
+//         int randNum2 = std::rand() % 30;
+//     public:
+//         Elf() { randNum1; randNum2; hp = 140; atk = 30; def = 10; }
+//         void attack(Player& pc) override;
+// };
 
 // class Orc : public Enemy {
 //         int randNum1 = std::rand() % 79;

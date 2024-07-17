@@ -93,7 +93,7 @@ class Elf : public Enemy {
 };
 
 Elf::Elf(AsciiArt *next, int xCoord, int yCoord)
-    : Enemy(next, xCoord, yCoord, 140, 30, 10) {
+    : Enemy(next, xCoord, yCoord, 100, 20, 30) {
     // Attach observer here if necessary 
 }
 
