@@ -8,7 +8,7 @@ class Decorator: public AsciiArt {
     AsciiArt * next;    
     public:
     // Constructor and destructor 
-    Decorator(AsciiArt *a): next{a} {} 
+    Decorator(AsciiArt *a);
     ~Decorator();
 }; 
 

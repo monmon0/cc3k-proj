@@ -1,15 +1,39 @@
 #ifndef PLAYERS_H
 #define PLAYERS_H
 
+#include "asciiart.h"
+#include "decorator.h"
+#include<string>
 
-class Player: public Decorator {
-    protected:
-    AsciiArt * next;    
-    
+class Player : public Decorator {
+    char race;
+    int x, y;                         // Current Position
+    int hp, atk, def;                // Current Stat
+    // virtual void attack() = 0;   // Attack
+
     public:
     // Constructor and destructor 
-    Player(AsciiArt *a): next{a} {} 
-    ~Player();
+    Player(char race, AsciiArt *next); 
+    char charAt(int row, int col, int tick) override;
+    void move(std::string dir, int tick);
 }; 
 
-#endif // DECORATOR_H
+class Shade: public Player {
+    
+};
+
+class Drow: public Player {
+    
+
+};
+
+
+class Vampire: public Player {
+    
+};
+
+class Goblin: public Player {
+    
+};
+
+#endif // PLAYERS_H

@@ -1,1 +1,1 @@
-players.o: players.cc
+players.o: players.cc players.h asciiart.h decorator.h

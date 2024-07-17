@@ -1,9 +1,12 @@
 #include <iostream>
+#include <vector>
+
 #include "dungeon.h"
 #include "asciiart.h"
-#include "chamber.h"
 #include "blank.h"
-#include <vector>
+#include "decorator.h"
+#include "players.h"
+
 #include <string>
 
 int main() {
@@ -13,9 +16,12 @@ int main() {
     Dungeon s{canvas};
 
     // std::string command;
+    Player *pc =  new Player{'s', s.picture()};
+    s.picture() = pc;
 
-    // creating chambers
-    // s.picture() = new Chamber{3, 9, 2, 28, s.picture()}; // remember to hardcode the dimension later
 
+    pc->move("ea", 1);
+    pc->move("ea", 1);
+    // player.move("no");
     s.render();
 }

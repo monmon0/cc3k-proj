@@ -1,1 +1,1 @@
-main.o: main.cc dungeon.h asciiart.h chamber.h decorator.h blank.h
+main.o: main.cc dungeon.h asciiart.h blank.h decorator.h players.h
