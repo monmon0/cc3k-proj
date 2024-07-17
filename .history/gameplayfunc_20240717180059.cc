@@ -8,7 +8,7 @@ class RandomPos {
             int chamber = rand() % 5;
             if (chamber == 0) {
                 x = 2 + rand() % 26;
-                y = 3 + rand() % 3;
+                y = 3 + rand() % ;
 
             } else if (chamber == 1) {
 
