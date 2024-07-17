@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-
+#include <memory>   // For std::unique_ptr
 #include "dungeon.h"
 #include "asciiart.h"
 #include "blank.h"
@@ -16,13 +16,17 @@ int main() {
     Dungeon s{canvas};
 
     // std::string command;
-    Player *pc =  new Player{'s', s.picture(), 4, 6};
-    s.picture() = pc;
+    // Player * pc =  new Player{'s', s.picture(), 4, 6, 10, 10, 10};
+    std::unique_ptr<Player> pc = Player::createPlayer('S', s.picture(), 4, 6, 100, 15, 10);
+
+    s.picture() = pc.get();
     s.render();
-    
+
     pc->move("ea", 1);
     s.render();
     pc->move("so", 1);
-    // player.move("no");
     s.render();
+
+    // Clean up
+
 }
