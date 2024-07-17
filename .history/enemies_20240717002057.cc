@@ -10,13 +10,11 @@ void Human::attack(Player& pc) {
 }
 
 void Dwarf::attack(Player& pc) {
-    // Vampires are allergic to dwarves and lose 5 HP rather than gain
     pc.loseHP(Dwarf::getAtk());
 }
 
 void Elf::attack(Player& pc) {
-    // gets two attacks against every race except drow
-    if (pc.getID() == "drow") { pc.loseHP(Elf::getAtk()); }
+    if (pc.getID() == "drow") pc.loseHP(Elf::getAtk());
     else {
         pc.loseHP(Elf::getAtk());
         pc.loseHP(Elf::getAtk());
@@ -24,20 +22,17 @@ void Elf::attack(Player& pc) {
 }
 
 void Orc::attack(Player& pc) {
-    // does 50% more damage to goblins
-    if (pc.getID() == "Goblin") { pc.loseHP(Orc::getAtk() * 1.5); }
-    else { pc.loseHP(Prc::getAtk()); }
+    pc.loseHP(Dwarf::getAtk());
 }
 
 void Merchant::attack(Player& pc) {
-    pc.loseHP(Merchant::getAtk()); 
+    // Implementation of attack logic
 }
 
 void Dragon::attack(Player& pc) {
-    pc.loseHP(Dragon::getAtk());  
+    // Implementation of attack logic
 }
 
 void Halfling::attack(Player& pc) {
-    // has a 50% chance to cause the player character to miss in combat
-    pc.loseHP(Elf::getAtk()); 
+    // Implementation of attack logic, e.g. 50% chance to cause miss
 }

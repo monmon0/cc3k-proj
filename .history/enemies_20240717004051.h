@@ -7,8 +7,6 @@
 class Player;  // wait for mon's PC class name here
 
 class Enemy : public Observer {
-        int xCoord, yCoord;
-
     protected: 
         int hp;
         int atk;
