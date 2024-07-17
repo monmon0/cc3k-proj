@@ -22,12 +22,14 @@ class Player : public Decorator {
     void move(std::string dir, int tick);
     void attack();      // Attack
 
-    int changeAtk (int x) { return atk; };
-    int changeDef (int x) { return def; };
-    void changeHP (int x) { hp += x;};
+    int getAtk (int x) { return atk; };
+    int getDef (int x) { return def; };
+
+    void changeHP(int x) { hp += x;};
     void changeAtk(int x) { atk += x;};
     void changeDef(int x) { def += x;};
 
+    int getMax() {return max_hp;};
     int getX() {return x;};
     int getY() {return y;};
 
