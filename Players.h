@@ -1,6 +1,5 @@
 #ifndef PLAYERS_H
 #define PLAYERS_H
-
 #include "asciiart.h"
 #include "decorator.h"
 #include<string>

@@ -4,8 +4,8 @@
 #include <iostream>
 
 class Blank: public AsciiArt {
- public:
-  char charAt(int row, int col, int tick) override;
+    public:
+        char charAt(int row, int col, int tick) override;
 };
 
 #endif
