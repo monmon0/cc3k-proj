@@ -5,9 +5,7 @@
 #include "asciiart.h"
 #include "blank.h"
 #include "decorator.h"
-#include "Players.h"
-#include "enemies.h"
-#include "enemyFactory.h"
+#include "players.h"
 
 #include <string>
 
@@ -20,7 +18,6 @@ int main() {
     // std::string command;
     // Player * pc =  new Player{'s', s.picture(), 4, 6, 10, 10, 10};
     std::unique_ptr<Player> pc = Player::createPlayer('S', s.picture(), 4, 6, 100, 15, 10);
-    std::unique_ptr<Enemy> h = EnemyFactory::createEnemy('Human', s.picture(), 5, 5);
 
     s.picture() = pc.get();
     s.render();

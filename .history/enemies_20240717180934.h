@@ -32,7 +32,6 @@ class Enemy : public Decorator, public Subject {
         int getAtk() const { return atk; }
         int getDef() const { return def; }
         void loseHP(int damage) { hp -= damage; }
-        bool isDead() { return hp <= 0; }
         virtual char charAt(int row, int col, int tick) = 0;
         virtual void attack(Player& pc) = 0;
 };
@@ -47,7 +46,6 @@ class Human : public Enemy {
 Human::Human(AsciiArt *next, int xCoord, int yCoord)
     : Enemy(next, xCoord, yCoord, 140, 20, 20) {
     // Attach observer here if necessary 
-    EnemyObserver(this, xCoord, yCoord); 
 }
 
 char Human::charAt(int row, int col, int tick) {
