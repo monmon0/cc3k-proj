@@ -7,6 +7,7 @@
 #include "decorator.h"
 #include "Players.h"
 #include "Enemies.h"
+#include "gameplayfunc.h"
 // #include "enemyFactory.h"
 #include <string>
 
@@ -16,39 +17,29 @@ int main() {
 
     Dungeon s{canvas};
 
+    RandomPos r_pos = RandomPos(s.picture());
+    r_pos.setPos();
+
+    // std::cout << new_x << " " << new_y << std::endl;
+
     std::string dir1 = "so";
     std::string dir2 = "ea";
-    // std::string command;
-    Player * pc =  new Vampire{'t', s.picture(), 4, 6, 10, 10, 10};
+    // std::string command;c
+    Player * pc =  new Vampire{'t', s.picture(), r_pos.getX(), r_pos.getY(), 10, 10, 10};
     
     s.picture() = pc;
     s.render(pc);
+
     Human * en = new Human(s.picture(), 3, 6); 
     s.picture() = en;
     s.render(pc);
 
-    pc->move("we");
+    pc->move("we", s.picture());
+    pc->move("ea", s.picture());
 
     s.setAction(pc->getAnnouncement());
 
     s.render(pc);
-
-    // for (int i = 0; i < 9; i++){
-    //     pc->move(dir2);
-    //     // wrap this around after
-    //     s.setAction(pc->getAnnouncement());
-    //     s.render(pc);
-    //     s.clearAction();
-    // }
-
-    // for (int i = 0; i < 10; i++) {
-    //     pc->move(dir1);
-    //      // wrap this around after
-    //     s.setAction(pc->getAnnouncement());
-    //     s.render(pc);
-    //     s.clearAction();
-    // }
-
     // Clean up
 
 }

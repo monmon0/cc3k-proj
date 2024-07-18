@@ -1,5 +1,6 @@
 #include "Treasure.h" 
 
+
 void Treasure::deleteTreasure(Treasure *tr) {
     
 }
@@ -15,7 +16,7 @@ int Treasure::getVal() const {
     return val;
 }
 
-Treasure::Treasure(int x, int y, int val): x{x}, y{y}, val{val}{
+Treasure::Treasure(AsciiArt *art, int x, int y, int val): Decorator{art}, x{x}, y{y}, val{val}{
     addTreasure(x, y, this);
 }
 

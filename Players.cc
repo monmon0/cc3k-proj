@@ -5,16 +5,13 @@
 #include "Potion.h"
 #include <string>
 
-Player::Player(char race, AsciiArt * next, int x, int y, int hp, int atk, int def): 
+Player::Player(char race, AsciiArt *next, int x, int y, int hp, int atk, int def): 
     Decorator{next}, race{race} ,x{x}, y{y}, hp{hp}, atk{atk}, def{def} {
-        if (race != 'v') {
-            max_hp = INT_MAX;
-        } else {
-            max_hp = hp;
-        }
+        if (race != 'v') max_hp = INT_MAX;
+        else max_hp = hp;
 }
 
-void Player::move(std::string dir) {
+void Player::move(std::string dir, AsciiArt * curr) {
     // no,so,ea,we,ne,nw,se,sw
     // new block 
     announcement = "";
@@ -45,12 +42,13 @@ void Player::move(std::string dir) {
         new_block_y++;
     }
 
-    pos_check = next->charAt(y + new_block_y, x + new_block_x, 1);
+    pos_check = curr->charAt(y + new_block_y, x + new_block_x, 1);
 
     if (pos_check == '.' || pos_check == '#' || pos_check == '\\') {
+        std::cout << pos_check << std::endl; 
         x += new_block_x;
         y += new_block_y;
-        // announcement = "PC moves " dirToString(dir);
+        announcement = "PC moves " + dirToString(dir);
     }
 
     // troll gains 5 hp every turn
@@ -62,9 +60,7 @@ void Player::move(std::string dir) {
 
     // check for staircase
     if (pos_check == '\\') {
-        // clear tempo effect, change level, level 5
-        // clear all levels enemies, clear all potions
-        // regenerate new enemies, generate potions
+        // notify the dungeon
         floor++;
     }
 }
@@ -100,7 +96,7 @@ void Player::attack(std::string dir) {
         if (race == 'v')  hp += 5;
     }
     else {
-        move(dir);
+        // move(dir);
         announcement = "Player moves " + dirToString(dir);
     }
 };
@@ -116,7 +112,7 @@ std::string Player::dirToString(std::string dir) {
     dirMap["se"] = "South West";
     dirMap["se"] = "South East";
     
-    return "South";
+    return dirMap[dir];
 }
 
 void Player::takePotion() {

@@ -16,13 +16,13 @@ class Player : public Decorator {
         int gold = 0, floor = 1;
         std::string announcement;
 
-        std::vector <Observer *> potions;
+        std::vector <Observer * > potions;
 
     public:
     // Constructor and destructor 
         Player(char race, AsciiArt *next, int x, int y, int hp, int atk, int def); 
         char charAt(int row, int col, int tick) override;
-        void move(std::string dir);
+        void move(std::string dir, AsciiArt *next);
         char getRace() {return race;}
 
         std::string getAnnouncement() {return announcement;}
@@ -42,14 +42,13 @@ class Player : public Decorator {
         int getY() {return y;}
 
         void attack(std::string dir);      // Attack 
-
         void takePotion();
 
-        void attach(Observer * o) {
-                potions.emplace_back(o);
-            }
+    void attach(Observer * o) {
+            potions.emplace_back(o);
+        }
 
-         void detach(Observer* o) {
+        void detach(Observer* o) {
             for (auto it = potions.begin(); it != potions.end(); ++it) {
                 if (*it == o) {
                     potions.erase(it);
@@ -74,7 +73,7 @@ class Troll : public Player {
     public:
         Troll(char race, AsciiArt *next, int x, int y, int hp, int atk, int def):
            Player(race, next, x, y, hp, atk, def) {
-                announcement = "Player chooses Troll";
+                announcement = "Player chooses Troll.";
            };
 };
 

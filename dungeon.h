@@ -5,7 +5,7 @@
 #include <vector>
 #include <string>
 
-class AsciiArt;
+// class AsciiArt;
 class Enemy;
 
 class Dungeon {
