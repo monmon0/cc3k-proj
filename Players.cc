@@ -1,6 +1,7 @@
 #include "Players.h"
 #include "decorator.h"
 #include <iostream>
+#include <map>
 #include <string>
 
 Player::Player(char race, AsciiArt * next, int x, 
@@ -13,54 +14,10 @@ Player::Player(char race, AsciiArt * next, int x,
         }
 }
 
-char Player::charAt(int row, int col, int tick) {
-    if (row == y && col == x) {
-        return '@';
-    }
-    return next->charAt(row, col, tick);
-}
-
-void Player::attack(std::string dir) {
-    // s, d, v, g, t
-    // has enemies
-    //  Damage(Def ender) = ceiling((100/(100 + Def (Def ender))) ∗ Atk(Attacker)),
-    // (H)uman, d(W)arf, (E)lf, (O)rc, (M)erchant, (D)ragon, Half(L)ing.
-    int cor_x = 0;
-    int cor_y = 0;
-    int found = 0;
-    // specify opponent
-    for (; cor_x <= 8; cor_x++) {
-        for (; cor_y <= 8; cor_y++) {
-            char curr = next->charAt(y + cor_y, x + cor_x, 1);
-            if (curr == 'H' || curr == 'W' || curr == 'O' || curr == 'M' || curr == 'D' || curr == 'L') {
-                found = 1;
-                break;
-            };
-        }
-    }
-    if (found) {
-        if (race == 's') {
-            // deal damage to opponent
-            
-        } else if (race == 'd') {
-
-        } else if (race == 'v') {
-            
-        } else if (race == 'g') {
-            
-        } else if (race == 't') {
-            
-        }
-    } else {
-        // move dir
-        this->move(dir);
-    }
-    
-}
-
 void Player::move(std::string dir) {
     // no,so,ea,we,ne,nw,se,sw
     // new block 
+    announcement = "";
     int new_block_x = 0;
     int new_block_y = 0;
     char pos_check = ' ';
@@ -89,14 +46,76 @@ void Player::move(std::string dir) {
     }
 
     pos_check = next->charAt(y + new_block_y, x + new_block_x, 1);
-    if (pos_check != '-' && pos_check != '|' && pos_check != ' ') {
-        x += new_block_x;
-        y += new_block_y;
-    }
+
+    // if (pos_check == '.' || pos_check == '#' || pos_check == '\\') {
+    //     x += new_block_x;
+    //     y += new_block_y;
+    //     // announcement = "PC moves " dirToString(dir);
+    // }
+
     // troll gains 5 hp every turn
     if (race == 't') {
-        hp += 5;
+        if (max_hp > hp) hp += 5;
+        else hp = max_hp;
     }
+    // check to see if theres unknown potion?
 
     // check for staircase
+    if (pos_check == '\\') {
+        // clear tempo effect, change level, level 5
+        // clear all levels enemies, clear all potions
+        // regenerate new enemies, generate potions
+        floor++;
+    }
 }
+
+char Player::charAt(int row, int col, int tick) {
+    if (row == y && col == x) {
+        return '@';
+    }
+    return next->charAt(row, col, tick);
+}
+
+void Player::attack(std::string dir) {
+    //  Damage(Def ender) = ceiling((100/(100 + Def (Def ender))) ∗ Atk(Attacker))
+    int cor_x = 0;
+    int cor_y = 0;
+    int found = 0;
+    // specify opponent
+    for (; cor_x <= 8; cor_x++) {
+        for (; cor_y <= 8; cor_y++) {
+            char curr = next->charAt(y + cor_y, x + cor_x, 1);
+            if (curr == 'H' || curr == 'W' || curr == 'O' || curr == 'M' || curr == 'D' || curr == 'L') {
+                found = 1;
+                break;
+            };
+        }
+    }
+    if (found) {
+        int damage = 0;
+        announcement = "PC deals " + damage " damage to " curr + "(? HP)";
+        // deal damage to opponent
+
+        // increase HP for vampire after sucessful attack
+        if (race == 'v')  hp += 5;
+    }
+    else {
+        move(dir);
+        announcement = "Player moves " + dirToString(dir);
+    }
+};
+
+std::string Player::dirToString(std::string dir) {
+    std::map<std::string, std::string> dirMap;
+    dirMap["so"] = "South";
+    dirMap["no"] = "North";
+    dirMap["ea"] = "East";
+    dirMap["we"] = "West";
+    dirMap["no"] = "North East";
+    dirMap["nw"] = "North West";
+    dirMap["se"] = "South West";
+    dirMap["se"] = "South East";
+    
+    return *dirMap.find(dir);
+}
+

@@ -18,7 +18,7 @@ void Dungeon::render(Player * player) {
       char curr = picture()->charAt(i, j, ticks);
       if (curr == '#' || curr == '@') {
         out << ESC << LIGHT_BLUE <<"m"<< picture()->charAt(i, j, ticks) << RESET;
-      } else if (curr == 'E') {
+      } else if (curr == 'E' || curr == 'H' || curr == 'D' || curr == 'O') {
         out << ESC << RED <<"m"<< picture()->charAt(i, j, ticks) << RESET;
       }
       else {
@@ -35,7 +35,7 @@ void Dungeon::render(Player * player) {
   out << "Race: " << race << " Gold: " << player->getGold();
   // print spaces
   for (int i = 0; i < 54 - race.length(); i++) out << " ";
-  out << "Floor: " << floor << std::endl;
+  out << "Floor: " << player->getFlr() << std::endl;
   out << "HP: " << player->getHP() << std::endl;
   out << "Atk: " << player->getAtk() << std::endl;
   out << "Def: " << player->getDef() << std::endl;
