@@ -5,7 +5,7 @@
 #include <map>
 #include <utility>
 
-class Treasure {
+class Treasure: public Decorator {
     static inline map<pair<int, int>, Potion *> gMap;
     protected:
         int x;
@@ -13,7 +13,7 @@ class Treasure {
         int val;
     public:
         Treasure(int x, int y, int val);
-        char charAt(int x, int y, int tick) const;
+        char charAt(int x, int y, int tick) override;
         int getVal() const;
         static void deleteTreasure(Treasure *tr);
         static void addTreasure(Treasure *tr);

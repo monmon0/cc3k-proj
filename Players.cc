@@ -2,6 +2,7 @@
 #include "decorator.h"
 #include <iostream>
 #include <map>
+#include "Potion.h"
 #include <string>
 
 Player::Player(char race, AsciiArt * next, int x, int y, int hp, int atk, int def): 
@@ -118,4 +119,6 @@ std::string Player::dirToString(std::string dir) {
     return "South";
 }
 
-
+void Player::takePotion() {
+    // Potion * p = getPotion(10,)
+}

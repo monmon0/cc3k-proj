@@ -4,7 +4,7 @@ void Treasure::deleteTreasure(Treasure *tr) {
 
 }
 
-char Treasure::charAt(int x, int y, int tick) const {
+char Treasure::charAt(int x, int y, int tick) {
     if (x == this->x && y == this->y) {
         return 'G';
     }
