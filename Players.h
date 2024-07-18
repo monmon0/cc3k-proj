@@ -11,7 +11,8 @@ class Player : public Decorator {
     char race;
     int x, y;                         // Current Position
     int hp, atk, def, max_hp;         // Current Stat
-    int gold = 0;
+    int gold = 0, floor = 1;
+    std::string announcement;
 
     public:
     // Constructor and destructor 
@@ -22,10 +23,13 @@ class Player : public Decorator {
     char getRace() {return race;}
     void attack(std::string dir);      // Attack
 
+    std::string getAnnouncement() {return announcement;}
+
     int getAtk() { return atk; }
     int getDef() { return def; }
-    int getHP() { return hp; }
-    int getGold() { return gold; }
+    int getHP()  { return hp; }
+    int getGold(){ return gold; }
+    int getFlr() { return floor; }
 
     void changeHP(int x) { hp += x;}
     void changeAtk(int x) { atk += x;}

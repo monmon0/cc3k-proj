@@ -61,42 +61,61 @@ void Player::attack(std::string dir) {
 void Player::move(std::string dir) {
     // no,so,ea,we,ne,nw,se,sw
     // new block 
+    announcement = "";
     int new_block_x = 0;
     int new_block_y = 0;
     char pos_check = ' ';
 
     if (dir == "no") {
         new_block_y--;
+        announcement += "PC moves North.";
     } else if (dir == "so") {
         new_block_y++;
+        announcement += "PC moves South.";
     } else if (dir == "ea") {
         new_block_x++;
+        announcement += "PC moves East.";
     } else if (dir == "we") {
         new_block_x--;
+        announcement += "PC moves West.";
     } else if (dir == "ne") {
         new_block_x++;
         new_block_y--;
+        announcement += "PC moves North East.";
     } else if (dir == "nw") {
         new_block_x--;
         new_block_y--;
+        announcement += "PC moves North West.";
     } else if (dir == "se") {
         new_block_x++;
         new_block_y++;
+        announcement += "PC moves East.";
     }
     else if (dir == "sw") {
         new_block_x--;
         new_block_y++;
+        announcement += "PC moves South West.";
     }
 
     pos_check = next->charAt(y + new_block_y, x + new_block_x, 1);
     if (pos_check != '-' && pos_check != '|' && pos_check != ' ') {
         x += new_block_x;
         y += new_block_y;
+    } else {
+        announcement = " ";
     }
     // troll gains 5 hp every turn
     if (race == 't') {
-        hp += 5;
+        if (max_hp > hp) hp += 5;
+        else hp = max_hp;
     }
+    // check to see if theres unknown potion?
 
     // check for staircase
+    if (pos_check == '\\') {
+        // clear tempo effect, change level, level 5
+        // clear all levels enemies, clear all potions
+        // regenerate new enemies, generate potions
+        floor++;
+    }
 }

@@ -9,7 +9,6 @@ class AsciiArt;
 class Dungeon {
   // change rows n nums
   int rows = 30, cols = 79, ticks = 0;
-  int floor = 1;
   std::ostream &out = std::cout;          
   AsciiArt *thePicture;             
   std::string action = "This player is losing their goddamn mind";

@@ -27,8 +27,8 @@ int main() {
 
     for (int i = 0; i < 9; i++){
         pc->move(dir2);
-        s.setAction("PC moves " + dir1 + ". ");
-        s.setAction("PC wanna cry ");
+        // wrap this around after
+        s.setAction(pc->getAnnouncement());
         s.render(pc);
         s.clearAction();
     }
@@ -36,8 +36,7 @@ int main() {
 
     for (int i = 0; i < 10; i++) {
         pc->move(dir1);
-        s.setAction("PC moves " + dir1 + ". ");
-        s.setAction("PC wanna cry ");
+        s.setAction(pc->getAnnouncement());
         s.render(pc);
         s.clearAction();
     }
