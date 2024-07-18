@@ -24,7 +24,7 @@ int main() {
 
     std::string dir1 = "so";
     std::string dir2 = "ea";
-    // std::string command;c
+    // std::string command;
     Player * pc =  new Vampire{'t', s.picture(), r_pos.getX(), r_pos.getY(), 10, 10, 10};
     
     s.picture() = pc;
