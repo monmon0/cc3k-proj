@@ -21,11 +21,7 @@ int Treasure::getVal() const {
     return val;
 }
 
-<<<<<<< HEAD
 Treasure::Treasure(AsciiArt *art, int x, int y, int val): Decorator{art}, x{x}, y{y}, val{val}{
-=======
-Treasure::Treasure(AsciiArt *next, int x, int y, int val): Decorator{next}, x{x}, y{y}, val{val}{
->>>>>>> 2587b65e66e9d568f90254e623f57e55cc6ce00b
     addTreasure(x, y, this);
 }
 
