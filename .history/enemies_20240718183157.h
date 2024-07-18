@@ -35,6 +35,7 @@ public:
     bool isDead() { return hp <= 0; }
     void attack(Player& pc) { pc.changeHP( -getAtk() ); };
     char getState() { return ID; }
+    void spawnEnemy()
     virtual char charAt(int row, int col, int tick) = 0;
 };
 

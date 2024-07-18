@@ -5,7 +5,7 @@
 #include "Subject.h"
 #include "Players.h"
 #include "decorator.h"
-#include "gameplayfunc.h"
+
 
 #include <string>
 #include <vector>
