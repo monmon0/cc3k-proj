@@ -1,15 +1,23 @@
-// #ifndef TREASURE_H
-// #define TREASURE_H
-// #include "Observer.h"
-// #include "Players.h"
+#ifndef TREASURE_H
+#define TREASURE_H
+#include "Observer.h"
+#include "Players.h"
+#include <map>
+#include <utility>
 
-// class Treasure: public Observer {
-//     int x;
-//     int y;
-//     int val;
-//     public:
-//         char charAt(int x, int y, int tick) const;
-//         int getVal() const;
-// };
+class Treasure {
+    static inline map<pair<int, int>, Potion *> gMap;
 
-// #endif
+    int x;
+    int y;
+    int val;
+    public:
+        Treasure(int x, int y, int val);
+        char charAt(int x, int y, int tick) const;
+        int getVal() const;
+        static void deleteTreasure(Treasure *tr);
+        static void addTreasure(Treasure *tr);
+        static void deleteAllT();
+};
+
+#endif

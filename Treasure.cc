@@ -1,14 +1,31 @@
-// #include "Treasure.h" 
+#include "Treasure.h" 
 
-// char Treasure::charAt(int x, int y, int tick) const {
-//     if (x == this->x && y == this->y) {
-//         return 'G';
-//     }
-//     return next->charAt(x, y, tick);
-// }
+void Treasure::deleteTreasure(Treasure *tr) {
 
-// int Treasure::getVal() const {
-//     return val;
-// }
+}
 
-// Treasure::Treasure(int x, int y, int val): x{x}, y{y}, val{val}{}
+char Treasure::charAt(int x, int y, int tick) const {
+    if (x == this->x && y == this->y) {
+        return 'G';
+    }
+    return next->charAt(x, y, tick);
+}
+
+int Treasure::getVal() const {
+    return val;
+}
+
+Treasure::Treasure(int x, int y, int val): x{x}, y{y}, val{val}{
+    addTreasure(this);
+}
+
+void Treasure::addTreasure(Treasure *tr) {
+    gMap[make_pair(x, y)] = tr;
+}
+
+void Treasure::deleteAllT() {
+    for (auto &tr : gMap) {
+        delete tr.second();
+    }
+}
+
