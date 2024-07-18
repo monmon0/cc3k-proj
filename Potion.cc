@@ -33,7 +33,7 @@ Potion *Potion::getPotion(int x, int y) {
 
 void Potion::deleteAll() {
     for (auto &p : pMap) {
-        delete p.second();
+        delete p.second;
     }
 }
 

@@ -25,7 +25,7 @@ void Treasure::addTreasure(Treasure *tr) {
 
 void Treasure::deleteAllT() {
     for (auto &tr : gMap) {
-        delete tr.second();
+        delete tr.second;
     }
 }
 
