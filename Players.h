@@ -11,27 +11,29 @@ class Player : public Decorator {
     char race;
     int x, y;                         // Current Position
     int hp, atk, def, max_hp;         // Current Stat
-    int gold;
+    int gold = 0;
 
     public:
     // Constructor and destructor 
     Player(char race, AsciiArt *next, int x, int y, int hp, int atk, int def); 
     ~Player() {}
     char charAt(int row, int col, int tick) override;
-    void move(std::string dir, int tick);
+    void move(std::string dir);
     char getRace() {return race;}
-    // void attack();      // Attack
+    void attack(std::string dir);      // Attack
 
-    // int getAtk(int x) { return atk; }
-    // int getDef(int x) { return def; }
+    int getAtk() { return atk; }
+    int getDef() { return def; }
+    int getHP() { return hp; }
+    int getGold() { return gold; }
 
-    // void changeHP(int x) { hp += x;}
-    // void changeAtk(int x) { atk += x;}
-    // void changeDef(int x) { def += x;}
+    void changeHP(int x) { hp += x;}
+    void changeAtk(int x) { atk += x;}
+    void changeDef(int x) { def += x;}
 
-    // int getMax() {return max_hp;}
-    // int getX() {return x;}
-    // int getY() {return y;}
+    int getMaxHP() {return max_hp;}
+    int getX() {return x;}
+    int getY() {return y;}
 
 }; 
 

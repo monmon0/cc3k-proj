@@ -1,1 +1,2 @@
-dungeon.o: dungeon.cc dungeon.h asciiart.h
+dungeon.o: dungeon.cc dungeon.h Players.h asciiart.h decorator.h \
+  Observer.h
