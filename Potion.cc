@@ -1,4 +1,5 @@
 #include "Potion.h"
+#include "PotionMap.h"
 
 Potion::Potion(AsciiArt *next, int x, int y, string name, int amt): 
                                                         Decorator{next}, 
@@ -7,7 +8,7 @@ Potion::Potion(AsciiArt *next, int x, int y, string name, int amt):
                                                         name{name},
                                                         amt{amt}{}
 
-Potion::charAt(int x, int y, int tick) {
+char Potion::charAt(int x, int y, int tick) {
     if (x == this->x && y == this->y) {
         return 'P';
     }
@@ -21,14 +22,20 @@ void Potion::notify(Player *player, int x, int y) {
 }
 
 RH::RH(AsciiArt *next, int x, int y, string name, int amt) : 
-                        Potion{next, x, y, name, 10}{}
+                        Potion{next, x, y, name, 10}{
+    addPotion(x, y, this);
+}
 
 void RH::applyEffect(Player *player) {
-    player->changeHP(amt);
+    if (player->getHP() + amt <= player->getMax()) {
+        player->changeHP(amt);
+    }
 }
 
 BA::BA(AsciiArt *next, int x, int y, string name, int amt) :
-                        Potion{next, x, y, name, 5}{}
+                        Potion{next, x, y, name, 5}{
+    addPotion(x, y, this);                        
+}
 
 void BA::applyEffect(Player *player) {
     player->attach(this);
@@ -41,7 +48,9 @@ void BA::undoEffect(Player *player) {
 }
 
 BD::BD(AsciiArt *next, int x, int y, string name, int amt) :
-                        Potion{next, x, y, name, 5}{}
+                        Potion{next, x, y, name, 5}{
+    addPotion(x, y, this);                        
+}
 
 void BD::applyEffect(Player *player) {
     player->attach(this);
@@ -54,7 +63,9 @@ void BD::undoEffect(Player *player) {
 }
 
 PH::PH(AsciiArt *next, int x, int y, string name, int amt) :
-                        Potion{next, x, y, name, -10}{}
+                        Potion{next, x, y, name, -10}{
+    addPotion(x, y, this);                        
+}
 
 void PH::applyEffect(Player *player) {
     if (player->getHP() >= amt) {
@@ -63,7 +74,9 @@ void PH::applyEffect(Player *player) {
 }
 
 WA::WA(AsciiArt *next, int x, int y, string name, int amt) :
-                        Potion{next, x, y, name, -5}{}
+                        Potion{next, x, y, name, -5}{
+    addPotion(x, y, this);                        
+}
 
 void WA::applyEffect(Player *player) {
     player->attach(this);
