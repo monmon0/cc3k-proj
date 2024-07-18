@@ -162,7 +162,7 @@ Halfling::Halfling(AsciiArt *next, int xCoord, int yCoord)
 }
 
 char Halfling::charAt(int row, int col, int tick) {
-    if (row == yCoord && col == xCoord) return getState(); 
+    if (row == xCoord && col == yCoord) return getState(); 
     return next->charAt(row, col, tick); 
 }
 

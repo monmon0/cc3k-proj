@@ -9,7 +9,7 @@
 #include <cstdlib>
 #include <ctime>
 
-class Enemy : public Decorator {
+class Enemy : public Decorator, public Subject {
         std::vector<char> surroundings;
 
     protected: 
@@ -35,8 +35,8 @@ class Enemy : public Decorator {
         void loseHP(int damage) { hp -= damage; }
         bool isDead() { return hp <= 0; }
         void attack(Player& pc) { pc.changeHP( -getAtk() ); };
-        char getState() { return ID; }
-        virtual char charAt(int row, int col, int tick) = 0;
+        char getState() override { return ID; }
+        char charAt(int row, int col, int tick) = getState();
 };
 
 // ------------------------------------------------------------------
@@ -53,7 +53,7 @@ Human::Human(AsciiArt *next, int xCoord, int yCoord)
 }
 
 char Human::charAt(int row, int col, int tick) {
-    if (row == yCoord && col == xCoord) return getState(); 
+    if (row == xCoord && col == yCoord) return getState(); 
     return next->charAt(row, col, tick); 
 }
 
@@ -70,11 +70,6 @@ Dwarf::Dwarf(AsciiArt *next, int xCoord, int yCoord)
     // Attach observer here if necessary 
 }
 
-char Dwarf::charAt(int row, int col, int tick) {
-    if (row == yCoord && col == xCoord) return getState(); 
-    return next->charAt(row, col, tick); 
-}
-
 // ------------------------------------------------------------------
 
 class Elf : public Enemy {
@@ -88,11 +83,6 @@ Elf::Elf(AsciiArt *next, int xCoord, int yCoord)
     // Attach observer here if necessary 
 }
 
-char Elf::charAt(int row, int col, int tick) {
-    if (row == yCoord && col == xCoord) return getState(); 
-    return next->charAt(row, col, tick); 
-}
-
 // ------------------------------------------------------------------
 
 class Orc : public Enemy {
@@ -104,11 +94,6 @@ class Orc : public Enemy {
 Orc::Orc(AsciiArt *next, int xCoord, int yCoord)
     : Enemy(next, 'O', xCoord, yCoord, 180, 30, 25) {
     // Attach observer here if necessary 
-}
-
-char Orc::charAt(int row, int col, int tick) {
-    if (row == yCoord && col == xCoord) return getState(); 
-    return next->charAt(row, col, tick); 
 }
 
 // ------------------------------------------------------------------
@@ -125,11 +110,6 @@ Merchant::Merchant(AsciiArt *next, int xCoord, int yCoord)
     // Attach observer here if necessary 
 }
 
-char Merchant::charAt(int row, int col, int tick) {
-    if (row == yCoord && col == xCoord) return getState(); 
-    return next->charAt(row, col, tick); 
-}
-
 // ------------------------------------------------------------------
 
 class Dragon : public Enemy {
@@ -143,11 +123,6 @@ Dragon::Dragon(AsciiArt *next, int xCoord, int yCoord)
     // Attach observer here if necessary 
 }
 
-char Dragon::charAt(int row, int col, int tick) {
-    if (row == yCoord && col == xCoord) return getState(); 
-    return next->charAt(row, col, tick); 
-}
-
 // ------------------------------------------------------------------
 
 class Halfling : public Enemy {
@@ -159,11 +134,6 @@ class Halfling : public Enemy {
 Halfling::Halfling(AsciiArt *next, int xCoord, int yCoord)
     : Enemy(next, 'L', xCoord, yCoord, 100, 15, 20) {
     // Attach observer here if necessary 
-}
-
-char Halfling::charAt(int row, int col, int tick) {
-    if (row == yCoord && col == xCoord) return getState(); 
-    return next->charAt(row, col, tick); 
 }
 
 #endif 

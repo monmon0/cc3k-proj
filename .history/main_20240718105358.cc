@@ -6,7 +6,7 @@
 #include "blank.h"
 #include "decorator.h"
 #include "Players.h"
-#include "Enemies.h"
+#include "enemies.h"
 // #include "enemyFactory.h"
 #include <string>
 
@@ -19,8 +19,7 @@ int main() {
     std::string dir1 = "so";
     std::string dir2 = "ea";
 
-    Human * en = new Human(s.picture(), 40, 16); 
-    s.picture() = en;
+    Enemy * en = new Enemy('H')
 
     // std::string command;
     Player * pc =  new Player{'s', s.picture(), 4, 6, 10, 10, 10};

@@ -19,7 +19,7 @@ int main() {
     std::string dir1 = "so";
     std::string dir2 = "ea";
 
-    Human * en = new Human(s.picture(), 40, 16); 
+    Human * en = new Human(s.picture(), 40, 3); 
     s.picture() = en;
 
     // std::string command;
