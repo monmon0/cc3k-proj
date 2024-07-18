@@ -1,1 +1,1 @@
-enemyFactory.o: enemyFactory.cc enemyFactory.h
+enemyFactory.o: enemyFactory.cc

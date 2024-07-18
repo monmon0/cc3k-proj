@@ -29,9 +29,12 @@ int main() {
     
     s.picture() = pc;
     s.render(pc);
+<<<<<<< HEAD
 
     Human * en = new Human(s.picture(), 3, 6); 
     s.picture() = en;
+=======
+>>>>>>> 3d83d90257fdabf12dd54cd79c5ae26995d45b93
     s.render(pc);
 
     pc->move("we", s.picture());
