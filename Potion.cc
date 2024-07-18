@@ -46,6 +46,10 @@ void Potion::deletePotion(Potion *potion) {
     }
 }
 
+void Potion::SpawnPotions() {
+    
+}
+
 RH::RH(AsciiArt *next, int x, int y, string name, int amt) : 
                         Potion{next, x, y, name, 10}{
     addPotion(x, y, this);
