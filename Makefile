@@ -1,17 +1,36 @@
-CXX = g++
-CXXFLAGS = -std=c++14 -Wall -MMD
-EXEC = cc3k
-OBJECTS = dungeon.o asciiart.o blank.o main.o decorator.o chamber.o players.o enemies.o potion.o itemMap.o treasure.o
-DEPENDS = ${OBJECTS:.o=.d}
+# Universal makefile for single C++ program
+#
+# Use gcc flag -MMD (user) or -MD (user/system) to generate dependencies among source files.
+# Use make default rules for commonly used file-name suffixes and make variables names.
+#
+# % make [ a.out ]
 
-${EXEC}: ${OBJECTS}
-	${CXX} ${CXXFLAGS} ${OBJECTS} -o ${EXEC}
+########## Variables ##########
 
--include ${DEPENDS}
+CXX = g++					# compiler
+CXXFLAGS = -std=c++20 -g -Wall -Werror=vla -MMD			# compiler flags
+MAKEFILE_NAME = ${firstword ${MAKEFILE_LIST}}	# makefile name
 
-.PHONY: clean
+SOURCES = $(wildcard *.cc)			# source files (*.cc)
+OBJECTS = ${SOURCES:.cc=.o}			# object files forming executable
+DEPENDS = ${OBJECTS:.o=.d}			# substitute ".o" with ".d"
+EXEC = cc3k					# executable name
 
-clean:
-	rm ${OBJECTS} ${EXEC} ${DEPENDS}
+########## Targets ##########
+
+.PHONY : clean valgrind			# not file names
+
+${EXEC} : ${OBJECTS}				# link step
+	${CXX} ${CXXFLAGS} $^ -o  $@		
+
+${OBJECTS} : ${MAKEFILE_NAME}			# OPTIONAL : changes to this file => recompile
+
+# make implicitly generates rules to compile C++ files that generate .o files
+
+-include ${DEPENDS}				# include *.d files containing program dependences
+
+clean :						# remove files that can be regenerated
+	rm -f ${DEPENDS} ${OBJECTS} ${EXEC}
+
 valgrind: ${EXEC}				# run valgrind on the executable
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./a4q2
+	valgrind --leak-check=full --track-origins=yes ./cc3k

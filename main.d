@@ -1,2 +1,2 @@
-main.o: main.cc dungeon.h asciiart.h blank.h decorator.h players.h \
-  Observer.h
+main.o: main.cc dungeon.h Players.h asciiart.h decorator.h Observer.h \
+  blank.h Enemies.h Subject.h enemyFactory.h
