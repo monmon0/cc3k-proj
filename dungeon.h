@@ -8,7 +8,7 @@
 #include "Players.h"
 #include "Enemies.h"
 
-class AsciiArt;
+// class AsciiArt;
 class Enemy;
 
 class Dungeon {
