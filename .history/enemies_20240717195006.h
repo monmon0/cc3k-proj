@@ -147,7 +147,7 @@ Merchant::Merchant(AsciiArt *next, int xCoord, int yCoord)
 }
 
 char Merchant::charAt(int row, int col, int tick) {
-    if (row == xCoord && col == yCoord) return 'M'; 
+    if (row == xCoord && col == yCoord) return 'H'; 
     return next->charAt(row, col, tick); 
 }
 
@@ -170,7 +170,7 @@ Dragon::Dragon(AsciiArt *next, int xCoord, int yCoord)
 }
 
 char Dragon::charAt(int row, int col, int tick) {
-    if (row == xCoord && col == yCoord) return 'D'; 
+    if (row == xCoord && col == yCoord) return 'H'; 
     return next->charAt(row, col, tick); 
 }
 
@@ -194,7 +194,7 @@ Halfling::Halfling(AsciiArt *next, int xCoord, int yCoord)
 }
 
 char Halfling::charAt(int row, int col, int tick) {
-    if (row == xCoord && col == yCoord) return 'L'; 
+    if (row == xCoord && col == yCoord) return 'H'; 
     return next->charAt(row, col, tick); 
 }
 
@@ -202,5 +202,6 @@ void Merchant::attack(Player &pc) {
     pc.ChangeHP(- getAtk()); 
     // a 50% chance to cause the player character to miss in combat
 }
+
 
 #endif 

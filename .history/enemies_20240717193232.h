@@ -56,10 +56,6 @@ char Human::charAt(int row, int col, int tick) {
     return next->charAt(row, col, tick); 
 }
 
-void Human::attack(Player &pc) {
-    pc.ChangeHP(- getAtk()); 
-}
-
 // ------------------------------------------------------------------
 
 class Dwarf : public Enemy {
@@ -75,12 +71,8 @@ Dwarf::Dwarf(AsciiArt *next, int xCoord, int yCoord)
 }
 
 char Dwarf::charAt(int row, int col, int tick) {
-    if (row == xCoord && col == yCoord) return 'W'; 
+    if (row == xCoord && col == yCoord) return 'H'; 
     return next->charAt(row, col, tick); 
-}
-
-void Dwarf::attack(Player &pc) {
-    pc.ChangeHP(- getAtk()); 
 }
 
 // ------------------------------------------------------------------
@@ -98,13 +90,8 @@ Elf::Elf(AsciiArt *next, int xCoord, int yCoord)
 }
 
 char Elf::charAt(int row, int col, int tick) {
-    if (row == xCoord && col == yCoord) return 'E'; 
+    if (row == xCoord && col == yCoord) return 'H'; 
     return next->charAt(row, col, tick); 
-}
-
-void Elf::attack(Player &pc) {
-    if (pl.getRace() != "D") pc.ChangeHP(- getAtk()); 
-    pc.ChangeHP(- getAtk()); 
 }
 
 // ------------------------------------------------------------------
@@ -122,19 +109,13 @@ Orc::Orc(AsciiArt *next, int xCoord, int yCoord)
 }
 
 char Orc::charAt(int row, int col, int tick) {
-    if (row == xCoord && col == yCoord) return 'O'; 
+    if (row == xCoord && col == yCoord) return 'H'; 
     return next->charAt(row, col, tick); 
-}
-
-void Orc::attack(Player &pc) {
-    if (pl.getRace() == "G") pc.ChangeHP(- getAtk() * 1.5); 
-    else { pc.ChangeHP(- getAtk()); }
 }
 
 // ------------------------------------------------------------------
 
 class Merchant : public Enemy {
-        bool hostile = false;
     public:
         Merchant(AsciiArt *next, int xCoord, int yCoord); 
         char charAt(int row, int col, int tick) override;
@@ -142,17 +123,13 @@ class Merchant : public Enemy {
 };
 
 Merchant::Merchant(AsciiArt *next, int xCoord, int yCoord)
-    : Enemy(next, xCoord, yCoord, 30, 70, 5) {
+    : Enemy(next, xCoord, yCoord, 30, 30, 25) {
     // Attach observer here if necessary 
 }
 
 char Merchant::charAt(int row, int col, int tick) {
-    if (row == xCoord && col == yCoord) return 'M'; 
+    if (row == xCoord && col == yCoord) return 'H'; 
     return next->charAt(row, col, tick); 
-}
-
-void Merchant::attack(Player &pc) {
-    if (hostile) pc.ChangeHP(- getAtk()); 
 }
 
 // ------------------------------------------------------------------
@@ -165,18 +142,13 @@ class Dragon : public Enemy {
 };
 
 Dragon::Dragon(AsciiArt *next, int xCoord, int yCoord)
-    : Enemy(next, xCoord, yCoord, 150, 20, 20) {
+    : Enemy(next, xCoord, yCoord, 180, 30, 25) {
     // Attach observer here if necessary 
 }
 
 char Dragon::charAt(int row, int col, int tick) {
-    if (row == xCoord && col == yCoord) return 'D'; 
+    if (row == xCoord && col == yCoord) return 'H'; 
     return next->charAt(row, col, tick); 
-}
-
-void Dragon::attack(Player &pc) {
-    pc.ChangeHP(- getAtk()); 
-    // always guards a treasure hoard
 }
 
 // ------------------------------------------------------------------
@@ -189,18 +161,13 @@ class Halfling : public Enemy {
 };
 
 Halfling::Halfling(AsciiArt *next, int xCoord, int yCoord)
-    : Enemy(next, xCoord, yCoord, 100, 15, 20) {
+    : Enemy(next, xCoord, yCoord, 180, 30, 25) {
     // Attach observer here if necessary 
 }
 
 char Halfling::charAt(int row, int col, int tick) {
-    if (row == xCoord && col == yCoord) return 'L'; 
+    if (row == xCoord && col == yCoord) return 'H'; 
     return next->charAt(row, col, tick); 
-}
-
-void Merchant::attack(Player &pc) {
-    pc.ChangeHP(- getAtk()); 
-    // a 50% chance to cause the player character to miss in combat
 }
 
 #endif 
