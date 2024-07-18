@@ -16,7 +16,7 @@ class Treasure: public Decorator {
         char charAt(int x, int y, int tick) override;
         int getVal() const;
         static void deleteTreasure(Treasure *tr);
-        static void addTreasure(Treasure *tr);
+        static void addTreasure(int x, int y, Treasure *tr);
         static void deleteAllT();
 };
 
