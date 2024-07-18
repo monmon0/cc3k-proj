@@ -2,6 +2,8 @@
 #define DUNGEON_H
 #include <iostream>
 #include "Players.h"
+#include <vector>
+#include "Enemies.h"
 #include <string>
 
 class AsciiArt;
@@ -10,8 +12,11 @@ class Dungeon {
   // change rows n nums
   int rows = 30, cols = 79, ticks = 0;
   std::ostream &out = std::cout;          
-  AsciiArt *thePicture;             
+  AsciiArt *thePicture;        
   std::string action = "";
+
+  // std::vector<Enemy *> enemies;
+
 
  public:
   explicit Dungeon(AsciiArt *picture): thePicture{picture} {}
@@ -23,6 +28,10 @@ class Dungeon {
     action += a;
   }
   void clearAction() { action = "";}
+
+  void createEnemies();
+
+  void createPotion() {};
 
   ~Dungeon();
 };

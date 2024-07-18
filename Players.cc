@@ -4,9 +4,8 @@
 #include <map>
 #include <string>
 
-Player::Player(char race, AsciiArt * next, int x, 
-    int y, int hp, int atk, int def): 
-    Decorator{next}, race{race} ,x{x}, y{y}, hp{hp}, atk{atk}, def{def}{
+Player::Player(char race, AsciiArt * next, int x, int y, int hp, int atk, int def): 
+    Decorator{next}, race{race} ,x{x}, y{y}, hp{hp}, atk{atk}, def{def} {
         if (race != 'v') {
             max_hp = INT_MAX;
         } else {
