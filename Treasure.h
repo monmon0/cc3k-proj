@@ -1,17 +1,23 @@
 #ifndef TREASURE_H
 #define TREASURE_H
-#include "item.h"
 #include "Observer.h"
-#include "PotionDecorator.h"
 #include "Players.h"
+#include <map>
+#include <utility>
 
-class Treasure: public Observer {
-    int x;
-    int y;
-    int val;
+class Treasure: public Decorator {
+    static inline map<pair<int, int>, Treasure *> gMap;
+    protected:
+        int x;
+        int y;
+        int val;
     public:
-        char charAt(int x, int y, int tick) const;
+        Treasure(AsciiArt *next, int x, int y, int val);
+        char charAt(int x, int y, int tick) override;
         int getVal() const;
-}
+        static void deleteTreasure(Treasure *tr);
+        static void addTreasure(int x, int y, Treasure *tr);
+        static void deleteAllT();
+};
 
 #endif

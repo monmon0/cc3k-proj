@@ -12,6 +12,7 @@ class AsciiArt;
 class Enemy;
 
 class Dungeon {
+<<<<<<< HEAD
     int rows = 30, cols = 79, ticks = 0;
     std::ostream &out = std::cout;          
     AsciiArt *thePicture;             
@@ -20,6 +21,18 @@ class Dungeon {
 
 public:
     explicit Dungeon(AsciiArt *picture): thePicture{picture} {}
+=======
+  // change rows n nums
+  int rows = 30, cols = 79, ticks = 0;
+  std::ostream &out = std::cout;          
+  AsciiArt *thePicture;        
+  std::string action = "";
+
+  // std::vector<Enemy *> enemies;
+
+ public:
+  explicit Dungeon(AsciiArt *picture): thePicture{picture} {}
+>>>>>>> 2587b65e66e9d568f90254e623f57e55cc6ce00b
 
     AsciiArt *&picture() { return thePicture; }
     void render(Player * p);
@@ -30,7 +43,15 @@ public:
     void clearAction() { action = "";}
     void spawnEnemies();
 
+<<<<<<< HEAD
     ~Dungeon();
+=======
+  // void createEnemies();
+
+  // void createPotion() {};
+
+  ~Dungeon();
+>>>>>>> 2587b65e66e9d568f90254e623f57e55cc6ce00b
 };
 
 #endif // DUNGEON_H

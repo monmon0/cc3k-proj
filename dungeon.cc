@@ -1,5 +1,6 @@
 #include "dungeon.h"
 #include "asciiart.h"
+// #include "Enemies.h"
 #include <string>
 
 #define ESC "\033["
@@ -9,6 +10,15 @@
 
 // reset for new chambers?
 void Dungeon::reset() { ticks = 0; }
+
+// void Dungeon::createEnemies() {
+//   for (int i = 2; i < 5; i++) {
+//     for (int j = 3; j < 5; j++) {
+//       Enemy * en = new Human(picture(), i, j); 
+//       picture() = en;
+//     }
+//   }
+// }
 
 void Dungeon::render(Player * player) {
   // draws current map

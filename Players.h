@@ -3,6 +3,8 @@
 #include "asciiart.h"
 #include "decorator.h"
 #include <vector>
+#include "Potion.h"
+#include "Observer.h"
 #include <string>
 
 class Player : public Decorator {
@@ -13,6 +15,8 @@ class Player : public Decorator {
         int hp, atk, def, max_hp;         // Current Stat
         int gold = 0, floor = 1;
         std::string announcement;
+
+        std::vector <Observer *> potions;
 
     public:
     // Constructor and destructor 
@@ -38,6 +42,22 @@ class Player : public Decorator {
         int getY() {return y;}
 
         void attack(std::string dir);      // Attack 
+
+        void takePotion();
+
+        void attach(Observer * o) {
+                potions.emplace_back(o);
+            }
+
+         void detach(Observer* o) {
+            for (auto it = potions.begin(); it != potions.end(); ++it) {
+                if (*it == o) {
+                    potions.erase(it);
+                    break;
+                }
+            }
+        }
+
 }; 
 
 // -------------------------- Derived Class of other PC -------------------------- //
@@ -85,4 +105,3 @@ class Vampire : public Player {
 
 
 #endif // PLAYERS_H
-

@@ -30,7 +30,15 @@ public:
     void clearAction() { action = "";}
     void spawnEnemies();
 
+<<<<<<< HEAD
     ~Dungeon();
+=======
+  // void createEnemies();
+
+  // void createPotion() {};
+
+  ~Dungeon();
+>>>>>>> 2587b65e66e9d568f90254e623f57e55cc6ce00b
 };
 
 #endif // DUNGEON_H

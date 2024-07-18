@@ -1,1 +1,2 @@
-Players.o: Players.cc Players.h asciiart.h decorator.h Observer.h
+Players.o: Players.cc Players.h asciiart.h decorator.h Potion.h \
+  Observer.h
