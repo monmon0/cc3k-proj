@@ -19,7 +19,7 @@ int main() {
     std::string dir1 = "so";
     std::string dir2 = "ea";
     // std::string command;
-    Player * pc =  new Troll{'t', s.picture(), 4, 6, 10, 10, 10};
+    Player * pc =  new Vampire{'t', s.picture(), 4, 6, 10, 10, 10};
     
     s.picture() = pc;
     s.render(pc);

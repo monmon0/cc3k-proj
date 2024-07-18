@@ -3,10 +3,10 @@
 #include <iostream>
 #include "Players.h"
 #include <vector>
-#include "Enemies.h"
 #include <string>
 
 class AsciiArt;
+class Enemy;
 
 class Dungeon {
   // change rows n nums
@@ -16,7 +16,6 @@ class Dungeon {
   std::string action = "";
 
   // std::vector<Enemy *> enemies;
-
 
  public:
   explicit Dungeon(AsciiArt *picture): thePicture{picture} {}
@@ -29,9 +28,9 @@ class Dungeon {
   }
   void clearAction() { action = "";}
 
-  void createEnemies();
+  // void createEnemies();
 
-  void createPotion() {};
+  // void createPotion() {};
 
   ~Dungeon();
 };

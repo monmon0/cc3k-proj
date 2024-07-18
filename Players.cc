@@ -46,11 +46,11 @@ void Player::move(std::string dir) {
 
     pos_check = next->charAt(y + new_block_y, x + new_block_x, 1);
 
-    // if (pos_check == '.' || pos_check == '#' || pos_check == '\\') {
-    //     x += new_block_x;
-    //     y += new_block_y;
-    //     // announcement = "PC moves " dirToString(dir);
-    // }
+    if (pos_check == '.' || pos_check == '#' || pos_check == '\\') {
+        x += new_block_x;
+        y += new_block_y;
+        // announcement = "PC moves " dirToString(dir);
+    }
 
     // troll gains 5 hp every turn
     if (race == 't') {
@@ -91,8 +91,8 @@ void Player::attack(std::string dir) {
         }
     }
     if (found) {
-        int damage = 0;
-        announcement = "PC deals " + damage " damage to " curr + "(? HP)";
+        // int damage = 0;
+        // announcement = "PC deals " + damage " damage to " curr + "(? HP)";
         // deal damage to opponent
 
         // increase HP for vampire after sucessful attack
@@ -115,6 +115,7 @@ std::string Player::dirToString(std::string dir) {
     dirMap["se"] = "South West";
     dirMap["se"] = "South East";
     
-    return *dirMap.find(dir);
+    return "South";
 }
+
 
