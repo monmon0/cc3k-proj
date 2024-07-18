@@ -1,1 +1,1 @@
-enemies.o: enemies.cc
+Enemies.o: Enemies.cc
