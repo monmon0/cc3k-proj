@@ -1,7 +1,7 @@
 #include "Treasure.h" 
 
 void Treasure::deleteTreasure(Treasure *tr) {
-
+    
 }
 
 char Treasure::charAt(int x, int y, int tick) {
@@ -16,10 +16,10 @@ int Treasure::getVal() const {
 }
 
 Treasure::Treasure(int x, int y, int val): x{x}, y{y}, val{val}{
-    addTreasure(this);
+    addTreasure(x, y, this);
 }
 
-void Treasure::addTreasure(Treasure *tr) {
+void Treasure::addTreasure(int x, int y, Treasure *tr) {
     gMap[make_pair(x, y)] = tr;
 }
 
