@@ -19,7 +19,7 @@ class Player : public Decorator {
     Player(char race, AsciiArt *next, int x, int y, int hp, int atk, int def); 
     ~Player();
     char charAt(int row, int col, int tick) override;
-    void move(std::string dir, int tick);
+    void move(std::string dir);
     void attack();      // Attack
 
     int getAtk (int x) { return atk; };

@@ -11,7 +11,7 @@ class Dungeon {
   int rows = 30, cols = 79, ticks = 0;
   std::ostream &out = std::cout;          
   AsciiArt *thePicture;             
-  std::string action = "This player is losing their goddamn mind";
+  std::string action = "";
 
  public:
   explicit Dungeon(AsciiArt *picture): thePicture{picture} {}
@@ -22,9 +22,7 @@ class Dungeon {
   void setAction(std::string a) {
     action += a;
   }
-  void clearAction() {
-    action = " ";
-  }
+  void clearAction() { action = "";}
 
   ~Dungeon();
 };
