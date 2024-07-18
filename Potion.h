@@ -26,6 +26,7 @@ class Potion: public Decorator, public Observer {
         static void addPotion(int x, int y, Potion* potion);
         static Potion *getPotion(int x, int y);
         static void deletePotion(Potion *potion);
+        static void deleteAll();
 };
 
 class RH: public Potion {

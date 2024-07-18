@@ -31,6 +31,12 @@ Potion *Potion::getPotion(int x, int y) {
     return nullptr;
 }
 
+void Potion::deleteAll() {
+    for (auto &p : pMap) {
+        delete pMap.second();
+    }
+}
+
 void Potion::deletePotion(Potion *potion) {
     for (auto it = pMap.begin(); it != pMap.end(); ++it) {
         if (it->second == potion) {
