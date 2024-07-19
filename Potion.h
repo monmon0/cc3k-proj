@@ -29,6 +29,10 @@ class Potion: public Decorator {
         static void deletePotion(Potion *potion);
         static void deleteAll();
         static void SpawnPotions();
+
+        int getX() {return x;}
+        int getY() {return y;}
+
 };
 
 class RH: public Potion {

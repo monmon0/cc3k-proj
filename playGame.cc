@@ -9,8 +9,11 @@ void PlayGame::play() {
     // spawnTreasure();
 }
 
-void PlayGame::levelUp() {
-
+void PlayGame::levelUp(int x, int y) {
+    // delete all decorator until player
+    // Decorator * curr = new Decorator(d->picture());
+    // curr = curr->next;
+    // d->picture() = curr;
 }
 
 void PlayGame::spawnPotions() {

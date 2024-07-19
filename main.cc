@@ -13,17 +13,14 @@
 #include <string>
 
 int main() {
-    // display graphical interface
-    
-    AsciiArt *canvas = new Blank;
-    Dungeon s{canvas};
+    // creating new Dungeon
+    AsciiArt *floor = new Blank;
+    Dungeon s{floor};
+    PlayGame current_game{&s};
     std::string command;
 
     Player * pc = new Vampire{s.picture(), 't', 4, 6, 10, 10, 10};
-    PlayGame current_game{&s}; 
-    s.render(pc);
     s.picture() = pc;
-
 
     while (std::cin >> command) {
         s.clearAction();
@@ -34,9 +31,7 @@ int main() {
             
             // start game, spawn enemies, spawn potions
             current_game.play();
-            // s.picture() = current_game.getGameSpawn();
-            s.render(pc);
-
+        
         } else if (command == "no" || command == "so" || command == "ea" 
                 || command == "we" || command == "ne" || command == "nw" 
                 || command == "se" || command =="sw") {
@@ -53,7 +48,9 @@ int main() {
             std::cin >> dir;
             // attack enemies
 
-        } 
+        } else if (command == "lu") {
+            current_game.levelUp(pc->getX(), pc->getY());
+        }
         s.setAction(pc->getAnnouncement());
         s.render(pc);
     }

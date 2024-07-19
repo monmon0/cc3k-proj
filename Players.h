@@ -15,6 +15,7 @@ class Player : public Character {
         int max_hp;         // Current Stat
         int gold = 0, floor = 1;
         std::vector <Potion * > potions;
+        bool levelUp;                       // check if at staircase
 
     public:
     // Constructor and destructor 
@@ -42,6 +43,8 @@ class Player : public Character {
 
         void attack(std::string dir);      // Attack 
         void takePotion();
+
+        bool isLevelUp() { return levelUp;}
 
         void attach(Potion * o) {
             potions.emplace_back(o);

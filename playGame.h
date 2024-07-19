@@ -22,7 +22,7 @@ class PlayGame {
         void spawnTreasure();
         void play();
         void end();
-        void levelUp();
+        void levelUp(int x, int y);
 };
 
 #endif
