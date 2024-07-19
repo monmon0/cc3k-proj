@@ -1,5 +1,11 @@
 #ifndef PLAYGAME_H
 #define PLAYGAME_H
+<<<<<<< HEAD
+class PlayGame {
+    
+    
+}
+=======
 #include "asciiart.h"
 #include "Enemies.h"
 #include "dungeon.h"
@@ -24,5 +30,6 @@ class PlayGame {
         void end();
         void levelUp(int x, int y);
 };
+>>>>>>> ee97655c5ebad27c50558f4eba64aab97d4a9747
 
 #endif
