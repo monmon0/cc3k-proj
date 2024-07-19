@@ -50,7 +50,7 @@ void Potion::SpawnPotions() {
     
 }
 
-RH::RH(AsciiArt *next, int x, int y, string name, int amt) : 
+RH::RH(AsciiArt *next, int x, int y, string name) : 
                         Potion{next, x, y, name, 10}{
     addPotion(x, y, this);
 }
@@ -59,7 +59,7 @@ void RH::applyEffect(Player *player) {
     player->changeHP(amt);
 }
 
-BA::BA(AsciiArt *next, int x, int y, string name, int amt) :
+BA::BA(AsciiArt *next, int x, int y, string name) :
                         Potion{next, x, y, name, 5}{}
 
 void BA::applyEffect(Player *player) {
@@ -74,7 +74,7 @@ void BA::undoEffect(Player *player) {
     player->changeAtk(-1 * amt);
 }
 
-BD::BD(AsciiArt *next, int x, int y, string name, int amt) :
+BD::BD(AsciiArt *next, int x, int y, string name) :
                         Potion{next, x, y, name, 5}{
     addPotion(x, y, this);                        
 }
@@ -91,7 +91,7 @@ void BD::undoEffect(Player *player) {
     player->changeDef(-1 * amt);
 }
 
-PH::PH(AsciiArt *next, int x, int y, string name, int amt) :
+PH::PH(AsciiArt *next, int x, int y, string name) :
                         Potion{next, x, y, name, -10}{
     addPotion(x, y, this);                              
 }
@@ -103,7 +103,7 @@ void PH::applyEffect(Player *player) {
     deletePotion(this);
 }
 
-WA::WA(AsciiArt *next, int x, int y, string name, int amt) :
+WA::WA(AsciiArt *next, int x, int y, string name) :
                         Potion{next, x, y, name, -5}{
     addPotion(x, y, this);
 }
@@ -120,7 +120,7 @@ void WA::undoEffect(Player *player) {
     player->changeDef(-1 * amt);
 }
 
-WD::WD(AsciiArt *next, int x, int y, string name, int amt) :
+WD::WD(AsciiArt *next, int x, int y, string name) :
                         Potion{next, x, y, name, -5}{
     addPotion(x, y, this);                        
 }

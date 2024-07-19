@@ -6,6 +6,8 @@
 #define ESC "\033["
 #define LIGHT_BLUE "34"
 #define RED "91"
+#define GREEN "92"
+#define GOLD "33"
 #define RESET "\033[m"
 
 // reset for new chambers?
@@ -30,6 +32,10 @@ void Dungeon::render(Player * player) {
         out << ESC << LIGHT_BLUE <<"m"<< picture()->charAt(i, j, ticks) << RESET;
       } else if (curr == 'E' || curr == 'H' || curr == 'D' || curr == 'O') {
         out << ESC << RED <<"m"<< picture()->charAt(i, j, ticks) << RESET;
+      } else if (curr == 'P') {
+         out << ESC << GREEN <<"m"<< picture()->charAt(i, j, ticks) << RESET;
+      } else if (curr == 'G') {
+         out << ESC << GOLD <<"m"<< picture()->charAt(i, j, ticks) << RESET;
       }
       else {
         out << picture()->charAt(i, j, ticks);

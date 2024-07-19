@@ -1,7 +1,6 @@
 #ifndef POTION_H
 #define POTION_H
 
-#include "Observer.h"
 #include "Players.h"
 #include <string>
 #include <utility>
@@ -10,7 +9,7 @@ using namespace std;
 
 class Player;
 
-class Potion: public Decorator, public Observer {
+class Potion: public Decorator {
     static inline map<pair<int, int>, Potion *> pMap;
 
     protected:
@@ -22,54 +21,58 @@ class Potion: public Decorator, public Observer {
     public:
         Potion(AsciiArt *next, int x, int y, string name, int amt);
         virtual void applyEffect(Player *player) = 0;
-        virtual void undoEffect(Player *player) = 0;
         char charAt(int x, int y, int tick) override;
         int getAmt();
+        ~Potion() = default;
         static void addPotion(int x, int y, Potion* potion);
         static Potion *getPotion(int x, int y);
         static void deletePotion(Potion *potion);
         static void deleteAll();
         static void SpawnPotions();
+
+        int getX() {return x;}
+        int getY() {return y;}
+
 };
 
 class RH: public Potion {
     public:
-        RH(AsciiArt *next, int x, int y, string name, int amt);
+        RH(AsciiArt *next, int x, int y, string name);
         void applyEffect(Player *player) override;
 };
 
 class BA: public Potion {
     public:
-        BA(AsciiArt *next, int x, int y, string name, int amt);
+        BA(AsciiArt *next, int x, int y, string name);
         void applyEffect(Player *player) override;
-        void undoEffect(Player *player) override;
+        void undoEffect(Player *player);
 };
 
 class BD: public Potion {
     public:
-        BD(AsciiArt *next, int x, int y, string name, int amt);
+        BD(AsciiArt *next, int x, int y, string name);
         void applyEffect(Player *player) override;
-        void undoEffect(Player *player) override;
+        void undoEffect(Player *player);
 };
 
 class PH: public Potion {
     public:
-        PH(AsciiArt *next, int x, int y, string name, int amt);
+        PH(AsciiArt *next, int x, int y, string name);
         void applyEffect(Player *player) override;
 };
 
 class WA: public Potion {
     public:
-        WA(AsciiArt *next, int x, int y, string name, int amt);
+        WA(AsciiArt *next, int x, int y, string name);
         void applyEffect(Player *player) override;
-        void undoEffect(Player *player) override;
+        void undoEffect(Player *player);
 };
 
 class WD: public Potion {
     public:
-        WD(AsciiArt *next, int x, int y, string name, int amt);
+        WD(AsciiArt *next, int x, int y, string name);
         void applyEffect(Player *player) override;
-        void undoEffect(Player *player) override;
+        void undoEffect(Player *player);
 };
 
 #endif

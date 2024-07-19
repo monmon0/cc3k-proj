@@ -4,23 +4,23 @@
 #include "decorator.h"
 #include <vector>
 #include "Potion.h"
-#include "Observer.h"
+#include "character.h"
 #include <string>
 
-class Player : public Decorator {
+class Potion;
+
+class Player : public Character {
 
     protected:
-        char race;
-        int x, y;                         // Current Position
-        int hp, atk, def, max_hp;         // Current Stat
+        int max_hp;         // Current Stat
         int gold = 0, floor = 1;
-        std::string announcement;
-
-        std::vector <Observer * > potions;
+        std::vector <Potion * > potions;
+        bool levelUp;                       // check if at staircase
 
     public:
     // Constructor and destructor 
-        Player(char race, AsciiArt *next, int x, int y, int hp, int atk, int def); 
+        Player(AsciiArt *next, char race, int x, int y, int hp, int atk, int def);
+        ~Player() = default;
         char charAt(int row, int col, int tick) override;
         void move(std::string dir, AsciiArt *next);
         char getRace() {return race;}
@@ -44,11 +44,13 @@ class Player : public Decorator {
         void attack(std::string dir);      // Attack 
         void takePotion();
 
-    void attach(Observer * o) {
+        bool isLevelUp() { return levelUp;}
+
+        void attach(Potion * o) {
             potions.emplace_back(o);
         }
 
-        void detach(Observer* o) {
+        void detach(Potion* o) {
             for (auto it = potions.begin(); it != potions.end(); ++it) {
                 if (*it == o) {
                     potions.erase(it);
@@ -63,32 +65,32 @@ class Player : public Decorator {
 
 class Shade : public Player {
     public:
-        Shade(char race, AsciiArt *next, int x, int y, int hp, int atk, int def):
-           Player(race, next, x, y, hp, atk, def) {
+        Shade(AsciiArt *next, char race, int x, int y, int hp, int atk, int def):
+            Player(next, race, x, y, hp, atk, def) {
             announcement = "Player chooses Shade.";
            };
 };
 
 class Troll : public Player {
     public:
-        Troll(char race, AsciiArt *next, int x, int y, int hp, int atk, int def):
-           Player(race, next, x, y, hp, atk, def) {
+        Troll(AsciiArt *next, char race, int x, int y, int hp, int atk, int def):
+           Player(next, race, x, y, hp, atk, def)  {
                 announcement = "Player chooses Troll.";
-           };
+            };
 };
 
 class Drow : public Player {
     public:
-        Drow(char race, AsciiArt *next, int x, int y, int hp, int atk, int def):
-           Player(race, next, x, y, hp, atk, def) {
+        Drow(AsciiArt *next, char race, int x, int y, int hp, int atk, int def):
+           Player(next, race, x, y, hp, atk, def) {
             announcement = "Player chooses Drow.";
            };
 };
 
 class Goblin : public Player {
     public:
-        Goblin(char race, AsciiArt *next, int x, int y, int hp, int atk, int def):
-           Player(race, next, x, y, hp, atk, def) {
+        Goblin(AsciiArt *next, char race, int x, int y, int hp, int atk, int def):
+           Player(next, race, x, y, hp, atk, def) {
             announcement = "Player chooses Goblin.";
            };
 };
@@ -96,8 +98,8 @@ class Goblin : public Player {
 
 class Vampire : public Player {
     public:
-        Vampire(char race, AsciiArt *next, int x, int y, int hp, int atk, int def):
-           Player(race, next, x, y, hp, atk, def) {
+        Vampire(AsciiArt *next, char race, int x, int y, int hp, int atk, int def):
+           Player(next, race, x, y, hp, atk, def)  {
             announcement = "Player chooses Vampire.";
            };
 };

@@ -1,3 +1,5 @@
+#ifndef GAME_PLAY_FUNC_H
+#define GAME_PLAY_FUNC_H
 #include <stdlib.h>
 #include "asciiart.h"
 #include <cstdlib>
@@ -14,7 +16,7 @@ class RandomPos {
         int new_x, new_y;
 
         void setPos() {
-            std::srand(std::time(0));
+            // std::srand(std::time(0));
 
             int chamber = rand() % 5;
             if (chamber == 0) {
@@ -64,3 +66,5 @@ class RandomPos {
 
 
 };
+
+#endif
