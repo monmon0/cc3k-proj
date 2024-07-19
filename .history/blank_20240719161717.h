@@ -6,7 +6,7 @@
 
 class Blank: public AsciiArt {
         std::vector<std::string> dungeonMap;
-        inline static int x = 5, y = 18;
+        int x = 5, y = 18;
     public:
         Blank(const std::string& filename);
         char charAt(int row, int col, int tick) override;

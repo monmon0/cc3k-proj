@@ -1,11 +1,9 @@
 #include "Potion.h"
 
-Potion::Potion(AsciiArt *next, int x, int y, string name, int amt): 
-                                                        Decorator{next}, 
-                                                        x{x}, 
-                                                        y{y}, 
-                                                        name{name},
-                                                        amt{amt}{}
+Potion::Potion(AsciiArt *next, int x, int y, int amt, string name): 
+                                                        Item{next, x, y, amt}, name{name}{
+    addItem(x, y, this);
+}
 
 char Potion::charAt(int x, int y, int tick) {
     if (x == this->x && y == this->y) {
@@ -14,57 +12,26 @@ char Potion::charAt(int x, int y, int tick) {
     return next->charAt(x, y, tick);
 }
 
-int Potion::getAmt() {
-    return amt;
-}
-
-void Potion::addPotion(int x, int y, Potion* potion) {
-    pMap[make_pair(x, y)] = potion;
-}
-
-Potion *Potion::getPotion(int x, int y) {
-    for (auto &p : pMap) {
-        if (p.first == make_pair(x, y)) {
-            return p.second;
-        }
-    }
-    return nullptr;
-}
-
-void Potion::deleteAll() {
-    for (auto &p : pMap) {
-        delete p.second;
-    }
-}
-
-void Potion::deletePotion(Potion *potion) {
-    for (auto it = pMap.begin(); it != pMap.end(); ++it) {
-        if (it->second == potion) {
-            pMap.erase(it);
-            break;
-        }
-    }
-}
-
-void Potion::SpawnPotions() {
-    
-}
 
 RH::RH(AsciiArt *next, int x, int y, string name) : 
-                        Potion{next, x, y, name, 10}{
-    addPotion(x, y, this);
+                        Potion{next, x, y, 10, name}{
 }
 
 void RH::applyEffect(Player *player) {
-    player->changeHP(amt);
+    if (player->getHp() + amt <= player->getMaxHP()) {
+        player->changeHP(amt);
+    } else {
+        player->changeHP(player->getMaxHP() - player->getHp());
+    }
+    deleteItem(this);
 }
 
 BA::BA(AsciiArt *next, int x, int y, string name) :
-                        Potion{next, x, y, name, 5}{}
+                        Potion{next, x, y, 5, name}{}
 
 void BA::applyEffect(Player *player) {
     player->attach(this);
-    deletePotion(this);
+    deleteItem(this);
     player->changeAtk(amt);
 }
 
@@ -75,13 +42,11 @@ void BA::undoEffect(Player *player) {
 }
 
 BD::BD(AsciiArt *next, int x, int y, string name) :
-                        Potion{next, x, y, name, 5}{
-    addPotion(x, y, this);                        
-}
+                        Potion{next, x, y, 5, name}{}
 
 void BD::applyEffect(Player *player) {
     player->attach(this);
-    deletePotion(this);
+    deleteItem(this);
     player->changeDef(amt);
 }
 
@@ -92,25 +57,23 @@ void BD::undoEffect(Player *player) {
 }
 
 PH::PH(AsciiArt *next, int x, int y, string name) :
-                        Potion{next, x, y, name, -10}{
-    addPotion(x, y, this);                              
-}
+                        Potion{next, x, y, -10, name}{}
 
 void PH::applyEffect(Player *player) {
     if (player->getHp() >= amt) {
         player->changeHP(amt);
+    } else {
+        player->changeHP(-1 * player->getHp());
     }
-    deletePotion(this);
+    deleteItem(this);
 }
 
 WA::WA(AsciiArt *next, int x, int y, string name) :
-                        Potion{next, x, y, name, -5}{
-    addPotion(x, y, this);
-}
+                        Potion{next, x, y, -5, name}{}
 
 void WA::applyEffect(Player *player) {
     player->attach(this);
-    deletePotion(this);
+    deleteItem(this);
     player->changeDef(amt);
 }
 
@@ -121,13 +84,11 @@ void WA::undoEffect(Player *player) {
 }
 
 WD::WD(AsciiArt *next, int x, int y, string name) :
-                        Potion{next, x, y, name, -5}{
-    addPotion(x, y, this);                        
-}
+                        Potion{next, x, y, -5, name}{}
 
 void WD::applyEffect(Player *player) {
     player->attach(this);
-    deletePotion(this);
+    deleteItem(this);
     player->changeDef(amt);
 }
 

@@ -3,7 +3,7 @@
 #include "asciiart.h"
 #include "decorator.h"
 #include <vector>
-#include "Potion.h"
+#include "item.h"
 #include "character.h"
 #include <string>
 
@@ -24,6 +24,7 @@ class Player : public Character {
         char charAt(int row, int col, int tick) override;
         void move(std::string dir, AsciiArt *next);
         char getRace() {return race;}
+        void addGold(int amt) {gold += amt;}
 
         std::string getAnnouncement() {return announcement;}
 

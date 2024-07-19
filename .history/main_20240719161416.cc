@@ -9,8 +9,8 @@
 #include "Enemies.h"
 #include "playGame.h"
 #include "gameplayfunc.h"
-#include <string>
 
+#include <string>
 
 int main() {
     // creating new Dungeon
@@ -79,7 +79,8 @@ int main() {
         }
 
         if (pc->isDead() || command == "q") {
-            std::cout << "Womp Womp" << std::endl;
+            std::cout << "womp womp" << std::endl;
+            // curr_g.end();
             break;
         } else if (pc->isLevelUp()) {
             curr_g.levelUp(pc);

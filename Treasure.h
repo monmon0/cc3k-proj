@@ -2,22 +2,17 @@
 #define TREASURE_H
 #include "Players.h"
 #include "decorator.h"
+#include "item.h"
 #include <map>
 #include <utility>
 
-class Treasure: public Decorator {
-    static inline map<pair<int, int>, Treasure *> gMap;
-    protected:
-        int x;
-        int y;
-        int val;
+class Player;
+
+class Treasure: public Item {
     public:
         Treasure(AsciiArt *next, int x, int y, int val);
         char charAt(int x, int y, int tick) override;
-        int getVal() const;
-        static void deleteTreasure(Treasure *tr);
-        static void addTreasure(int x, int y, Treasure *tr);
-        static void deleteAllT();
+        void applyEffect(Player *player) override;
 };
 
 #endif
