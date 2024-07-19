@@ -14,31 +14,47 @@
 
 int main() {
     // display graphical interface
+    
     AsciiArt *canvas = new Blank;
     Dungeon s{canvas};
+    std::string command;
 
-
-    RandomPos r_pos = RandomPos(s.picture());
-    r_pos.setPos();
-
-    PlayGame current_game{s.picture()};
-
-    std::string dir1 = "so";
-    std::string dir2 = "ea";
-    // std::string command;
-    Player * pc =  new Vampire{s.picture(), 't', 5, 4, 10, 10, 10};
+    Player * pc = new Vampire{s.picture(), 't', 4, 6, 10, 10, 10};
+    PlayGame current_game{&s}; 
+    s.render(pc);
     s.picture() = pc;
-    s.render(pc);
 
-    current_game.spawnEnemies();
-    // current_game.spawnPotions();
 
-    pc->move("we", s.picture());
-    pc->move("ea", s.picture());
+    while (std::cin >> command) {
+        s.clearAction();
+        //  s, d, v, g, t:
+        if (command == "s" || command == "d" ||command == "v" 
+        || command == "g" || command == "t") {
+            // set races
+            
+            // start game, spawn enemies, spawn potions
+            current_game.play();
+            // s.picture() = current_game.getGameSpawn();
+            s.render(pc);
 
-    // s.setAction(pc->getAnnouncement());
+        } else if (command == "no" || command == "so" || command == "ea" 
+                || command == "we" || command == "ne" || command == "nw" 
+                || command == "se" || command =="sw") {
 
-    s.render(pc);
-    // Clean up
+            pc->move(command, s.picture());
 
+        } else if (command == "u" ) {
+            std::string dir;
+            std::cin >> dir;
+            // use potion
+
+        } else if (command == "a" ) {
+            std::string dir;
+            std::cin >> dir;
+            // attack enemies
+
+        } 
+        s.setAction(pc->getAnnouncement());
+        s.render(pc);
+    }
 }

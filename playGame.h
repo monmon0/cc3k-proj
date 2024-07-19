@@ -2,24 +2,26 @@
 #define PLAYGAME_H
 #include "asciiart.h"
 #include "Enemies.h"
+#include "dungeon.h"
 #include "Potion.h"
 #include "Treasure.h"
 #include "gameplayfunc.h"
 #include <algorithm>
 #include <random>
+#include "dungeon.h"
 #include <memory>
 #include <string>
 
 class PlayGame {
-    AsciiArt *curr;
+    Dungeon * d;
     public:
-        PlayGame(AsciiArt *curr);
+        PlayGame(Dungeon *curr);
         ~PlayGame() = default; 
         void spawnEnemies();
         void spawnPotions();
+        void spawnTreasure();
         void play();
         void end();
-        void spawnTreasure();
         void levelUp();
 };
 

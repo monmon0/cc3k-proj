@@ -8,7 +8,6 @@
 #include "Players.h"
 #include "Enemies.h"
 
-// class AsciiArt;
 class Enemy;
 
 class Dungeon {
@@ -16,7 +15,6 @@ class Dungeon {
     std::ostream &out = std::cout;          
     AsciiArt *thePicture;             
     std::string action = "";
-    std::vector<std::unique_ptr<Enemy>> enemies; 
 
 public:
     explicit Dungeon(AsciiArt *picture): thePicture{picture} {}

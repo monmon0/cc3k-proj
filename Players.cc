@@ -44,8 +44,7 @@ void Player::move(std::string dir, AsciiArt * curr) {
 
     pos_check = curr->charAt(y + new_block_y, x + new_block_x, 1);
 
-    if (pos_check == '.' || pos_check == '#' || pos_check == '\\') {
-        std::cout << pos_check << std::endl; 
+    if (pos_check == '.' || pos_check == '#' || pos_check == '\\' || pos_check == '+') {
         x += new_block_x;
         y += new_block_y;
         announcement = "PC moves " + dirToString(dir);
@@ -90,7 +89,7 @@ void Player::attack(std::string dir) {
         // int damage = 0;
         // announcement = "PC deals " + damage " damage to " curr + "(? HP)";
         // deal damage to opponent
-
+        
         // increase HP for vampire after sucessful attack
         if (race == 'v')  hp += 5;
     }
@@ -106,9 +105,9 @@ std::string Player::dirToString(std::string dir) {
     dirMap["no"] = "North";
     dirMap["ea"] = "East";
     dirMap["we"] = "West";
-    dirMap["no"] = "North East";
+    dirMap["ne"] = "North East";
     dirMap["nw"] = "North West";
-    dirMap["se"] = "South West";
+    dirMap["sw"] = "South West";
     dirMap["se"] = "South East";
     
     return dirMap[dir];

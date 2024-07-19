@@ -14,7 +14,6 @@ class Player : public Character {
     protected:
         int max_hp;         // Current Stat
         int gold = 0, floor = 1;
-        std::string announcement;
         std::vector <Potion * > potions;
 
     public:

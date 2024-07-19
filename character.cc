@@ -8,7 +8,7 @@ int Character::getY() const { return y; }
 int Character::getHp() const { return hp; }
 int Character::getAtk() const { return atk; }
 int Character::getDef() const { return def; }
-
+std::string Character::getAnnouncement() const { return announcement; }
 void Character::changeHP(int damage) { hp -= damage; }
 bool Character::isDead() { return hp <= 0; }
 char Character::getRace() { return race; }

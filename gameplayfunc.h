@@ -16,7 +16,7 @@ class RandomPos {
         int new_x, new_y;
 
         void setPos() {
-            std::srand(std::time(0));
+            // std::srand(std::time(0));
 
             int chamber = rand() % 5;
             if (chamber == 0) {
