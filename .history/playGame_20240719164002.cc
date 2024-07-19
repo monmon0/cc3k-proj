@@ -4,11 +4,11 @@ using namespace std;
 
 PlayGame::PlayGame(Dungeon *d) : d{d} {}
 
-void PlayGame::play() { 
+void PlayGame::play() {
 
     spawnPotions();
     // spawnTreasure();
-    spawnEnemies();
+    // spawnEnemies();
 }
 
 void PlayGame::restart(Player * p) {
@@ -96,37 +96,36 @@ void PlayGame::spawnPotions() {
 void PlayGame::spawnEnemies() {
     vector<char> characters = {'H', 'W', 'E', 'O', 'M', 'L'};
 
-    srand(time(0));
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < 10; i++) {
         int idx = rand() % 6;
-        cout << idx << endl; 
         char name = characters[idx];
 
         RandomPos random{d};
         random.setPos();
-        int r1 = random.getX();
-        int r2 = random.getY();
+        
+        int r1 = rand() % 79;
+        int r2 = rand() % 25;
 
         if (name == 'H') {
-            Enemy *hp = new Human(d->picture(), r1, r2); 
+            Human *hp = new Human(d->picture(), 40, 16); 
             d->picture() = hp;  
         } else if (name == 'W') {
-            Enemy *wp = new Dwarf(d->picture(), r1, r2); 
+            Dwarf *wp = new Dwarf(d->picture(), r1, r2); 
             d->picture() = wp; 
         } else if (name == 'E') {
-            Enemy *ep = new Elf(d->picture(),r1, r2); 
+            Elf *ep = new Elf(d->picture(),r1, r2); 
             d->picture() = ep; 
         } else if (name == 'O') {
-            Enemy *op = new Orc(d->picture(), r1, r2); 
+            Orc *op = new Orc(d->picture(), r1, r2); 
             d->picture() = op; 
         } else if (name == 'M') {
-            Enemy *mp = new Merchant(d->picture(), r1, r2); 
+            Merchant *mp = new Merchant(d->picture(), r1, r2); 
             d->picture() = mp; 
         } else if (name == 'L') {
-            Enemy *lp = new Halfling(d->picture(), r1, r2); 
+            Halfling *lp = new Halfling(d->picture(), r1, r2); 
             d->picture() = lp; 
         } else {
-            Enemy *dp = new Dragon(d->picture(), r1, r2); 
+            Dragon *dp = new Dragon(d->picture(), r1, r2); 
             d->picture() = dp; 
         }
     }

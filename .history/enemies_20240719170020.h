@@ -16,7 +16,7 @@ public:
 
     ~Enemy() = default; 
 
-    void move() {}
+    void 
     void moveX(int dx) { x += dx; }
     void moveY(int dy) { y += dy; }
     bool isDead() { return hp <= 0; }

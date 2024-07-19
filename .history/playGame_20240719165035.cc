@@ -4,7 +4,7 @@ using namespace std;
 
 PlayGame::PlayGame(Dungeon *d) : d{d} {}
 
-void PlayGame::play() { 
+void PlayGame::play() {
 
     spawnPotions();
     // spawnTreasure();
@@ -57,6 +57,7 @@ void PlayGame::spawnPotions() {
     vector<string> names = {"RH", "BA", "BD", "PH", "WA", "WD"};
 
     for (int i = 0; i < 10; i++) {
+        srand(time(0));
         int idx = rand() % 6;
         string name = names[idx];
 
@@ -96,7 +97,6 @@ void PlayGame::spawnPotions() {
 void PlayGame::spawnEnemies() {
     vector<char> characters = {'H', 'W', 'E', 'O', 'M', 'L'};
 
-    srand(time(0));
     for (int i = 0; i < 20; i++) {
         int idx = rand() % 6;
         cout << idx << endl; 

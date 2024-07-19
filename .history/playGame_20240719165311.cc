@@ -96,7 +96,6 @@ void PlayGame::spawnPotions() {
 void PlayGame::spawnEnemies() {
     vector<char> characters = {'H', 'W', 'E', 'O', 'M', 'L'};
 
-    srand(time(0));
     for (int i = 0; i < 20; i++) {
         int idx = rand() % 6;
         cout << idx << endl; 

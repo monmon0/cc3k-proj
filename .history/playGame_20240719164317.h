@@ -8,7 +8,7 @@
 #include "Treasure.h"
 #include "gameplayfunc.h"
 #include <algorithm>
-#include <cstdlib> 
+#include <cstdlib>  // For rand() and srand()
 #include <ctime>
 #include "dungeon.h"
 #include <memory>
