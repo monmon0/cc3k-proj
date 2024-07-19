@@ -14,7 +14,7 @@
 
 int main() {
     // creating new Dungeon
-    Blank *floor = new Blank;
+    Blank *floor = new Blank("map.txt");
     Dungeon s{floor};
     PlayGame curr_g{&s};
     std::string command;

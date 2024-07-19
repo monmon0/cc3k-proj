@@ -21,7 +21,7 @@ void Dungeon::render(Player * player) {
       char curr = picture()->charAt(i, j, ticks);
       if (curr == '\\' || curr == '@') {
         out << ESC << LIGHT_BLUE <<"m"<< picture()->charAt(i, j, ticks) << RESET;
-      } else if (curr == 'E' || curr == 'H' || curr == 'D' || curr == 'O') {
+      } else if (curr == 'E' || curr == 'H' || curr == 'D' || curr == 'O' || curr == 'L'  || curr == 'M'  || curr == 'R') {
         out << ESC << RED <<"m"<< picture()->charAt(i, j, ticks) << RESET;
       } else if (curr == 'P') {
          out << ESC << GREEN <<"m"<< picture()->charAt(i, j, ticks) << RESET;
