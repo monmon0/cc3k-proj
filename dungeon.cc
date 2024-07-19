@@ -43,7 +43,7 @@ void Dungeon::render(Player * player) {
   // print spaces
   for (int i = 0; i < 54 - race.length(); i++) out << " ";
   out << "Floor: " << floor << std::endl;
-  out << "HP: " << player->getHP() << std::endl;
+  out << "HP: " << player->getHp() << std::endl;
   out << "Atk: " << player->getAtk() << std::endl;
   out << "Def: " << player->getDef() << std::endl;
   out << "Action: " << action << std::endl;

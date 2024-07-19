@@ -34,11 +34,11 @@ int main() {
         if (command == "s" || command == "d" ||command == "v" 
         || command == "g" || command == "t") {
             // set races
-            if (command == "s") pc = new Shade{s.picture(), 's', 4, 6, 10, 10, 10};
-            else if (command == "d") pc = new Drow{s.picture(), 's', 4, 6, 10, 10, 10};
-            else if (command == "v") pc = new Vampire{s.picture(), 's', 4, 6, 10, 10, 10};
-            else if (command == "g") pc = new Goblin{s.picture(), 's', 4, 6, 10, 10, 10};
-            else if (command == "t") pc = new Troll{s.picture(), 's', 4, 6, 10, 10, 10};
+            if (command == "s") pc = new Shade{s.picture(), 's', 4, 6, 125, 25, 15};
+            else if (command == "d") pc = new Drow{s.picture(), 's', 4, 6, 150, 25, 15};
+            else if (command == "v") pc = new Vampire{s.picture(), 's', 4, 6, 50, 25, 5};
+            else if (command == "t") pc = new Troll{s.picture(), 's', 4, 6, 120, 25, 15};
+            else if (command == "g") pc = new Goblin{s.picture(), 's', 4, 6, 110, 25, 15};
 
             s.picture() = pc;
             // start game, spawn enemies, spawn potions
@@ -64,7 +64,6 @@ int main() {
             curr_g.levelUp();
             s.picture() = pc;
         } 
-        
         
         if (pc->isDead()) {
             std::cout << "womp womp" << std::endl;

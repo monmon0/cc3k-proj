@@ -11,6 +11,7 @@ Player::Player(AsciiArt *next, char race, int x, int y, int hp, int atk, int def
         else max_hp = hp;
 }
 
+
 void Player::move(std::string dir, AsciiArt * curr) {
     // no,so,ea,we,ne,nw,se,sw
     // new block 
@@ -115,3 +116,17 @@ std::string Player::dirToString(std::string dir) {
 void Player::takePotion() {
     // Potion * p = getPotion(10,)
 }
+
+void Player::attach(Potion * o) {
+    potions.emplace_back(o);
+}
+
+void Player::detach(Potion* o) {
+    for (auto it = potions.begin(); it != potions.end(); ++it) {
+        if (*it == o) {
+            potions.erase(it);
+            break;
+        }
+    }
+}
+bool Player::isLevelUp() const { return levelUp;}

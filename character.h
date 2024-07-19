@@ -8,11 +8,8 @@
 class Character : public Decorator {
     protected: 
         char race; 
-        int x;
-        int y;
-        int hp;
-        int atk;
-        int def;
+        int x,y;
+        int hp, atk, def;
         std::string announcement;
 
     public:

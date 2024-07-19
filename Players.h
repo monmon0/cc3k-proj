@@ -26,37 +26,20 @@ class Player : public Character {
         char getRace() {return race;}
 
         std::string getAnnouncement() {return announcement;}
-        int getAtk() { return atk; }
-        int getDef() { return def; }
-        int getHP()  { return hp; }
-        int getGold(){ return gold; }
 
-        void changeHP(int x) { hp += x;}
         void changeAtk(int x) { atk += x;}
         void changeDef(int x) { def += x;}
         std::string dirToString(std::string dir);
 
         int getMaxHP() {return max_hp;}
-        int getX() {return x;}
-        int getY() {return y;}
-
+        int getGold() const { return gold; }
+        
         void attack(std::string dir);      // Attack 
         void takePotion();
 
-        bool isLevelUp() { return levelUp;}
-
-        void attach(Potion * o) {
-            potions.emplace_back(o);
-        }
-
-        void detach(Potion* o) {
-            for (auto it = potions.begin(); it != potions.end(); ++it) {
-                if (*it == o) {
-                    potions.erase(it);
-                    break;
-                }
-            }
-        }
+        bool isLevelUp() const;
+        void attach(Potion * o);
+        void detach(Potion* o);
 
 }; 
 

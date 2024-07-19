@@ -97,7 +97,7 @@ PH::PH(AsciiArt *next, int x, int y, string name) :
 }
 
 void PH::applyEffect(Player *player) {
-    if (player->getHP() >= amt) {
+    if (player->getHp() >= amt) {
         player->changeHP(amt);
     }
     deletePotion(this);
