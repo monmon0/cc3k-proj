@@ -15,7 +15,7 @@ class Dungeon {
     std::ostream &out = std::cout;          
     AsciiArt *thePicture;             
     std::string action = "";
-    int floor;
+    int floor = 1;
 
 public:
     explicit Dungeon(AsciiArt *picture): thePicture{picture} {}

@@ -34,7 +34,7 @@ class Player : public Character {
         int getMaxHP() {return max_hp;}
         int getGold() const { return gold; }
         
-        void attack(std::string dir);      // Attack 
+        bool attack(std::string dir);      // Attack 
         void takePotion();
 
         bool isLevelUp() const;

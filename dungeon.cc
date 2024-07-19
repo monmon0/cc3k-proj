@@ -36,9 +36,12 @@ void Dungeon::render(Player * player) {
   }
   // print stat
   std::string race;
-  if (player->getRace() == 's') {
-    race = "Shade";
-  }
+  if (player->getRace() == 's') race = "Shade";
+  if (player->getRace() == 'd') race = "Drow";
+  if (player->getRace() == 'v') race = "Vampire";
+  if (player->getRace() == 't') race = "Troll";
+  if (player->getRace() == 'g') race = "Goblin";
+
   out << "Race: " << race << " Gold: " << player->getGold();
   // print spaces
   for (int i = 0; i < 54 - race.length(); i++) out << " ";

@@ -23,6 +23,8 @@ void PlayGame::levelUp() {
     // destroyEnemies();
     // destroyTreasure();
     d->levelUp();
+    // spawnTreasure();
+    // spawnEnemies();
 
     // NOTE: when enemies or potions its used, 
     // in getChar(), using a boolean to track,
@@ -35,7 +37,6 @@ void PlayGame::destroyPotions() {
         d->picture() = first_P->nextChar();
     }
     first_P->nextChar() = nullptr;
-    first_P = nullptr;              // not sure if needed, prob not but eh
 }
 
 void PlayGame::spawnPotions() {

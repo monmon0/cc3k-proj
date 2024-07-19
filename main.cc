@@ -44,6 +44,19 @@ int main() {
             // start game, spawn enemies, spawn potions
             curr_g.play();
 
+        } else if (command == "a") {   // attack
+            std::cout << "Please specify direction" << std::endl;
+
+            std::string dir;
+            std::cin >> dir;
+            // attack enemies
+            bool atk = pc->attack(dir);
+
+            if (!atk) {
+                s.setAction(pc->getAnnouncement());
+                pc->move(dir, s.picture());
+            } 
+
         } else if (command == "no" || command == "so" || command == "ea" 
                 || command == "we" || command == "ne" || command == "nw" 
                 || command == "se" || command =="sw") {
@@ -55,16 +68,12 @@ int main() {
             std::cin >> dir;
             // use potion
 
-        } else if (command == "a" ) {   // attack
-            std::string dir;
-            std::cin >> dir;
-            // attack enemies
-
         } else if (command == "lu") {   // for testing purposes, not actual command
             curr_g.levelUp();
             s.picture() = pc;
+            curr_g.play();
         } 
-        
+
         if (pc->isDead()) {
             std::cout << "womp womp" << std::endl;
             curr_g.end();
@@ -72,6 +81,7 @@ int main() {
         } else if (pc->isLevelUp()) {
             curr_g.levelUp();
             s.picture() = pc;
+            curr_g.play();
             s.setAction("Next Floor Unlocked! Good job!");
         }
 
