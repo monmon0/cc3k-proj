@@ -21,7 +21,7 @@ void PlayGame::spawnPotions() {
     vector<string> names = {"RH", "BA", "BD", "PH", "WA", "WD"};
 
     for (int i = 0; i < 10; i++) {
-        int idx = rand() % 6;
+        int idx = rand() % 5;
         string name = names[idx];
 
         RandomPos random{d};

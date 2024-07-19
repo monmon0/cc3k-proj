@@ -1,19 +1,17 @@
 #ifndef GAME_PLAY_FUNC_H
 #define GAME_PLAY_FUNC_H
 #include <stdlib.h>
-#include "dungeon.h"
+#include "asciiart.h"
 #include <cstdlib>
 #include <ctime>
 #include <string>
 
-class Dungeon;
-
 class RandomPos {
     int x = 0, y = 0;
-    Dungeon * curr;
+    Dunge * curr;
 
     public:
-        RandomPos(Dungeon * curr): curr{curr} {
+        RandomPos(AsciiArt * curr): curr{curr} {
             std::srand(std::time(0));
         };
 

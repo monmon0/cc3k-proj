@@ -6,14 +6,12 @@
 #include <ctime>
 #include <string>
 
-class Dungeon;
-
 class RandomPos {
     int x = 0, y = 0;
     Dungeon * curr;
 
     public:
-        RandomPos(Dungeon * curr): curr{curr} {
+        RandomPos(Dung * curr): curr{curr} {
             std::srand(std::time(0));
         };
 

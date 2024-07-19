@@ -1,7 +1,7 @@
 #include "playGame.h"
 using namespace std;
 
-PlayGame::PlayGame(Dungeon *curr) : d{curr} {}
+PlayGame::PlayGame(Dungeon *d) : d{d} {}
 
 void PlayGame::play() {
     spawnPotions();
@@ -21,10 +21,10 @@ void PlayGame::spawnPotions() {
     vector<string> names = {"RH", "BA", "BD", "PH", "WA", "WD"};
 
     for (int i = 0; i < 10; i++) {
-        int idx = rand() % 6;
+        int idx = rand() % 5;
         string name = names[idx];
 
-        RandomPos random{d};
+        RandomPos random{};
         random.setPos();
         int r1 = random.getX();
         int r2 = random.getY();
