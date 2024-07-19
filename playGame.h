@@ -20,17 +20,17 @@ class PlayGame {
 
     public:
         PlayGame(Dungeon * d);
-        ~PlayGame() {delete d; delete first_E; delete first_P;}; 
+        ~PlayGame() = default; 
         void spawnEnemies();
         void spawnPotions();
         // void spawnTreasure();
         void play();
         void end();
-
-        void levelUp();
+        void levelUp(Player * p);
         void destroyPotions();
         // destroyEnemies();
-        //destroyTreasure();
+        // destroyTreasure();
+        void restart(Player * p);
         
 };
 

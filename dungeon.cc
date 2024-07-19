@@ -19,7 +19,7 @@ void Dungeon::render(Player * player) {
   for (int i = 0; i < rows - 5; ++i) {
     for (int j = 0; j < cols; ++j) {
       char curr = picture()->charAt(i, j, ticks);
-      if (curr == '#' || curr == '@') {
+      if (curr == '\\' || curr == '@') {
         out << ESC << LIGHT_BLUE <<"m"<< picture()->charAt(i, j, ticks) << RESET;
       } else if (curr == 'E' || curr == 'H' || curr == 'D' || curr == 'O' || curr == 'L'  || curr == 'M'  || curr == 'R') {
         out << ESC << RED <<"m"<< picture()->charAt(i, j, ticks) << RESET;

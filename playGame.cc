@@ -1,32 +1,43 @@
 #include "playGame.h"
-#include <iostream>
-#include <random>
+#include <string>
 using namespace std;
 
 PlayGame::PlayGame(Dungeon *d) : d{d} {}
 
 void PlayGame::play() {
+
     spawnPotions();
     // spawnTreasure();
     spawnEnemies();
 }
 
-void PlayGame::end() {
-    destroyPotions();
-    // destroyEnemies();
-    // destroyTreasure();
+void PlayGame::restart(Player * p) {
+    levelUp(p);
+    std::cout << "Let's restart, choose your race again!" << std::endl;
+    std::string command;
+    std::cin >> command;
+    // command and restart stat
+    if (command == "s") p->restartSettings('s', 125, 25, 15);
+    else if (command == "d") p->restartSettings('d', 150, 25, 15);
+    else if (command == "v") p->restartSettings( 'v', 50, 25, 5);
+    else if (command == "t") p->restartSettings('t', 120, 25, 15);
+    else if (command == "g") p->restartSettings( 'g', 110, 25, 15);
+
+
 }
 
-
-void PlayGame::levelUp() {
+void PlayGame::levelUp(Player * p) {
     // delete all decorator until player
 
     destroyPotions();
     // destroyEnemies();
     // destroyTreasure();
-    d->levelUp();
     // spawnTreasure();
     // spawnEnemies();
+    d->levelUp();
+    p->toggleLevel();
+    d->picture() = p;
+    play();
 
     // NOTE: when enemies or potions its used, 
     // in getChar(), using a boolean to track,

@@ -14,7 +14,7 @@
 
 int main() {
     // creating new Dungeon
-    AsciiArt *floor = new Blank("map.txt");
+    Blank *floor = new Blank("map.txt");
     Dungeon s{floor};
     PlayGame curr_g{&s};
     std::string command;
@@ -69,20 +69,23 @@ int main() {
             // use potion
 
         } else if (command == "lu") {   // for testing purposes, not actual command
-            curr_g.levelUp();
-            s.picture() = pc;
-            curr_g.play();
-        } 
+            curr_g.levelUp(pc);
+            floor->shuffleStaireCase();
+            s.setAction("Next Floor Unlocked! Good job! ");
+        } else if (command == "f" ) {   // use potion
+            
+        }  else if (command == "r" ) {   // use potion
+            curr_g.restart(pc);
+        }
 
-        if (pc->isDead()) {
+        if (pc->isDead() || command == "q") {
             std::cout << "womp womp" << std::endl;
-            curr_g.end();
+            // curr_g.end();
             break;
         } else if (pc->isLevelUp()) {
-            curr_g.levelUp();
-            s.picture() = pc;
-            curr_g.play();
-            s.setAction("Next Floor Unlocked! Good job!");
+            curr_g.levelUp(pc);
+            floor->shuffleStaireCase();
+            s.setAction("Next Floor Unlocked! Good job! ");
         }
 
         s.setAction(pc->getAnnouncement());
