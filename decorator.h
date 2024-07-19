@@ -3,9 +3,10 @@
 
 #include "asciiart.h"
 
+
 class Decorator: public AsciiArt {
     protected:
-    AsciiArt * next;    
+    AsciiArt * next;
     public:
     // Constructor and destructor 
     Decorator(AsciiArt *a);

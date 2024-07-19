@@ -59,7 +59,6 @@ void Player::move(std::string dir, AsciiArt * curr) {
     // check for staircase
     if (pos_check == '\\') {
         // notify the gameplay
-        floor++;
     }
 }
 

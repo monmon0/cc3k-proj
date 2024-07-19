@@ -5,15 +5,30 @@ PlayGame::PlayGame(Dungeon *d) : d{d} {}
 
 void PlayGame::play() {
     spawnPotions();
-    // spawnEnemies();
     // spawnTreasure();
+    // spawnEnemies();
 }
 
-void PlayGame::levelUp(int x, int y) {
+void PlayGame::levelUp() {
     // delete all decorator until player
-    // Decorator * curr = new Decorator(d->picture());
-    // curr = curr->next;
-    // d->picture() = curr;
+
+    destroyPotions();
+    // destroyEnemies();
+    // destroyTreasure();
+    // d->levelUp();
+
+    // NOTE: when enemies or potions its used, 
+    // in getChar(), using a boolean to track,
+    // if it false, return next
+}
+
+void PlayGame::destroyPotions() {
+    // delete all potions until player
+    for (int i = 0; i < 10; i++) {
+        d->picture() = first_P->nextChar();
+    }
+    first_P->nextChar() = nullptr;
+    first_P = nullptr;              // not sure if needed, prob not but eh
 }
 
 void PlayGame::end() {
@@ -24,33 +39,41 @@ void PlayGame::spawnPotions() {
     vector<string> names = {"RH", "BA", "BD", "PH", "WA", "WD"};
 
     for (int i = 0; i < 10; i++) {
-        int idx = rand() % 5;
+        int idx = rand() % 6;
         string name = names[idx];
 
-        // RandomPos random{curr};
-        // random.setPos();
-        int r1 = 79 % i;
-        int r2 = 35 % i;
+        RandomPos random{d};
+        random.setPos();
+        int r1 = random.getX();
+        int r2 = random.getY();
 
         if (name == "RH") {
             Potion * potion = new RH(d->picture(), r1, r2, name);
             d->picture() = potion;
+            if (i == 9) first_P = potion;
         } else if (name == "BA") {
             Potion * potion  = new BA(d->picture(), r1, r2, name);
             d->picture() = potion;
+            if (i == 9) first_P = potion;
         } else if (name == "BD") {
             Potion * potion  = new BD(d->picture(), r1, r2, name);
             d->picture() = potion;
+            if (i == 9) first_P = potion;
         } else if (name == "PH") {
             Potion * potion = new RH(d->picture(), r1, r2, name);
             d->picture() = potion;
+            if (i == 9) first_P = potion;
         } else if (name == "WA") {
             Potion * potion = potion = new RH(d->picture(), r1, r2, name);
             d->picture() = potion;
+            if (i == 9) first_P = potion;
         } else {
             Potion * potion = new WD(d->picture(), r1, r2, name);
             d->picture() = potion;
+            if (i == 9) first_P = potion;
         }
+
+        
     }
 }
 

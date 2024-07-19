@@ -19,6 +19,7 @@ int main() {
     PlayGame curr_g{&s};
     std::string command;
 
+
     Player * pc = new Vampire{s.picture(), 't', 4, 6, 10, 10, 10};
     s.picture() = pc;
 
@@ -31,7 +32,6 @@ int main() {
             
             // start game, spawn enemies, spawn potions
             curr_g.play();
-        
         } else if (command == "no" || command == "so" || command == "ea" 
                 || command == "we" || command == "ne" || command == "nw" 
                 || command == "se" || command =="sw") {
@@ -49,8 +49,9 @@ int main() {
             // attack enemies
 
         } else if (command == "lu") {   // for testing purposes, not actual command
-            curr_g.levelUp(pc->getX(), pc->getY());
-        }
+            curr_g.levelUp();
+            s.picture() = pc;
+        } 
         s.setAction(pc->getAnnouncement());
         s.render(pc);
     }

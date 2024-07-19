@@ -13,7 +13,7 @@ class Player : public Character {
 
     protected:
         int max_hp;         // Current Stat
-        int gold = 0, floor = 1;
+        int gold = 0;
         std::vector <Potion * > potions;
         bool levelUp;                       // check if at staircase
 
@@ -30,7 +30,6 @@ class Player : public Character {
         int getDef() { return def; }
         int getHP()  { return hp; }
         int getGold(){ return gold; }
-        int getFlr() { return floor; }
 
         void changeHP(int x) { hp += x;}
         void changeAtk(int x) { atk += x;}

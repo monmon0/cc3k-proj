@@ -1,0 +1,3 @@
+#include "gameplayfunc.h"
+
+Rand

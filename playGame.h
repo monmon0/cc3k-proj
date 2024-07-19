@@ -2,6 +2,7 @@
 #define PLAYGAME_H
 #include "asciiart.h"
 #include "Enemies.h"
+#include "decorator.h"
 #include "dungeon.h"
 #include "Potion.h"
 #include "Treasure.h"
@@ -14,15 +15,23 @@
 
 class PlayGame {
     Dungeon * d;
+    Enemy * first_E;
+    Potion * first_P;
+
     public:
         PlayGame(Dungeon * d);
-        ~PlayGame() = default; 
+        ~PlayGame() {delete first_E; delete first_P;}; 
         void spawnEnemies();
         void spawnPotions();
         void spawnTreasure();
         void play();
         void end();
-        void levelUp(int x, int y);
+
+        void levelUp();
+        void destroyPotions();
+        // destroyEnemies();
+        //destroyTreasure();
+        
 };
 
 #endif

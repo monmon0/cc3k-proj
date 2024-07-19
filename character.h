@@ -28,6 +28,7 @@ class Character : public Decorator {
         void changeHP(int damage);
         bool isDead();
         char getRace();
+        AsciiArt *&nextChar() {return next;}
 
         virtual char charAt(int row, int col, int tick) = 0;
 };

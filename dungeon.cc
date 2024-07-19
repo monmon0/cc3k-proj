@@ -13,15 +13,6 @@
 // reset for new chambers?
 void Dungeon::reset() { ticks = 0; }
 
-// void Dungeon::createEnemies() {
-//   for (int i = 2; i < 5; i++) {
-//     for (int j = 3; j < 5; j++) {
-//       Enemy * en = new Human(picture(), i, j); 
-//       picture() = en;
-//     }
-//   }
-// }
-
 void Dungeon::render(Player * player) {
   // draws current map
   // 79 x 25
@@ -51,7 +42,7 @@ void Dungeon::render(Player * player) {
   out << "Race: " << race << " Gold: " << player->getGold();
   // print spaces
   for (int i = 0; i < 54 - race.length(); i++) out << " ";
-  out << "Floor: " << player->getFlr() << std::endl;
+  out << "Floor: " << floor << std::endl;
   out << "HP: " << player->getHP() << std::endl;
   out << "Atk: " << player->getAtk() << std::endl;
   out << "Def: " << player->getDef() << std::endl;

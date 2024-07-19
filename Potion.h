@@ -32,6 +32,7 @@ class Potion: public Decorator {
 
         int getX() {return x;}
         int getY() {return y;}
+        AsciiArt *&nextChar() {return next;}
 
 };
 
