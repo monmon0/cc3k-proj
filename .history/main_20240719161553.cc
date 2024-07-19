@@ -11,6 +11,8 @@
 #include "gameplayfunc.h"
 #include <string>
 
+class Blank;
+
 
 int main() {
     // creating new Dungeon

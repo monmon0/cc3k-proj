@@ -8,7 +8,7 @@ void PlayGame::play() {
 
     spawnPotions();
     // spawnTreasure();
-    // spawnEnemies();
+    spawnEnemies();
 }
 
 void PlayGame::restart(Player * p) {
@@ -104,25 +104,25 @@ void PlayGame::spawnEnemies() {
         random.setPos();
 
         if (name == 'H') {
-            Human *hp = new Human(d->picture(), random.getX(), random.getY()); 
+            Enemy *hp = new Human(d->picture(), random.getX(), random.getY()); 
             d->picture() = hp;  
         } else if (name == 'W') {
-            Dwarf *wp = new Dwarf(d->picture(), random.getX(), random.getY()); 
+             *wp = new Dwarf(d->picture(), random.getX(), random.getY()); 
             d->picture() = wp; 
         } else if (name == 'E') {
-            Elf *ep = new Elf(d->picture(), random.getX(), random.getY()); 
+     *ep = new Elf(d->picture(), random.getX(), random.getY()); 
             d->picture() = ep; 
         } else if (name == 'O') {
-            Orc *op = new Orc(d->picture(), random.getX(), random.getY()); 
+     *op = new Orc(d->picture(), random.getX(), random.getY()); 
             d->picture() = op; 
         } else if (name == 'M') {
-            Merchant *mp = new Merchant(d->picture(), random.getX(), random.getY()); 
+            Mer *mp = new Merchant(d->picture(), random.getX(), random.getY()); 
             d->picture() = mp; 
         } else if (name == 'L') {
-            Halfling *lp = new Halfling(d->picture(), random.getX(), random.getY()); 
+            Hal *lp = new Halfling(d->picture(), random.getX(), random.getY()); 
             d->picture() = lp; 
         } else {
-            Dragon *dp = new Dragon(d->picture(), random.getX(), random.getY()); 
+            D *dp = new Dragon(d->picture(), random.getX(), random.getY()); 
             d->picture() = dp; 
         }
     }

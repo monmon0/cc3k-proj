@@ -9,8 +9,8 @@
 #include "Enemies.h"
 #include "playGame.h"
 #include "gameplayfunc.h"
-#include <string>
 
+#include <string>
 
 int main() {
     // creating new Dungeon
@@ -41,7 +41,9 @@ int main() {
             else if (command == "g") pc = new Goblin{s.picture(), 's', 4, 6, 110, 25, 15};
 
             s.picture() = pc;
-            // start game, spawn enemies, spawn potions  
+            // start game, spawn enemies, spawn potions
+            Human *hp = new Human(s.picture(), 40, 19); 
+            s.picture() = hp;  
             curr_g.play();
 
         } else if (command == "a") {   // attack
