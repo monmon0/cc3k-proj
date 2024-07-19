@@ -12,7 +12,7 @@ class Treasure: public Decorator {
         int y;
         int val;
     public:
-        Treasure(AsciiArt *next, int x, int y, int val);
+Treasure(AsciiArt *next, int x, int y, int val);
         char charAt(int x, int y, int tick) override;
         int getVal() const;
         static void deleteTreasure(Treasure *tr);
