@@ -59,7 +59,8 @@ void Player::move(std::string dir, AsciiArt * curr) {
 
     // check for staircase
     if (pos_check == '\\') {
-        // notify the gameplay
+        // notify to level up!
+        levelUp = true;
     }
 }
 
@@ -131,3 +132,4 @@ void Player::detach(Potion* o) {
     }
 }
 bool Player::isLevelUp() const { return levelUp;}
+void Player::toggleLevel() {levelUp = false;}

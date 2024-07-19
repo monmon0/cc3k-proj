@@ -14,7 +14,7 @@
 
 int main() {
     // creating new Dungeon
-    AsciiArt *floor = new Blank;
+    Blank *floor = new Blank;
     Dungeon s{floor};
     PlayGame curr_g{&s};
     std::string command;
@@ -67,11 +67,12 @@ int main() {
             std::string dir;
             std::cin >> dir;
             // use potion
+            
 
         } else if (command == "lu") {   // for testing purposes, not actual command
-            curr_g.levelUp();
-            s.picture() = pc;
-            curr_g.play();
+            curr_g.levelUp(pc);
+            floor->shuffleStaireCase();
+            s.setAction("Next Floor Unlocked! Good job! ");
         } 
 
         if (pc->isDead()) {
@@ -79,10 +80,9 @@ int main() {
             curr_g.end();
             break;
         } else if (pc->isLevelUp()) {
-            curr_g.levelUp();
-            s.picture() = pc;
-            curr_g.play();
-            s.setAction("Next Floor Unlocked! Good job!");
+            curr_g.levelUp(pc);
+            floor->shuffleStaireCase();
+            s.setAction("Next Floor Unlocked! Good job! ");
         }
 
         s.setAction(pc->getAnnouncement());

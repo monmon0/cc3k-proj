@@ -12,13 +12,13 @@ class Potion;
 class Player : public Character {
 
     protected:
-        int max_hp;         // Current Stat
-        int gold = 0;
+        int max_hp;         
+        int gold = 0;      
+        bool levelUp;      
         std::vector <Potion * > potions;
-        bool levelUp;                       // check if at staircase
 
     public:
-    // Constructor and destructor 
+        // Constructor and destructor 
         Player(AsciiArt *next, char race, int x, int y, int hp, int atk, int def);
         ~Player() = default;
         char charAt(int row, int col, int tick) override;
@@ -36,11 +36,12 @@ class Player : public Character {
         
         bool attack(std::string dir);      // Attack 
         void takePotion();
+        void toggleLevel();
+
 
         bool isLevelUp() const;
         void attach(Potion * o);
         void detach(Potion* o);
-
 }; 
 
 // -------------------------- Derived Class of other PC -------------------------- //

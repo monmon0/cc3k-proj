@@ -16,15 +16,18 @@ void PlayGame::end() {
 }
 
 
-void PlayGame::levelUp() {
+void PlayGame::levelUp(Player * p) {
     // delete all decorator until player
 
     destroyPotions();
     // destroyEnemies();
     // destroyTreasure();
-    d->levelUp();
     // spawnTreasure();
     // spawnEnemies();
+    d->levelUp();
+    p->toggleLevel();
+    d->picture() = p;
+    play();
 
     // NOTE: when enemies or potions its used, 
     // in getChar(), using a boolean to track,

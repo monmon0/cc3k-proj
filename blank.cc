@@ -29,7 +29,12 @@ char Blank::charAt(int row, int col, int tick) {
 |  |---------+-----------|          |---------------------------------------| |\
 |                                                                             |\
 |-----------------------------------------------------------------------------|";
-
+    if (row == y && col == x) return '\\';
     return DungeonMap[row * 79 + col]; 
 } 
 
+
+void Blank::shuffleStaireCase() {
+    x = 6;
+    y = 6;
+}

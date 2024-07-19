@@ -26,11 +26,10 @@ class PlayGame {
         void spawnTreasure();
         void play();
         void end();
-
-        void levelUp();
+        void levelUp(Player * p);
         void destroyPotions();
         // destroyEnemies();
-        //destroyTreasure();
+        // destroyTreasure();
         
 };
 
