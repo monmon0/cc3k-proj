@@ -18,18 +18,29 @@ int main() {
     Dungeon s{floor};
     PlayGame curr_g{&s};
     std::string command;
+    Player * pc;
 
+    // --------------- START GAME ------------------------- //
+    std::cout << "                                              " << std::endl
+              << "                                              " << std::endl
+              << "WELCOME to SYLVIA, EASON & MONICA CC3k DUNGEON" << std::endl
+    << "Please start by entering one of the following command to choose your hero:"
+    << "(s): Shade, (d): Drow, (v): Vampire, (g):Goblin, (t):Troll" << std::endl;
 
-    Player * pc = new Vampire{s.picture(), 't', 4, 6, 10, 10, 10};
-    s.picture() = pc;
-
+    // ---------------  COMMAND --------------------------- //
     while (std::cin >> command) {
         s.clearAction();
         //  s, d, v, g, t:
         if (command == "s" || command == "d" ||command == "v" 
         || command == "g" || command == "t") {
             // set races
-            
+            if (command == "s") pc = new Shade{s.picture(), 's', 4, 6, 10, 10, 10};
+            else if (command == "d") pc = new Drow{s.picture(), 's', 4, 6, 10, 10, 10};
+            else if (command == "v") pc = new Vampire{s.picture(), 's', 4, 6, 10, 10, 10};
+            else if (command == "g") pc = new Goblin{s.picture(), 's', 4, 6, 10, 10, 10};
+            else if (command == "t") pc = new Troll{s.picture(), 's', 4, 6, 10, 10, 10};
+
+            s.picture() = pc;
             // start game, spawn enemies, spawn potions
             curr_g.play();
 
