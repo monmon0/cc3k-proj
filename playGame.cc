@@ -5,10 +5,9 @@ using namespace std;
 PlayGame::PlayGame(Dungeon *d) : d{d} {}
 
 void PlayGame::play() {
-
     spawnPotions();
     // spawnTreasure();
-    // spawnEnemies();
+    spawnEnemies();
 }
 
 void PlayGame::restart(Player * p) {
@@ -19,21 +18,18 @@ void PlayGame::restart(Player * p) {
     // command and restart stat
     if (command == "s") p->restartSettings('s', 125, 25, 15);
     else if (command == "d") p->restartSettings('d', 150, 25, 15);
-    else if (command == "v") p->restartSettings( 'v', 50, 25, 5);
+    else if (command == "v") p->restartSettings('v', 50, 25, 5);
     else if (command == "t") p->restartSettings('t', 120, 25, 15);
     else if (command == "g") p->restartSettings( 'g', 110, 25, 15);
-
-
 }
 
 void PlayGame::levelUp(Player * p) {
     // delete all decorator until player
 
-    destroyPotions();
     // destroyEnemies();
     // destroyTreasure();
-    // spawnTreasure();
-    // spawnEnemies();
+    destroyPotions();
+ 
     d->levelUp();
     p->toggleLevel();
     d->picture() = p;
@@ -52,8 +48,7 @@ void PlayGame::destroyPotions() {
     first_P->nextChar() = nullptr;
 }
 
-void PlayGame::spawnPotions() {
-    
+void PlayGame::spawnPotions() {    
     vector<string> names = {"RH", "BA", "BD", "PH", "WA", "WD"};
 
     for (int i = 0; i < 10; i++) {
@@ -62,12 +57,13 @@ void PlayGame::spawnPotions() {
 
         RandomPos random{d};
         random.setPos();
-        int r1 = random.getX();
-        int r2 = random.getY();
+        int r1 = rand() % 79;
+        int r2 = rand() % 25;
 
         if (name == "RH") {
-            Potion * potion = new RH(d->picture(), r r2, name);
+            Potion * potion = new RH(d->picture(), r1, r2, name);
             d->picture() = potion;
+
             if (i == 9) first_P = potion;
         } else if (name == "BA") {
             Potion * potion  = new BA(d->picture(), r1, r2, name);
@@ -90,6 +86,7 @@ void PlayGame::spawnPotions() {
             d->picture() = potion;
             if (i == 9) first_P = potion;
         }
+        std::cout << name << std::endl;
     }
 }
 
@@ -100,11 +97,11 @@ void PlayGame::spawnEnemies() {
         int idx = rand() % 6;
         char name = characters[idx];
 
-        RandomPos random{d};
-        random.setPos();
+        // RandomPos random{d};
+        // random.setPos();
         
-        int r1 = 79 % i;
-        int r2 = 25 % i;
+        int r1 = 4 + (i * 2);
+        int r2 = 4;
 
         if (name == 'H') {
             Human *hp = new Human(d->picture(), r1, r2); 
