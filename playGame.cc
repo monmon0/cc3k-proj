@@ -9,13 +9,20 @@ void PlayGame::play() {
     // spawnEnemies();
 }
 
+void PlayGame::end() {
+    destroyPotions();
+    // destroyEnemies();
+    // destroyTreasure();
+}
+
+
 void PlayGame::levelUp() {
     // delete all decorator until player
 
     destroyPotions();
     // destroyEnemies();
     // destroyTreasure();
-    // d->levelUp();
+    d->levelUp();
 
     // NOTE: when enemies or potions its used, 
     // in getChar(), using a boolean to track,
@@ -31,9 +38,6 @@ void PlayGame::destroyPotions() {
     first_P = nullptr;              // not sure if needed, prob not but eh
 }
 
-void PlayGame::end() {
-    delete d;
-}
 void PlayGame::spawnPotions() {
    
     vector<string> names = {"RH", "BA", "BD", "PH", "WA", "WD"};

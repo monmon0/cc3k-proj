@@ -32,6 +32,7 @@ int main() {
             
             // start game, spawn enemies, spawn potions
             curr_g.play();
+
         } else if (command == "no" || command == "so" || command == "ea" 
                 || command == "we" || command == "ne" || command == "nw" 
                 || command == "se" || command =="sw") {
@@ -52,6 +53,18 @@ int main() {
             curr_g.levelUp();
             s.picture() = pc;
         } 
+        
+        
+        if (pc->isDead()) {
+            std::cout << "womp womp" << std::endl;
+            curr_g.end();
+            break;
+        } else if (pc->isLevelUp()) {
+            curr_g.levelUp();
+            s.picture() = pc;
+            s.setAction("Next Floor Unlocked! Good job!");
+        }
+
         s.setAction(pc->getAnnouncement());
         s.render(pc);
     }
