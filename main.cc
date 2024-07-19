@@ -79,8 +79,7 @@ int main() {
         }
 
         if (pc->isDead() || command == "q") {
-            std::cout << "womp womp" << std::endl;
-            // curr_g.end();
+            std::cout << "Womp Womp" << std::endl;
             break;
         } else if (pc->isLevelUp()) {
             curr_g.levelUp(pc);
