@@ -1,75 +1,56 @@
 #include "Enemies.h"
 
-// Enemy class implementation
-Enemy::Enemy(AsciiArt *next, char id, int x, int y, int hp, int atk, int def)
-    : Decorator(next), ID{id}, xCoord{x}, yCoord{y}, hp{hp}, atk{atk}, def{def} {}
-
-// Human class implementation
-Human::Human(AsciiArt *next, int xCoord, int yCoord)
-    : Enemy(next, 'H', xCoord, yCoord, 140, 20, 20) {
+char Enemy::charAt(int row, int col, int tick) {
+    if (col == x && row == y) {
+        switch(getRace()) {
+            case 'H': return 'H'; 
+            case 'W': return 'W'; 
+            case 'E': return 'E'; 
+            case 'O': return 'O';
+            case 'M': return 'M';
+            case 'D': return 'D'; 
+            case 'L': return 'L'; 
+            }
+    } else {
+        return charAt(row, col, tick); 
+    }
 }
 
-char Human::charAt(int row, int col, int tick) {
-    if (row == yCoord && col == xCoord) return getState(); 
-    return next->charAt(row, col, tick); 
+// Enemy class implementation
+Enemy::Enemy(AsciiArt *next, char id, int x, int y, int hp, int atk, int def)
+    : Character(next, id, x, y, hp, atk, def) {}
+
+// Human class implementation
+Human::Human(AsciiArt *next, int x, int y)
+    : Enemy(next, 'H', x, y, 140, 20, 20) {
 }
 
 // Dwarf class implementation
-Dwarf::Dwarf(AsciiArt *next, int xCoord, int yCoord)
-    : Enemy(next, 'W', xCoord, yCoord, 100, 20, 30) {
-}
-
-char Dwarf::charAt(int row, int col, int tick) {
-    if (row == yCoord && col == xCoord) return getState(); 
-    return next->charAt(row, col, tick); 
+Dwarf::Dwarf(AsciiArt *next, int x, int y)
+    : Enemy(next, 'W', x, y, 100, 20, 30) {
 }
 
 // Elf class implementation
-Elf::Elf(AsciiArt *next, int xCoord, int yCoord)
-    : Enemy(next, 'E', xCoord, yCoord, 140, 30, 10) {
-}
-
-char Elf::charAt(int row, int col, int tick) {
-    if (row == yCoord && col == xCoord) return getState(); 
-    return next->charAt(row, col, tick); 
+Elf::Elf(AsciiArt *next, int x, int y)
+    : Enemy(next, 'E', x, y, 140, 30, 10) {
 }
 
 // Orc class implementation
-Orc::Orc(AsciiArt *next, int xCoord, int yCoord)
-    : Enemy(next, 'O', xCoord, yCoord, 180, 30, 25) {
-}
-
-char Orc::charAt(int row, int col, int tick) {
-    if (row == yCoord && col == xCoord) return getState(); 
-    return next->charAt(row, col, tick); 
+Orc::Orc(AsciiArt *next, int x, int y)
+    : Enemy(next, 'O', x, y, 180, 30, 25) {
 }
 
 // Merchant class implementation
-Merchant::Merchant(AsciiArt *next, int xCoord, int yCoord)
-    : Enemy(next, 'M', xCoord, yCoord, 30, 70, 5) {
-}
-
-char Merchant::charAt(int row, int col, int tick) {
-    if (row == yCoord && col == xCoord) return getState(); 
-    return next->charAt(row, col, tick); 
+Merchant::Merchant(AsciiArt *next, int x, int y)
+    : Enemy(next, 'M', x, y, 30, 70, 5) {
 }
 
 // Dragon class implementation
-Dragon::Dragon(AsciiArt *next, int xCoord, int yCoord)
-    : Enemy(next, 'D', xCoord, yCoord, 150, 20, 20) {
-}
-
-char Dragon::charAt(int row, int col, int tick) {
-    if (row == yCoord && col == xCoord) return getState(); 
-    return next->charAt(row, col, tick); 
+Dragon::Dragon(AsciiArt *next, int x, int y)
+    : Enemy(next, 'D', x, y, 150, 20, 20) {
 }
 
 // Halfling class implementation
-Halfling::Halfling(AsciiArt *next, int xCoord, int yCoord)
-    : Enemy(next, 'L', xCoord, yCoord, 100, 15, 20) {
-}
-
-char Halfling::charAt(int row, int col, int tick) {
-    if (row == yCoord && col == xCoord) return getState(); 
-    return next->charAt(row, col, tick); 
+Halfling::Halfling(AsciiArt *next, int x, int y)
+    : Enemy(next, 'L', x, y, 100, 15, 20) {
 }

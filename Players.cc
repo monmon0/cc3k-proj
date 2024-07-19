@@ -5,8 +5,8 @@
 #include "Potion.h"
 #include <string>
 
-Player::Player(char race, AsciiArt *next, int x, int y, int hp, int atk, int def): 
-    Decorator{next}, race{race} ,x{x}, y{y}, hp{hp}, atk{atk}, def{def} {
+Player::Player(AsciiArt *next, char race, int x, int y, int hp, int atk, int def): 
+    Character(next, race, x, y, hp, atk, def) {
         if (race != 'v') max_hp = INT_MAX;
         else max_hp = hp;
 }
@@ -56,11 +56,10 @@ void Player::move(std::string dir, AsciiArt * curr) {
         if (max_hp > hp) hp += 5;
         else hp = max_hp;
     }
-    // check to see if theres unknown potion?
 
     // check for staircase
     if (pos_check == '\\') {
-        // notify the dungeon
+        // notify the gameplay
         floor++;
     }
 }

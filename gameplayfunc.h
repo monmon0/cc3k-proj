@@ -1,3 +1,5 @@
+#ifndef GAME_PLAY_FUNC_H
+#define GAME_PLAY_FUNC_H
 #include <stdlib.h>
 #include "asciiart.h"
 #include <cstdlib>
@@ -64,3 +66,5 @@ class RandomPos {
 
 
 };
+
+#endif
