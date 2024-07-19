@@ -11,7 +11,6 @@ Player::Player(AsciiArt *next, char race, int x, int y, int hp, int atk, int def
         else max_hp = hp;
 }
 
-
 void Player::move(std::string dir, AsciiArt * curr) {
     // no,so,ea,we,ne,nw,se,sw
     // new block 
@@ -62,6 +61,21 @@ void Player::move(std::string dir, AsciiArt * curr) {
         // notify to level up!
         levelUp = true;
     }
+}
+
+void Player::restartSettings(char n_race, int n_hp, int n_atk, int n_def) {
+    race = race;
+    hp = n_hp;
+    atk = n_atk;
+    def = n_def;
+    gold = 0;
+    hp = hp;
+    if (race == 'v') max_hp = INT_MAX;
+    else max_hp = hp;
+
+    // empty potions
+    // make sure to detroy
+    // for (auto it = potions.begin(), potion)
 }
 
 char Player::charAt(int row, int col, int tick) {

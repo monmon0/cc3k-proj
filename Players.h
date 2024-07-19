@@ -32,12 +32,12 @@ class Player : public Character {
         std::string dirToString(std::string dir);
 
         int getMaxHP() {return max_hp;}
-        int getGold() const { return gold; }
+        int getGold() const { return gold;}
         
         bool attack(std::string dir);      // Attack 
         void takePotion();
         void toggleLevel();
-
+        void restartSettings(char n_race, int n_hp, int n_atk, int n_def);
 
         bool isLevelUp() const;
         void attach(Potion * o);

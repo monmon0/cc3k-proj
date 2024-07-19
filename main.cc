@@ -67,17 +67,20 @@ int main() {
             std::string dir;
             std::cin >> dir;
             // use potion
-            
 
         } else if (command == "lu") {   // for testing purposes, not actual command
             curr_g.levelUp(pc);
             floor->shuffleStaireCase();
             s.setAction("Next Floor Unlocked! Good job! ");
-        } 
+        } else if (command == "f" ) {   // use potion
+            
+        }  else if (command == "r" ) {   // use potion
+            curr_g.restart(pc);
+        }
 
-        if (pc->isDead()) {
+        if (pc->isDead() || command == "q") {
             std::cout << "womp womp" << std::endl;
-            curr_g.end();
+            // curr_g.end();
             break;
         } else if (pc->isLevelUp()) {
             curr_g.levelUp(pc);
