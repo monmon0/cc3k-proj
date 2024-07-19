@@ -23,7 +23,7 @@ class PlayGame {
         ~PlayGame() = default; 
         void spawnEnemies();
         void spawnPotions();
-        void spawnTreasure();
+        // void spawnTreasure();
         void play();
         void end();
         void levelUp(Player * p);

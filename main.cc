@@ -9,12 +9,12 @@
 #include "Enemies.h"
 #include "playGame.h"
 #include "gameplayfunc.h"
-
 #include <string>
+
 
 int main() {
     // creating new Dungeon
-    Blank *floor = new Blank;
+    Blank *floor = new Blank("map.txt");
     Dungeon s{floor};
     PlayGame curr_g{&s};
     std::string command;
@@ -41,7 +41,7 @@ int main() {
             else if (command == "g") pc = new Goblin{s.picture(), 's', 4, 6, 110, 25, 15};
 
             s.picture() = pc;
-            // start game, spawn enemies, spawn potions
+            // start game, spawn enemies, spawn potions  
             curr_g.play();
 
         } else if (command == "a") {   // attack
@@ -79,8 +79,7 @@ int main() {
         }
 
         if (pc->isDead() || command == "q") {
-            std::cout << "womp womp" << std::endl;
-            // curr_g.end();
+            std::cout << "Womp Womp" << std::endl;
             break;
         } else if (pc->isLevelUp()) {
             curr_g.levelUp(pc);
