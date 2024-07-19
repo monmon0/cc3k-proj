@@ -1,11 +1,5 @@
 #ifndef PLAYGAME_H
 #define PLAYGAME_H
-<<<<<<< HEAD
-class PlayGame {
-    
-    
-}
-=======
 #include "asciiart.h"
 #include "Enemies.h"
 #include "dungeon.h"
@@ -21,7 +15,7 @@ class PlayGame {
 class PlayGame {
     Dungeon * d;
     public:
-        PlayGame(Dungeon *curr);
+        PlayGame(Dungeon * d);
         ~PlayGame() = default; 
         void spawnEnemies();
         void spawnPotions();
@@ -30,6 +24,5 @@ class PlayGame {
         void end();
         void levelUp(int x, int y);
 };
->>>>>>> ee97655c5ebad27c50558f4eba64aab97d4a9747
 
 #endif

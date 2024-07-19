@@ -16,7 +16,7 @@ int main() {
     // creating new Dungeon
     AsciiArt *floor = new Blank;
     Dungeon s{floor};
-    PlayGame current_game{&s};
+    PlayGame curr_g{&s};
     std::string command;
 
     Player * pc = new Vampire{s.picture(), 't', 4, 6, 10, 10, 10};
@@ -30,7 +30,7 @@ int main() {
             // set races
             
             // start game, spawn enemies, spawn potions
-            current_game.play();
+            curr_g.play();
         
         } else if (command == "no" || command == "so" || command == "ea" 
                 || command == "we" || command == "ne" || command == "nw" 
@@ -38,18 +38,18 @@ int main() {
 
             pc->move(command, s.picture());
 
-        } else if (command == "u" ) {
+        } else if (command == "u" ) {   // use potion
             std::string dir;
             std::cin >> dir;
             // use potion
 
-        } else if (command == "a" ) {
+        } else if (command == "a" ) {   // attack
             std::string dir;
             std::cin >> dir;
             // attack enemies
 
-        } else if (command == "lu") {
-            current_game.levelUp(pc->getX(), pc->getY());
+        } else if (command == "lu") {   // for testing purposes, not actual command
+            curr_g.levelUp(pc->getX(), pc->getY());
         }
         s.setAction(pc->getAnnouncement());
         s.render(pc);

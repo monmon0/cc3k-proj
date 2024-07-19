@@ -1,7 +1,7 @@
 #include "playGame.h"
 using namespace std;
 
-PlayGame::PlayGame(Dungeon *curr) : d{curr} {}
+PlayGame::PlayGame(Dungeon *d) : d{d} {}
 
 void PlayGame::play() {
     spawnPotions();
@@ -16,6 +16,9 @@ void PlayGame::levelUp(int x, int y) {
     // d->picture() = curr;
 }
 
+void PlayGame::end() {
+    delete d;
+}
 void PlayGame::spawnPotions() {
    
     vector<string> names = {"RH", "BA", "BD", "PH", "WA", "WD"};
@@ -60,28 +63,29 @@ void PlayGame::spawnEnemies() {
     // std::shuffle(characters.begin(), characters.end(), g);
 
     // random.setPos();
+    
     // if (characters[0] == 'H') {
         
-    //     Human *hp = new Human(curr, random.getX(), random.getY()); 
-    //     curr = hp;  
+    //     Human *hp = new Human( d->picture() , random.getX(), random.getY()); 
+    //     d->picture() = hp;  
     // } else if (characters[0] == 'W') {
-    //     Dwarf *wp = new Dwarf(curr, random.getX(), random.getY()); 
-    //     curr = wp; 
+    //     Dwarf *wp = new Dwarf( d->picture() , random.getX(), random.getY()); 
+    //     d->picture()  = wp; 
     // } else if (characters[0] == 'E') {
-    //     Elf *ep = new Elf(curr, random.getX(), random.getY()); 
-    //     curr = ep; 
+    //     Elf *ep = new Elf( d->picture() , random.getX(), random.getY()); 
+    //     d->picture()  = ep; 
     // } else if (characters[0] == 'O') {
     //     Orc *op = new Orc(curr, random.getX(), random.getY()); 
-    //     curr = op; 
+    //     d->picture()  = op; 
     // } else if (characters[0] == 'M') {
-    //     Merchant *mp = new Merchant(curr, random.getX(), random.getY()); 
-    //     curr = mp; 
+    //     Merchant *mp = new Merchant( d->picture() , random.getX(), random.getY()); 
+    //     d->picture()  = mp; 
     // } else if (characters[0] == 'L') {
-    //     Halfling *lp = new Halfling(curr, random.getX(), random.getY()); 
-    //     curr = lp; 
+    //     Halfling *lp = new Halfling( d->picture() , random.getX(), random.getY()); 
+    //     d->picture()  = lp; 
     // } else if (characters[0] == 'D') {
-    //     Dragon *dp = new Dragon(curr, random.getX(), random.getY()); 
-    //     curr = dp; 
+    //     Dragon *dp = new Dragon( d->picture() , random.getX(), random.getY()); 
+    //     d->picture()  = dp; 
     // }
 }
 
