@@ -106,26 +106,39 @@ void PlayGame::spawnEnemies() {
         if (name == 'H') {
             Human *hp = new Human(d->picture(), r1, r2); 
             d->picture() = hp;  
+            eVec.emplace_back(hp);
         } else if (name == 'W') {
             Dwarf *wp = new Dwarf(d->picture(), r1, r2); 
             d->picture() = wp; 
+            eVec.emplace_back(wp);
         } else if (name == 'E') {
             Elf *ep = new Elf(d->picture(),r1, r2); 
             d->picture() = ep; 
+            eVec.emplace_back(ep);
         } else if (name == 'O') {
             Orc *op = new Orc(d->picture(), r1, r2); 
             d->picture() = op; 
+            eVec.emplace_back(op);
         } else if (name == 'M') {
             Merchant *mp = new Merchant(d->picture(), r1, r2); 
             d->picture() = mp; 
+            eVec.emplace_back(mp);
         } else if (name == 'L') {
             Halfling *lp = new Halfling(d->picture(), r1, r2); 
             d->picture() = lp; 
+            eVec.emplace_back(lp);
         } else {
             Dragon *dp = new Dragon(d->picture(), r1, r2); 
             d->picture() = dp; 
+            eVec.emplace_back(dp);
         }
     }
+}
+
+void moveEnemies() {
+    // for (auto e : eVec) {
+    //     e->move(); 
+    // }
 }
 
 

@@ -85,34 +85,8 @@ char Player::charAt(int row, int col, int tick) {
     return next->charAt(row, col, tick);
 }
 
-bool Player::attack(std::string dir) {
-    //  Damage(Def ender) = ceiling((100/(100 + Def (Def ender))) ∗ Atk(Attacker))
-    int cor_x = 0;
-    int cor_y = 0;
-    int found = 0;
-    // specify opponent
-    for (; cor_x <= 8 && x + cor_x < 79; cor_x++) {
-        for (; cor_y <= 8 && y + cor_y < 25; cor_y++) {
-            char curr = next->charAt(y + cor_y, x + cor_x, 1);
-            if (curr == 'H' || curr == 'W' || curr == 'O' || curr == 'M' || curr == 'D' || curr == 'L') {
-                found = 1;
-                break;
-            };
-        }
-    }
-    if (found) {
-        int damage = 0;
-        announcement = "PC deals " + std::to_string(damage) + " damage to " + "(? HP)";
-        // deal damage to opponent
-        
-        // increase HP for vampire after sucessful attack
-        if (race == 'v')  hp += 5;
-        return 1;
-    }
-    else {
-        announcement = "PC didn't attack successfully. ";
-        return 0;
-    }
+bool Player::attack(bool hit) {
+    if (hit && race == 'v') hp += 5; 
 };
 
 std::string Player::dirToString(std::string dir) {

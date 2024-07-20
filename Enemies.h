@@ -9,6 +9,9 @@
 
 #include <string>
 #include <vector>
+#include <cstdlib> 
+#include <algorithm>
+#include <random>
 
 class Enemy : public Character {
 public:
@@ -16,8 +19,8 @@ public:
 
     ~Enemy() = default; 
 
-    void moveX(int dx) { x += dx; }
-    void moveY(int dy) { y += dy; }
+    bool fPressed = false; 
+    void move();
     bool isDead() { return hp <= 0; }
     void attack(Player& pc) { pc.changeHP(-getAtk()); }
     char charAt(int row, int col, int tick) override;

@@ -20,6 +20,18 @@ char Enemy::charAt(int row, int col, int tick) {
     }
 }
 
+void Enemy::move() {
+    int arr[] = {-1, 0, 1};
+    if (! fPressed) {
+        unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+        std::default_random_engine engine(seed);
+        std::shuffle(arr, arr + sizeof(arr) / sizeof(arr[0]), engine); 
+        x += arr[0]; 
+        std::shuffle(arr, arr + sizeof(arr) / sizeof(arr[0]), engine); 
+        y += arr[0]; 
+    } 
+}
+
 // Implement constructors for derived classes
 Human::Human(AsciiArt *next, int xCoord, int yCoord)
     : Enemy(next, 'H', xCoord, yCoord, 140, 20, 20) {}

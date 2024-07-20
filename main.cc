@@ -23,7 +23,7 @@ int main() {
     // --------------- START GAME ------------------------- //
     std::cout << "                                              " << std::endl
               << "                                              " << std::endl
-              << "WELCOME to SYLVIA, EASON & MONICA CC3k DUNGEON" << std::endl
+              << "WELCOME to SYLVIA, EASON & MONICA CC3k" << std::endl
     << "Please start by entering one of the following command to choose your hero:"
     << "(s): Shade, (d): Drow, (v): Vampire, (g):Goblin, (t):Troll" << std::endl;
 
@@ -32,7 +32,7 @@ int main() {
         s.clearAction();
         //  s, d, v, g, t:
         if (command == "s" || command == "d" ||command == "v" 
-        || command == "g" || command == "t") {
+         || command == "g" || command == "t") {
             // set races
             if (command == "s") pc = new Shade{s.picture(), 's', 4, 6, 125, 25, 15};
             else if (command == "d") pc = new Drow{s.picture(), 's', 4, 6, 150, 25, 15};
@@ -46,16 +46,12 @@ int main() {
 
         } else if (command == "a") {   // attack
             std::cout << "Please specify direction" << std::endl;
-
             std::string dir;
             std::cin >> dir;
             // attack enemies
-            bool atk = pc->attack(dir);
-
-            if (!atk) {
-                s.setAction(pc->getAnnouncement());
-                pc->move(dir, s.picture());
-            } 
+            bool hit = 0;       // eason will write attack enemy function in gameplay here
+            if (hit) pc->attack(hit);
+            else pc->move(dir, s.picture());
 
         } else if (command == "no" || command == "so" || command == "ea" 
                 || command == "we" || command == "ne" || command == "nw" 
@@ -86,7 +82,6 @@ int main() {
             floor->shuffleStaireCase();
             s.setAction("Next Floor Unlocked! Good job! ");
         }
-
         s.setAction(pc->getAnnouncement());
         s.render(pc);
     }
