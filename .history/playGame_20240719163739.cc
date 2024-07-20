@@ -5,9 +5,10 @@ using namespace std;
 PlayGame::PlayGame(Dungeon *d) : d{d} {}
 
 void PlayGame::play() {
+
     spawnPotions();
     // spawnTreasure();
-    spawnEnemies();
+    // spawnEnemies();
 }
 
 void PlayGame::restart(Player * p) {
@@ -18,18 +19,21 @@ void PlayGame::restart(Player * p) {
     // command and restart stat
     if (command == "s") p->restartSettings('s', 125, 25, 15);
     else if (command == "d") p->restartSettings('d', 150, 25, 15);
-    else if (command == "v") p->restartSettings('v', 50, 25, 5);
+    else if (command == "v") p->restartSettings( 'v', 50, 25, 5);
     else if (command == "t") p->restartSettings('t', 120, 25, 15);
     else if (command == "g") p->restartSettings( 'g', 110, 25, 15);
+
+
 }
 
 void PlayGame::levelUp(Player * p) {
     // delete all decorator until player
 
+    destroyPotions();
     // destroyEnemies();
     // destroyTreasure();
-    destroyPotions();
- 
+    // spawnTreasure();
+    // spawnEnemies();
     d->levelUp();
     p->toggleLevel();
     d->picture() = p;
@@ -48,7 +52,8 @@ void PlayGame::destroyPotions() {
     first_P->nextChar() = nullptr;
 }
 
-void PlayGame::spawnPotions() {    
+void PlayGame::spawnPotions() {
+    
     vector<string> names = {"RH", "BA", "BD", "PH", "WA", "WD"};
 
     for (int i = 0; i < 10; i++) {
@@ -57,13 +62,12 @@ void PlayGame::spawnPotions() {
 
         RandomPos random{d};
         random.setPos();
-        int r1 = rand() % 79;
-        int r2 = rand() % 25;
+        int r1 = random.getX();
+        int r2 = random.getY();
 
         if (name == "RH") {
-            Potion * potion = new RH(d->picture(), r1, r2, name);
+            Potion * potion = new RH(d->picture(), r r2, name);
             d->picture() = potion;
-
             if (i == 9) first_P = potion;
         } else if (name == "BA") {
             Potion * potion  = new BA(d->picture(), r1, r2, name);
@@ -86,61 +90,45 @@ void PlayGame::spawnPotions() {
             d->picture() = potion;
             if (i == 9) first_P = potion;
         }
-        std::cout << name << std::endl;
     }
 }
 
 void PlayGame::spawnEnemies() {
     vector<char> characters = {'H', 'W', 'E', 'O', 'M', 'L'};
 
-    srand(time(0));
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < 10; i++) {
         int idx = rand() % 6;
-        cout << idx << endl; 
         char name = characters[idx];
 
-        // RandomPos random{d};
-        // random.setPos();
+        RandomPos random{d};
+        random.setPos();
         
-        int r1 = 4 + (i * 2);
-        int r2 = 4;
+        int r1 = rand() % 79;
+        int r2 = rand() % ;
 
         if (name == 'H') {
-            Enemy *hp = new Human(d->picture(), r1, r2); 
+            Human *hp = new Human(d->picture(), r1, r2); 
             d->picture() = hp;  
-            eVec.emplace_back(hp);
         } else if (name == 'W') {
-            Enemy *wp = new Dwarf(d->picture(), r1, r2); 
+            Dwarf *wp = new Dwarf(d->picture(), r1, r2); 
             d->picture() = wp; 
-            eVec.emplace_back(wp);
         } else if (name == 'E') {
-            Enemy *ep = new Elf(d->picture(),r1, r2); 
+            Elf *ep = new Elf(d->picture(),r1, r2); 
             d->picture() = ep; 
-            eVec.emplace_back(ep);
         } else if (name == 'O') {
-            Enemy *op = new Orc(d->picture(), r1, r2); 
+            Orc *op = new Orc(d->picture(), r1, r2); 
             d->picture() = op; 
-            eVec.emplace_back(op);
         } else if (name == 'M') {
-            Enemy *mp = new Merchant(d->picture(), r1, r2); 
+            Merchant *mp = new Merchant(d->picture(), r1, r2); 
             d->picture() = mp; 
-            eVec.emplace_back(mp);
         } else if (name == 'L') {
-            Enemy *lp = new Halfling(d->picture(), r1, r2); 
+            Halfling *lp = new Halfling(d->picture(), r1, r2); 
             d->picture() = lp; 
-            eVec.emplace_back(lp);
         } else {
-            Enemy *dp = new Dragon(d->picture(), r1, r2); 
+            Dragon *dp = new Dragon(d->picture(), r1, r2); 
             d->picture() = dp; 
-            eVec.emplace_back(dp);
         }
     }
-}
-
-void moveEnemies() {
-    // for (auto e : eVec) {
-    //     e->move(); 
-    // }
 }
 
 
