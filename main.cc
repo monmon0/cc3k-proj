@@ -8,9 +8,9 @@
 #include "Players.h"
 #include "Enemies.h"
 #include "playGame.h"
-#include "randomGenerator.h"
+#include "PRNG.h"
+#include "checkCoord.h"
 #include <string>
-
 
 int main() {
     // creating new Dungeon
@@ -36,11 +36,17 @@ int main() {
             if (command == "s" || command == "d" ||command == "v" 
                 || command == "g" || command == "t") {
                 // set races
-                if (command == "s") pc = new Shade{s.picture(), 's', 4, 6, 125, 25, 15};
-                else if (command == "d") pc = new Drow{s.picture(), 's', 4, 6, 150, 25, 15};
-                else if (command == "v") pc = new Vampire{s.picture(), 's', 4, 6, 50, 25, 5};
-                else if (command == "t") pc = new Troll{s.picture(), 's', 4, 6, 120, 25, 15};
-                else if (command == "g") pc = new Goblin{s.picture(), 's', 4, 6, 110, 25, 15};
+
+                uint32_t seed = getpid();
+                CheckCoord c{&s, seed}; 
+                c.setPos(); 
+                int r1 = c.getX(), r2 = c.getY();
+
+                if (command == "s") pc = new Shade{s.picture(), 's', r1, r2, 125, 25, 15};
+                else if (command == "d") pc = new Drow{s.picture(), 's', r1, r2, 150, 25, 15};
+                else if (command == "v") pc = new Vampire{s.picture(), 's', r1, r2, 50, 25, 5};
+                else if (command == "t") pc = new Troll{s.picture(), 's', r1, r2, 120, 25, 15};
+                else if (command == "g") pc = new Goblin{s.picture(), 's', r1, r2, 110, 25, 15};
 
                 s.picture() = pc;
                 // start game, spawn enemies, spawn potions  
@@ -65,20 +71,23 @@ int main() {
             } else if (command == "no" || command == "so" || command == "ea" 
                     || command == "we" || command == "ne" || command == "nw" 
                     || command == "se" || command =="sw") {
-
                 pc->move(command, s.picture());
 
             } else if (command == "u" ) {   // use potion
                 std::string dir;
                 std::cin >> dir;
                 // use potion
-            
+
             } else if (command == "lu") {   // for testing purposes, not actual command
                 curr_g.levelUp(pc);
-                floor->shuffleStaireCase();
                 s.setAction("Next Floor Unlocked! Good job! ");
             } else if (command == "f" ) {   // use potion
                 
+            } else if (command == "lu") {   // for testing purposes, not actual command
+                curr_g.levelUp(pc);
+                s.setAction("Next Floor Unlocked! Good job! ");
+            } else if (command == "f" ) {   // use potion
+                    
             }  else if (command == "r" ) {   // restart game
                 curr_g.restart(pc);
                 initialized = 0;
@@ -105,7 +114,6 @@ int main() {
             }
             else if (pc->isLevelUp()) {
                 curr_g.levelUp(pc);
-                floor->shuffleStaireCase();
                 s.setAction("Next Floor Unlocked! Good job! ");
             }
             s.setAction(pc->getAnnouncement());

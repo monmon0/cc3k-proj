@@ -120,4 +120,8 @@ void Player::detach(Potion* o) {
     }
 }
 bool Player::isLevelUp() const { return levelUp;}
-void Player::toggleLevel() {levelUp = false;}
+void Player::nextLevel(int n_x, int n_y) {
+    levelUp = false;
+    x = n_x;
+    y = n_y;
+}

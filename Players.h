@@ -37,7 +37,7 @@ class Player : public Character {
         
         bool attack(bool hit);      // Attack 
         void takePotion();         //  Use Potion
-        void toggleLevel();        
+        void nextLevel(int x, int y);        
         void restartSettings(char n_race, int n_hp, int n_atk, int n_def);
 
         bool isLevelUp() const;

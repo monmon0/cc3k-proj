@@ -2,11 +2,12 @@
 #define PLAYGAME_H
 #include "asciiart.h"
 #include "Enemies.h"
+#include "staircase.h"
 #include "decorator.h"
 #include "dungeon.h"
 #include "Potion.h"
 #include "Treasure.h"
-#include "randomGenerator.h"
+#include "checkCoord.h"
 #include <algorithm>
 #include <cstdlib> 
 #include <ctime>
@@ -30,19 +31,20 @@ class PlayGame {
 
         bool checkCoord(int x, int y); 
 
-        void spawnEnemies(PRNG prng);
-        void destroyEnemies();
-        void attackOrMove(Player &pc); // take it in yourself  
-        bool defeatEnemies(int x, int y, int PCAtk, std::string dir); // subtract hp, return whether the pc has a lower success beat rate 
+        void spawnStaircase(uint32_t seed); 
 
-        void spawnPotions(PRNG prng);
+        void spawnPotions(uint32_t seed);
         void destroyPotions();
+
+        void spawnEnemies(uint32_t seed);
+        void destroyEnemies();
+        void attackOrMove(Player &pc);   // take it in yourself  
+        bool defeatEnemies(int x, int y, int PCAtk, std::string dir); // subtract hp, return whether the pc has a lower success beat rate 
 
         // void spawnTreasure();
         // destroyTreasure();
 
         void levelUp(Player * p);
-        
         void restart(Player * p);
         
 };
