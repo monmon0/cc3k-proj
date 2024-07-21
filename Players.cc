@@ -104,12 +104,40 @@ std::string Player::dirToString(std::string dir) {
     return dirMap[dir];
 }
 
-void Player::takePotion(AsciiArt * m) {
+void Player::takePotion(AsciiArt * m, std::string dir) {
     // magnified effects x 1.5
-    if (m->charAt(y + 1, x, 1) == 'P') {
+    int new_block_x = x;
+    int new_block_y = y;
+
+    if (dir == "no") {
+        new_block_y--;
+    } else if (dir == "so") {
+        new_block_y++;
+    } else if (dir == "ea") {
+        new_block_x++;
+    } else if (dir == "we") {
+        new_block_x--;
+    } else if (dir == "ne") {
+        new_block_x++;
+        new_block_y--;
+    } else if (dir == "nw") {
+        new_block_x--;
+        new_block_y--;
+    } else if (dir == "se") {
+        new_block_x++;
+        new_block_y++;
+    }
+    else if (dir == "sw") {
+        new_block_x--;
+        new_block_y++;
+    }
+
+    if (m->charAt(new_block_y, new_block_x, 1) == 'P') {
         Item * p = Item::getItem(y + 1, x);
         p->applyEffect(this);
-    } else std::cout << "No potions here" << std::endl;
+    } else {
+        std::cout << "No potions here" << std::endl;
+    }
 }
 
 void Player::attach(Potion * o) {

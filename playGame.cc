@@ -194,10 +194,10 @@ void PlayGame::spawnEnemies(uint32_t seed) {
     first_E = eVec.back();
 }
 
-void PlayGame::moveEnemies() {
-    // for (auto e : eVec) {
-    //     e->move(); 
-    // }
+void PlayGame::attackOrMove() {
+    for (auto e : eVec) {
+        e->atkOrMv(p, d); 
+    }
 }
 
 void PlayGame::end() {

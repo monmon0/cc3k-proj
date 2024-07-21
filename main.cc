@@ -60,7 +60,7 @@ int main() {
         } else if (initialized) {
 
             if (command == "a") {   // attack
-                std::cout << "Please specify direction: " ;
+                std::cout << "Please specify direction: ";
                 std::string dir;
                 std::cin >> dir;
                 // attack enemies
@@ -73,12 +73,13 @@ int main() {
                     || command == "se" || command =="sw") {
 
                 pc->move(command, s.picture());
+                curr_g.attackOrMove(); 
 
             } else if (command == "u" ) {   // use potion
+                std::cout << "Please specify direction: ";
                 std::string dir;
                 std::cin >> dir;
-                // use potion, CHECK TYPE, DROW has effect x 1.5
-                pc->takePotion(s.picture());
+                pc->takePotion(s.picture(), dir);
 
             } else if (command == "lu") {   // Level up, for testing purposes, not actual command
                 curr_g.levelUp(pc);
@@ -112,7 +113,7 @@ int main() {
 
              // --------------- END GAME ------------------------- //
             if (s.getLevel() == 5) {
-                int pts = pc->getGold() + 1;
+                int pts = pc->getGold();
                 if (pc->getRace() == 's') pts *= 2;
                 // ascii art for winning
                 std::cout << "   CONGRATULATIONS! YOU HAVE ESCAPED THE DUNGEON!    " << std::endl;
@@ -123,7 +124,6 @@ int main() {
                 if (command == "r" ) curr_g.restart(pc);
                 else break;
             }
-
             s.setAction(pc->getAnnouncement());
             s.render(pc);
            

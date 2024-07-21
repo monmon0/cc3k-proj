@@ -36,7 +36,7 @@ class Player : public Character {
         int getGold() const { return gold;}
         
         bool attack(bool hit);      // Attack 
-        void takePotion(AsciiArt * m);         //  Use Potion
+        void takePotion(AsciiArt * m, std::string dir);         //  Use Potion
         void nextLevel(int x, int y);        
         void restartSettings(char n_race, int n_hp, int n_atk, int n_def);
 

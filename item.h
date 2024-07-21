@@ -15,6 +15,7 @@ class Item: public Decorator {
         int x;
         int y;
         int amt;
+        bool active = true;
 
     public:
         Item(AsciiArt *next, int x, int y, int amt);
