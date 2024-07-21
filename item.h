@@ -24,6 +24,7 @@ class Item: public Decorator {
         static Item *getItem(int x, int y);
         static void deleteItem(Item *item);
         static void deleteAll();
+
         int getX();
         int getY();
         AsciiArt *&nextChar();

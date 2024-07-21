@@ -44,7 +44,7 @@ class PlayGame {
         void spawnEnemies(uint32_t seed);
         void destroyEnemies();
         void attackOrMove(Player &pc);   // take it in yourself  
-        bool defeatEnemies(int x, int y, int PCAtk, std::string dir); // subtract hp, return whether the pc has a lower success beat rate 
+        bool defeatEnemies(int x, int y, int PCAtk, std::string dir); // subtract hp, return whether its a successful attack ?
 
         void moveEnemies();
         void spawnTreasure(uint32_t seed);

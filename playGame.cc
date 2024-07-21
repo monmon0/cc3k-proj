@@ -32,9 +32,9 @@ void PlayGame::levelUp(Player * p) {
     // delete all decorator until player
 
     destroyEnemies();
-    destroyTreasure();
     destroyPotions();
-    Item::deleteAll();
+    destroyTreasure();
+    
     d->levelUp();
 
     uint32_t seed = getpid();
@@ -61,12 +61,14 @@ void PlayGame::destroyPotions() {
     // delete all potions until player
     for (int i = 0; i < 10; i++) d->picture() = first_P->nextChar();
     first_P->nextChar() = nullptr;
+    d->picture() = first_T;
 }
 
 void PlayGame::destroyTreasure() {
     // delete all treasure until player
     for (int i = 0; i < 10; i++) d->picture() = first_T->nextChar();
     first_T->nextChar() = nullptr;
+    
 }
 
 void PlayGame::destroyEnemies() {

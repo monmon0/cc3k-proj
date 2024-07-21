@@ -3,6 +3,7 @@
 #include <iostream>
 #include <map>
 #include "Potion.h"
+#include "item.h"
 #include <string>
 
 Player::Player(AsciiArt *next, char race, int x, int y, int hp, int atk, int def): 
@@ -103,9 +104,16 @@ std::string Player::dirToString(std::string dir) {
     return dirMap[dir];
 }
 
-void Player::takePotion(Potion * p) {
+void Player::takePotion(AsciiArt * m) {
     // magnified effects x 1.5
-    p->applyEffect(this);
+    if (m->charAt(y + 1, x, 1) == 'P') {
+        Item * p = Item::getItem(x, y + 1);
+        // p->applyEffect(this);
+        // if (p != nullptr) std::cout << p->getAmt() << std::endl;
+    } else {
+        std::cout << "No potions here" << std::endl;
+    }
+   
 }
 
 void Player::attach(Potion * o) {
