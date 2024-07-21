@@ -107,8 +107,8 @@ std::string Player::dirToString(std::string dir) {
 void Player::takePotion(AsciiArt * m) {
     // magnified effects x 1.5
     if (m->charAt(y + 1, x, 1) == 'P') {
-        Item * p = Item::getItem(x, y + 1);
-        // p->applyEffect(this);
+        Item * p = Item::getItem(y + 1, x);
+        p->applyEffect(this);
         // if (p != nullptr) std::cout << p->getAmt() << std::endl;
     } else {
         std::cout << "No potions here" << std::endl;

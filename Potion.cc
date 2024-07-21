@@ -6,7 +6,7 @@ Potion::Potion(AsciiArt *next, int x, int y, int amt, string name):
 }
 
 char Potion::charAt(int x, int y, int tick) {
-    if (x == this->x && y == this->y) {
+    if (active && x == this->x && y == this->y) {
         return 'P';
     }
     return next->charAt(x, y, tick);
@@ -26,6 +26,7 @@ void RH::applyEffect(Player *player) {
     } else {
         player->changeHP(player->getMaxHP() - player->getHp());
     }
+    active = false;
     deleteItem(this);
 }
 
@@ -34,6 +35,7 @@ BA::BA(AsciiArt *next, int x, int y, string name) :
 
 void BA::applyEffect(Player *player) {
     player->attach(this);
+    active = false;
     deleteItem(this);
     player->changeAtk(amt);
 }
@@ -49,6 +51,7 @@ BD::BD(AsciiArt *next, int x, int y, string name) :
 
 void BD::applyEffect(Player *player) {
     player->attach(this);
+    active = false;
     deleteItem(this);
     player->changeDef(amt);
 }
@@ -68,6 +71,7 @@ void PH::applyEffect(Player *player) {
     } else {
         player->changeHP(-1 * player->getHp());
     }
+    active = false;
     deleteItem(this);
 }
 
@@ -76,6 +80,7 @@ WA::WA(AsciiArt *next, int x, int y, string name) :
 
 void WA::applyEffect(Player *player) {
     player->attach(this);
+    active = false;
     deleteItem(this);
     player->changeDef(amt);
 }
@@ -91,6 +96,7 @@ WD::WD(AsciiArt *next, int x, int y, string name) :
 
 void WD::applyEffect(Player *player) {
     player->attach(this);
+    active = false;
     deleteItem(this);
     player->changeDef(amt);
 }

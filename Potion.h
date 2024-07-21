@@ -14,6 +14,7 @@ class Potion: public Item {
 
     protected:
         string name;
+        bool active = true;
 
     public:
         Potion(AsciiArt *next, int x, int y, int amt, string name);
