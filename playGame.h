@@ -7,11 +7,13 @@
 #include "dungeon.h"
 #include "Potion.h"
 #include "Treasure.h"
+#include "itemFactory.h"
 #include "checkCoord.h"
 #include <algorithm>
 #include <cstdlib> 
 #include <ctime>
 #include "dungeon.h"
+#include "Players.h"
 #include <memory>
 #include <string>
 #include <vector>
@@ -20,8 +22,11 @@ class PlayGame {
 
     Dungeon * d;
     Enemy * first_E;
-    Potion * first_P;
+    Item * first_P;
+    Item * first_T;
+    Player * p;
     std::vector<Enemy *> eVec;
+
 
     public:
         PlayGame(Dungeon * d);
@@ -33,7 +38,7 @@ class PlayGame {
 
         void spawnStaircase(uint32_t seed); 
 
-        void spawnPotions(uint32_t seed);
+        void spawnItems(uint32_t seed);
         void destroyPotions();
 
         void spawnEnemies(uint32_t seed);
@@ -41,6 +46,7 @@ class PlayGame {
         void attackOrMove(Player &pc);   // take it in yourself  
         bool defeatEnemies(int x, int y, int PCAtk, std::string dir); // subtract hp, return whether the pc has a lower success beat rate 
 
+        void moveEnemies();
         // void spawnTreasure();
         // destroyTreasure();
 

@@ -9,7 +9,7 @@ using namespace std;
 class Player;
 
 class Item: public Decorator {
-    static inline map<pair<int, int>, Item *> iMap;
+    static inline std::vector<Item *> iVec;
 
     protected:
         int x;
@@ -18,7 +18,6 @@ class Item: public Decorator {
 
     public:
         Item(AsciiArt *next, int x, int y, int amt);
-        // char charAt(int x, int y, int tick) override;
         int getAmt();
         virtual void applyEffect(Player *player) = 0;
         static void addItem(int x, int y, Item* item);

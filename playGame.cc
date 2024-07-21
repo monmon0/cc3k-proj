@@ -1,15 +1,16 @@
 #include "playGame.h"
 #include <string>
+#include <ctime>
 using namespace std;
 
 PlayGame::PlayGame(Dungeon *d) : d{d} {}
 
 void PlayGame::play() {    
-    uint32_t seed = getpid();  
 
+    int seed = time(0);
     spawnStaircase(seed); 
-    // spawnPotions(seed);
     // spawnTreasure();
+    spawnItems(seed);
     spawnEnemies(seed);
 }
 
@@ -20,19 +21,19 @@ void PlayGame::restart(Player * p) {
     std::string command;
     std::cin >> command;
     // write new restart
-    // if      (command == "s") p->restartSettings('s', 125, 25, 15);
-    // else if (command == "d") p->restartSettings('d', 150, 25, 15);
-    // else if (command == "v") p->restartSettings('v', 50, 25, 5);
-    // else if (command == "t") p->restartSettings('t', 120, 25, 15);
-    // else if (command == "g") p->restartSettings('g', 110, 25, 15);
+    if      (command == "s") p->restartSettings('s', 125, 25, 15);
+    else if (command == "d") p->restartSettings('d', 150, 25, 15);
+    else if (command == "v") p->restartSettings('v', 50, 25, 5);
+    else if (command == "t") p->restartSettings('t', 120, 25, 15);
+    else if (command == "g") p->restartSettings('g', 110, 25, 15);
 }
 
 void PlayGame::levelUp(Player * p) {
     // delete all decorator until player
 
-    // destroyEnemies();
+    destroyEnemies();
     // destroyTreasure();
-    // destroyPotions();
+    destroyPotions();
     d->levelUp();
 
     uint32_t seed = getpid();
@@ -58,48 +59,53 @@ void PlayGame::spawnStaircase(uint32_t seed) {
 void PlayGame::destroyPotions() {
     // delete all potions until player
     for (int i = 0; i < 10; i++) d->picture() = first_P->nextChar();
-    eVec.clear();
     first_P->nextChar() = nullptr;
 }
 
 void PlayGame::destroyEnemies() {
     // delete all potions until player
     for (int i = 0; i < 20; i++) d->picture() = first_E->nextChar();
+    eVec.clear();
     d->picture() = first_P;
 }
 
-void PlayGame::spawnPotions(uint32_t seed) {  
+void PlayGame::spawnItems(uint32_t seed) {  
     vector<string> names = {"RH", "BA", "BD", "PH", "WA", "WD"};
 
     for (int i = 0; i < 10; i++) {
-        int idx = rand() % 6;
-        string name = names[idx];
+        int idx = rand() % 79;
+        string name = names[idx % 6];
 
-        int r1 = rand() % 79;
-        int r2 = rand() % 25;
 
+        CheckCoord c{d, seed}; 
+        c.setPos(); 
+        int r1 = c.getX(), r2 = c.getY();
+        // int r2 = d->getLevel(), r1 = i + 4;
+
+        Item * potion;
+    
         if (name == "RH") {
-            Potion * potion = new RH(d->picture(), r1, r2, name);
+            Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_RH, d->picture(), r2, r1);
             d->picture() = potion;
             if (i == 9) first_P = potion;
         } else if (name == "BA") { 
-            Potion * potion  = new BA(d->picture(), r1, r2, name);
+            Item * potion  = ItemFactory::createItem(ItemFactory::Type::POTION_BA, d->picture(), r2, r1);
             d->picture() = potion;
             if (i == 9) first_P = potion;
         } else if (name == "BD") { 
-            Potion * potion  = new BD(d->picture(), r1, r2, name);
+            Item * potion  = ItemFactory::createItem(ItemFactory::Type::POTION_BD, d->picture(), r2, r1);
             d->picture() = potion;
             if (i == 9) first_P = potion;
         } else if (name == "PH") { 
-            Potion * potion = new RH(d->picture(), r1, r2, name);
+            Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_PH, d->picture(), r2, r1);
             d->picture() = potion;
             if (i == 9) first_P = potion;
         } else if (name == "WA") { 
-            Potion * potion = potion = new RH(d->picture(), r1, r2, name);
+            Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_WA, d->picture(), r2, r1);
             d->picture() = potion;
             if (i == 9) first_P = potion;
         } else { 
-            Potion * potion = new WD(d->picture(), r1, r2, name);
+            Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_WD, d->picture(), r2, r1);
             d->picture() = potion;
             if (i == 9) first_P = potion;
         }
@@ -116,6 +122,7 @@ void PlayGame::spawnEnemies(uint32_t seed) {
         CheckCoord c{d, seed}; 
         c.setPos(); 
         int r1 = c.getX(), r2 = c.getY();
+        // int r2 = 4 + d->getLevel(), r1 = i + 4;
 
         if (name == 'H') {
             Enemy *hp = new Human(d->picture(), r1, r2); 
@@ -147,12 +154,17 @@ void PlayGame::spawnEnemies(uint32_t seed) {
             eVec.emplace_back(dp);
         }
     } 
+    first_E = eVec.back();
 }
 
-void moveEnemies() {
+void PlayGame::moveEnemies() {
     // for (auto e : eVec) {
     //     e->move(); 
     // }
 }
 
+void PlayGame::end() {
+    destroyEnemies();
+    destroyPotions();
+}
 

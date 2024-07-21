@@ -12,6 +12,9 @@ char Potion::charAt(int x, int y, int tick) {
     return next->charAt(x, y, tick);
 }
 
+string Potion::getName() const {
+    return name;
+}
 
 RH::RH(AsciiArt *next, int x, int y, string name) : 
                         Potion{next, x, y, 10, name}{

@@ -73,9 +73,9 @@ void Player::restartSettings(char n_race, int n_hp, int n_atk, int n_def) {
     if (race == 'v') max_hp = INT_MAX;
     else max_hp = hp;
 
-    // empty potions
-    // make sure to detroy all temp potions
-    // for (auto it = potions.begin(), potion)
+    for (auto it = potions.begin(); it != potions.end(); ++it) {
+        potions.erase(it);
+    }
 }
 
 char Player::charAt(int row, int col, int tick) {
@@ -105,6 +105,7 @@ std::string Player::dirToString(std::string dir) {
 
 void Player::takePotion() {
     // Potion * p = getPotion(10,)
+
 }
 
 void Player::attach(Potion * o) {
@@ -119,9 +120,15 @@ void Player::detach(Potion* o) {
         }
     }
 }
-bool Player::isLevelUp() const { return levelUp;}
+
+bool Player::isLevelUp() const {return levelUp;}
+
 void Player::nextLevel(int n_x, int n_y) {
     levelUp = false;
     x = n_x;
     y = n_y;
+    // delete temporary potions
+    for (auto it = potions.begin(); it != potions.end(); ++it) {
+        potions.erase(it);
+    }
 }
