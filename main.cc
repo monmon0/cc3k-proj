@@ -112,11 +112,13 @@ int main() {
 
              // --------------- END GAME ------------------------- //
             if (s.getLevel() == 5) {
-                curr_g.end();
+                int pts = pc->getGold() + 1;
+                if (pc->getRace() == 's') pts *= 2;
                 // ascii art for winning
                 std::cout << "   CONGRATULATIONS! YOU HAVE ESCAPED THE DUNGEON!    " << std::endl;
+                std::cout << "        YOUR SCORE: " << pts << " points "             << std::endl;
                 std::cout << "             WOULD YOU LIKE TO PLAY AGAIN?           " << std::endl;
-                std::cout << "        (enter -r to restart, any key to esc)" << std::endl;
+                std::cout << "        (enter -r to restart, any key to esc)"         << std::endl;
                 std::cin >> command;
                 if (command == "r" ) curr_g.restart(pc);
                 else break;

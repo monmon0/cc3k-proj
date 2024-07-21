@@ -20,12 +20,13 @@ void PlayGame::restart(Player * p) {
     std::cout << "Let's restart, choose your race again!" << std::endl;
     std::string command;
     std::cin >> command;
-    // write new restart
-    if      (command == "s") p->restartSettings('s', 125, 25, 15);
-    else if (command == "d") p->restartSettings('d', 150, 25, 15);
-    else if (command == "v") p->restartSettings('v', 50, 25, 5);
-    else if (command == "t") p->restartSettings('t', 120, 25, 15);
-    else if (command == "g") p->restartSettings('g', 110, 25, 15);
+    // WRITE NEW RESTART
+
+    // if      (command == "s") p->restartSettings('s', 125, 25, 15);
+    // else if (command == "d") p->restartSettings('d', 150, 25, 15);
+    // else if (command == "v") p->restartSettings('v', 50, 25, 5);
+    // else if (command == "t") p->restartSettings('t', 120, 25, 15);
+    // else if (command == "g") p->restartSettings('g', 110, 25, 15);
 }
 
 void PlayGame::levelUp(Player * p) {
@@ -46,7 +47,6 @@ void PlayGame::levelUp(Player * p) {
     d->picture() = p;
 
     play();
-
 }
 
 void PlayGame::spawnStaircase(uint32_t seed) {
@@ -201,7 +201,6 @@ void PlayGame::moveEnemies() {
 }
 
 void PlayGame::end() {
-    destroyEnemies();
-    destroyPotions();
+    // score game
 }
 
