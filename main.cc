@@ -79,8 +79,7 @@ int main() {
                 std::string dir;
                 std::cin >> dir;
                 // use potion, CHECK TYPE, DROW has effect x 1.5
-                Potion * p;
-                pc->takePotion(p);
+                pc->takePotion(s.picture());
 
             } else if (command == "lu") {   // Level up, for testing purposes, not actual command
                 curr_g.levelUp(pc);

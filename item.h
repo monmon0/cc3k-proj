@@ -15,6 +15,7 @@ class Item: public Decorator {
         int x;
         int y;
         int amt;
+        bool active = true;
 
     public:
         Item(AsciiArt *next, int x, int y, int amt);
@@ -24,6 +25,7 @@ class Item: public Decorator {
         static Item *getItem(int x, int y);
         static void deleteItem(Item *item);
         static void deleteAll();
+
         int getX();
         int getY();
         AsciiArt *&nextChar();

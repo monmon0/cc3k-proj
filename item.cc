@@ -14,7 +14,7 @@ void Item::addItem(int x, int y, Item* item) {
 }
 
 Item *Item::getItem(int x, int y) {
-    for (auto &item : iVec) {
+    for (auto item : iVec) {
         if (item->getX() == x && item->getY() == y) {
             return item;
         }

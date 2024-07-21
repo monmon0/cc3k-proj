@@ -24,7 +24,7 @@ Item *ItemFactory::createItem(Type type, AsciiArt *next, int x, int y) {
         return new Treasure(next, x, y, 2);
     } else if (type == Type::GOLD_MERCHANT) {
         return new Treasure(next, x, y, 4);
-    } else if (type == Type::GOLD_DRAGON) {
+    } else {
         return new Treasure(next, x, y, 6);
     }
 }
