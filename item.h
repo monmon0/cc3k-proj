@@ -9,7 +9,7 @@ using namespace std;
 class Player;
 
 class Item: public Decorator {
-    static inline map<pair<int, int>, Item *> iMap;
+    static inline std::vector<Item *> iVec;
 
     protected:
         int x;

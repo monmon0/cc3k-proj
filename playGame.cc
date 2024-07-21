@@ -59,7 +59,7 @@ void PlayGame::destroyPotions() {
     first_P->nextChar() = nullptr;
 }
 
-void PlayGame::spawnPotions(uint32_t seed) {  
+void PlayGame::spawnItems(uint32_t seed) {  
     vector<string> names = {"RH", "BA", "BD", "PH", "WA", "WD"};
 
     for (int i = 0; i < 10; i++) {
@@ -70,28 +70,28 @@ void PlayGame::spawnPotions(uint32_t seed) {
         int r2 = rand() % 25;
 
         if (name == "RH") {
-            Potion * potion = new RH(d->picture(), r1, r2, name);
+            Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_RH, d->picture(), r1, r2);
             d->picture() = potion;
 
             if (i == 9) first_P = potion;
         } else if (name == "BA") { 
-            Potion * potion  = new BA(d->picture(), r1, r2, name);
+            Item * potion  = ItemFactory::createItem(ItemFactory::Type::POTION_BA, d->picture(), r1, r2);
             d->picture() = potion;
             if (i == 9) first_P = potion;
         } else if (name == "BD") { 
-            Potion * potion  = new BD(d->picture(), r1, r2, name);
+            Item * potion  = ItemFactory::createItem(ItemFactory::Type::POTION_BD, d->picture(), r1, r2);
             d->picture() = potion;
             if (i == 9) first_P = potion;
         } else if (name == "PH") { 
-            Potion * potion = new RH(d->picture(), r1, r2, name);
+            Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_PH, d->picture(), r1, r2);
             d->picture() = potion;
             if (i == 9) first_P = potion;
         } else if (name == "WA") { 
-            Potion * potion = potion = new RH(d->picture(), r1, r2, name);
+            Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_WA, d->picture(), r1, r2);
             d->picture() = potion;
             if (i == 9) first_P = potion;
         } else { 
-            Potion * potion = new WD(d->picture(), r1, r2, name);
+            Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_WD, d->picture(), r1, r2);
             d->picture() = potion;
             if (i == 9) first_P = potion;
         }

@@ -10,31 +10,34 @@ int Item::getAmt() {
 }
 
 void Item::addItem(int x, int y, Item* item) {
-    iMap[make_pair(x, y)] = item;
+    iVec.emplace_back(item);
 }
 
 Item *Item::getItem(int x, int y) {
-    for (auto &item : iMap) {
-        if (item.first == make_pair(x, y)) {
-            return item.second;
+    for (auto &item : iVec) {
+        if (item->getX() == x && item->getY() == y) {
+            return item;
         }
     }
     return nullptr;
 }
 
 void Item::deleteItem(Item *item) {
-    for (auto it = iMap.begin(); it != iMap.end(); ++it) {
-        if (it->second == item) {
-            iMap.erase(it);
+    auto it = iVec.begin();
+    while (it != iVec.end()) {
+        if (*it == item) {
+            iVec.erase(it);
             break;
         }
+        ++it;
     }
 }
 
 void Item::deleteAll() {
-    for (auto &item : iMap) {
-        delete item.second;
+    for (auto &item : iVec) {
+        delete item;
     }
+    iVec.clear();
 }
 
 int Item::getX() {

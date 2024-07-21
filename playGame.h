@@ -7,6 +7,7 @@
 #include "dungeon.h"
 #include "Potion.h"
 #include "Treasure.h"
+#include "itemFactory.h"
 #include "checkCoord.h"
 #include <algorithm>
 #include <cstdlib> 
@@ -20,7 +21,8 @@ class PlayGame {
 
     Dungeon * d;
     Enemy * first_E;
-    Potion * first_P;
+    Item * first_P;
+    Item * first_T;
     std::vector<Enemy *> eVec;
 
 
@@ -34,7 +36,7 @@ class PlayGame {
 
         void spawnStaircase(uint32_t seed); 
 
-        void spawnPotions(uint32_t seed);
+        void spawnItems(uint32_t seed);
         void destroyPotions();
 
         void spawnEnemies(uint32_t seed);
