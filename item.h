@@ -18,7 +18,6 @@ class Item: public Decorator {
 
     public:
         Item(AsciiArt *next, int x, int y, int amt);
-        // char charAt(int x, int y, int tick) override;
         int getAmt();
         virtual void applyEffect(Player *player) = 0;
         static void addItem(int x, int y, Item* item);

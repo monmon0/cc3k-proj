@@ -17,19 +17,9 @@ class Potion: public Item {
 
     public:
         Potion(AsciiArt *next, int x, int y, int amt, string name);
-        // virtual void applyEffect(Player *player) = 0;
         char charAt(int x, int y, int tick) override;
+        string getName() const;
         virtual void undoEffect(Player *player) = 0;
-        // ~Potion() = default;
-        // static void addPotion(int x, int y, Potion* potion);
-        // static Potion *getPotion(int x, int y);
-        // static void deletePotion(Potion *potion);
-        // static void deleteAll();
-
-        // int getX() {return x;}
-        // int getY() {return y;}
-        // AsciiArt *&nextChar() {return next;}
-
 };
 
 class RH: public Potion {
