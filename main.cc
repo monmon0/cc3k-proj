@@ -77,19 +77,23 @@ int main() {
             } else if (command == "u" ) {   // use potion
                 std::string dir;
                 std::cin >> dir;
-                // use potion
-                pc->takePotion();
+                // use potion, CHECK TYPE, DROW has effect x 1.5
+                Potion * p;
+                pc->takePotion(p);
 
-            } else if (command == "lu") {   // for testing purposes, not actual command
+            } else if (command == "lu") {   // Level up, for testing purposes, not actual command
                 curr_g.levelUp(pc);
                 s.setAction("Next Floor Unlocked! Good job! ");
-            } else if (command == "f" ) {   // use potion
-                
+            } else if (command == "f" ) {   // stop enemies from moving;
+
+            
+            // --------------- RESTART GAME ------------------------- //
             } else if (command == "r" ) {   // restart game
                 curr_g.restart(pc);
                 initialized = 0;
             }
 
+            // --------------- QUIT GAME ------------------------- //
             if (pc->isDead() || command == "q") {
                 std::cout << "                 WOMP WOMP !    "           << std::endl;
                 std::cout << "             WOULD YOU LIKE TO PLAY AGAIN?" << std::endl;
@@ -107,10 +111,10 @@ int main() {
                 s.setAction("Next Floor Unlocked! Good job! ");
             }
 
+             // --------------- END GAME ------------------------- //
             if (s.getLevel() == 5) {
                 curr_g.end();
                 // ascii art for winning
-
                 std::cout << "   CONGRATULATIONS! YOU HAVE ESCAPED THE DUNGEON!    " << std::endl;
                 std::cout << "             WOULD YOU LIKE TO PLAY AGAIN?           " << std::endl;
                 std::cout << "        (enter -r to restart, any key to esc)" << std::endl;

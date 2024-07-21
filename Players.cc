@@ -103,9 +103,9 @@ std::string Player::dirToString(std::string dir) {
     return dirMap[dir];
 }
 
-void Player::takePotion() {
-    // Potion * p = getPotion(10,)
-
+void Player::takePotion(Potion * p) {
+    // magnified effects x 1.5
+    p->applyEffect(this);
 }
 
 void Player::attach(Potion * o) {
