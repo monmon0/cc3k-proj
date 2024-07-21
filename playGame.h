@@ -38,7 +38,7 @@ class PlayGame {
 
         void spawnStaircase(uint32_t seed); 
 
-        void spawnItems(uint32_t seed);
+        void spawnPotions(uint32_t seed);
         void destroyPotions();
 
         void spawnEnemies(uint32_t seed);
@@ -47,8 +47,8 @@ class PlayGame {
         bool defeatEnemies(int x, int y, int PCAtk, std::string dir); // subtract hp, return whether the pc has a lower success beat rate 
 
         void moveEnemies();
-        // void spawnTreasure();
-        // destroyTreasure();
+        void spawnTreasure(uint32_t seed);
+        void destroyTreasure();
 
         void levelUp(Player * p);
         void restart(Player * p);

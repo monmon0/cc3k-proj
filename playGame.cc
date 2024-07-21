@@ -9,8 +9,8 @@ void PlayGame::play() {
 
     int seed = time(0);
     spawnStaircase(seed); 
-    // spawnTreasure();
-    spawnItems(seed);
+    spawnTreasure(seed);
+    spawnPotions(seed);
     spawnEnemies(seed);
 }
 
@@ -32,8 +32,9 @@ void PlayGame::levelUp(Player * p) {
     // delete all decorator until player
 
     destroyEnemies();
-    // destroyTreasure();
+    destroyTreasure();
     destroyPotions();
+    Item::deleteAll();
     d->levelUp();
 
     uint32_t seed = getpid();
@@ -62,6 +63,12 @@ void PlayGame::destroyPotions() {
     first_P->nextChar() = nullptr;
 }
 
+void PlayGame::destroyTreasure() {
+    // delete all treasure until player
+    for (int i = 0; i < 10; i++) d->picture() = first_T->nextChar();
+    first_T->nextChar() = nullptr;
+}
+
 void PlayGame::destroyEnemies() {
     // delete all potions until player
     for (int i = 0; i < 20; i++) d->picture() = first_E->nextChar();
@@ -69,7 +76,7 @@ void PlayGame::destroyEnemies() {
     d->picture() = first_P;
 }
 
-void PlayGame::spawnItems(uint32_t seed) {  
+void PlayGame::spawnPotions(uint32_t seed) {  
     vector<string> names = {"RH", "BA", "BD", "PH", "WA", "WD"};
 
     for (int i = 0; i < 10; i++) {
@@ -81,8 +88,6 @@ void PlayGame::spawnItems(uint32_t seed) {
         c.setPos(); 
         int r1 = c.getX(), r2 = c.getY();
         // int r2 = d->getLevel(), r1 = i + 4;
-
-        Item * potion;
     
         if (name == "RH") {
             Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_RH, d->picture(), r2, r1);
@@ -108,6 +113,36 @@ void PlayGame::spawnItems(uint32_t seed) {
             Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_WD, d->picture(), r2, r1);
             d->picture() = potion;
             if (i == 9) first_P = potion;
+        }
+    }
+}
+
+void PlayGame::spawnTreasure(uint32_t seed) {
+    for (int i = 0; i < 10; i++) {
+        int num = rand() % 8;
+        CheckCoord c{d, seed}; 
+        c.setPos(); 
+        int r1 = c.getX(), r2 = c.getY();
+        
+        Item *treasure;
+        if (num < 5) {  // spawn normal gold
+            treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_NORMAL, d->picture(), r2, r1);
+            d->picture() = treasure;
+            if (i == 9) {
+                first_T = treasure;
+            }
+        } else if (num < 6) {   // spawn dragon hoard
+            treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_DRAGON, d->picture(), r2, r1);
+            d->picture() = treasure;
+            if (i == 9) {
+                first_T = treasure;
+            }
+        } else {    // spawn small hoard
+            treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_SMALL, d->picture(), r2, r1);
+            d->picture() = treasure;
+            if (i == 9) {
+                first_T = treasure;
+            }
         }
     }
 }

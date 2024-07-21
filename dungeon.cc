@@ -7,7 +7,7 @@
 #define LIGHT_BLUE "34"
 #define RED "91"
 #define GREEN "92"
-#define GOLD "33"
+#define GOLD "93"
 #define RESET "\033[m"
 
 // reset for new chambers?
