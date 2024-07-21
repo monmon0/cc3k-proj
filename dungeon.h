@@ -26,6 +26,7 @@ public:
     void setAction(std::string a) { action += a;}
     void clearAction() { action = "";}
     void levelUp() { floor++;}
+    int getLevel() {return floor;}
 
     ~Dungeon();
 };

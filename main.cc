@@ -23,7 +23,7 @@ int main() {
     // --------------- START GAME ------------------------- //
     std::cout << "                                              " << std::endl
               << "                                              " << std::endl
-              << "WELCOME to SYLVIA, EASON & MONICA CC3k" << std::endl
+              << "    WELCOME to SYLVIA, EASON & MONICA CC3k    " << std::endl
     << "Please start by entering one of the following command to choose your hero:"
     << "(s): Shade, (d): Drow, (v): Vampire, (g):Goblin, (t):Troll" << std::endl;
 
@@ -63,6 +63,7 @@ int main() {
             std::string dir;
             std::cin >> dir;
             // use potion
+            
 
         } else if (command == "lu") {   // for testing purposes, not actual command
             curr_g.levelUp(pc);
@@ -70,14 +71,27 @@ int main() {
             s.setAction("Next Floor Unlocked! Good job! ");
         } else if (command == "f" ) {   // use potion
             
-        }  else if (command == "r" ) {   // use potion
+        }  else if (command == "r" ) {   // restart game
             curr_g.restart(pc);
         }
 
         if (pc->isDead() || command == "q") {
-            std::cout << "Womp Womp" << std::endl;
+            std::cout << "                 WOMP WOMP !    "           << std::endl;
+            std::cout << "             WOULD YOU LIKE TO PLAY AGAIN?" << std::endl;
+            std::cout << "   (enter -r to restart)" << std::endl;
+
+            if (command == "r" ) curr_g.restart(pc);   // restart game
+            else break;
             break;
-        } else if (pc->isLevelUp()) {
+        } else if (s.getLevel() == 5) {
+            std::cout << "   CONGRATULATIONS! YOU HAVE ESCAPED THE DUNGEON!    " << std::endl;
+            std::cout << "             WOULD YOU LIKE TO PLAY AGAIN?           " << std::endl;
+            std::cout << "   (enter -r to restart)" << std::endl;
+
+            if (command == "r" ) curr_g.restart(pc);   // restart game
+            else break;
+        }
+        else if (pc->isLevelUp()) {
             curr_g.levelUp(pc);
             floor->shuffleStaireCase();
             s.setAction("Next Floor Unlocked! Good job! ");
