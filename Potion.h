@@ -6,6 +6,7 @@
 #include <string>
 #include <utility>
 #include <map>
+#include <iostream>
 using namespace std;
 
 class Player;
@@ -16,7 +17,7 @@ class Potion: public Item {
         string name;
 
     public:
-        Potion(AsciiArt *next, int x, int y, int amt, string name);
+        Potion(AsciiArt *next, int x, int y, double amt, string name);
         char charAt(int x, int y, int tick) override;
         string getName() const;
         virtual void undoEffect(Player *player) = 0;

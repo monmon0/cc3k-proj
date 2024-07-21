@@ -43,10 +43,10 @@ int main() {
                 int r1 = c.getX(), r2 = c.getY();
 
                 if (command == "s") pc = new Shade{s.picture(), 's', r1, r2, 125, 25, 15};
-                else if (command == "d") pc = new Drow{s.picture(), 's', r1, r2, 150, 25, 15};
-                else if (command == "v") pc = new Vampire{s.picture(), 's', r1, r2, 50, 25, 5};
-                else if (command == "t") pc = new Troll{s.picture(), 's', r1, r2, 120, 25, 15};
-                else if (command == "g") pc = new Goblin{s.picture(), 's', r1, r2, 110, 25, 15};
+                else if (command == "d") pc = new Drow{s.picture(), 'd', r1, r2, 150, 25, 15};
+                else if (command == "v") pc = new Vampire{s.picture(), 'v', r1, r2, 50, 25, 5};
+                else if (command == "t") pc = new Troll{s.picture(), 't', r1, r2, 120, 25, 15};
+                else if (command == "g") pc = new Goblin{s.picture(), 'g', r1, r2, 110, 25, 15};
 
                 s.picture() = pc;
 

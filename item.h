@@ -4,6 +4,7 @@
 #include "decorator.h"
 #include <utility>
 #include <map>
+#include <string>
 using namespace std;
 
 class Player;
@@ -14,12 +15,14 @@ class Item: public Decorator {
     protected:
         int x;
         int y;
-        int amt;
+        double amt;
+        string announcement = "";
         bool active = true;
 
     public:
-        Item(AsciiArt *next, int x, int y, int amt);
-        int getAmt();
+        Item(AsciiArt *next, int x, int y, double amt);
+        double getAmt();
+        string getAnnouncement() const;
         virtual void applyEffect(Player *player) = 0;
         static void addItem(int x, int y, Item* item);
         static Item *getItem(int x, int y);

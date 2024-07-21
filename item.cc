@@ -1,12 +1,16 @@
 #include "item.h"
 
-Item::Item(AsciiArt *next, int x, int y, int amt) : Decorator{next},
+Item::Item(AsciiArt *next, int x, int y, double amt) : Decorator{next},
                                                     x{x},
                                                     y{y},
                                                     amt{amt}{}
 
-int Item::getAmt() {
+double Item::getAmt() {
     return amt;
+}
+
+string Item::getAnnouncement() const {
+    return announcement;
 }
 
 void Item::addItem(int x, int y, Item* item) {
