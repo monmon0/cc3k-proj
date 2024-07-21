@@ -27,6 +27,7 @@ public:
     void clearAction() { action = "";}
     void levelUp() { floor++;}
     int getLevel() {return floor;}
+    void resetLevel() {floor = 1;}
 
     ~Dungeon();
 };

@@ -36,13 +36,14 @@ class Player : public Character {
         int getGold() const { return gold;}
         
         bool attack(bool hit);      // Attack 
-        void takePotion();
-        void toggleLevel();
+        void takePotion();         //  Use Potion
+        void toggleLevel();        
         void restartSettings(char n_race, int n_hp, int n_atk, int n_def);
 
         bool isLevelUp() const;
         void attach(Potion * o);
         void detach(Potion* o);
+
 }; 
 
 // -------------------------- Derived Class of other PC -------------------------- //

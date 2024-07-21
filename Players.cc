@@ -74,7 +74,7 @@ void Player::restartSettings(char n_race, int n_hp, int n_atk, int n_def) {
     else max_hp = hp;
 
     // empty potions
-    // make sure to detroy
+    // make sure to detroy all temp potions
     // for (auto it = potions.begin(), potion)
 }
 

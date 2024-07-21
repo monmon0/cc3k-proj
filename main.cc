@@ -8,7 +8,7 @@
 #include "Players.h"
 #include "Enemies.h"
 #include "playGame.h"
-#include "gameplayfunc.h"
+#include "randomGenerator.h"
 #include <string>
 
 
@@ -19,6 +19,7 @@ int main() {
     PlayGame curr_g{&s};
     std::string command;
     Player * pc;
+    bool initialized;
 
     // --------------- START GAME ------------------------- //
     std::cout << "                                              " << std::endl
@@ -31,72 +32,85 @@ int main() {
     while (std::cin >> command) {
         s.clearAction();
         //  s, d, v, g, t:
-        if (command == "s" || command == "d" ||command == "v" 
-         || command == "g" || command == "t") {
-            // set races
-            if (command == "s") pc = new Shade{s.picture(), 's', 4, 6, 125, 25, 15};
-            else if (command == "d") pc = new Drow{s.picture(), 's', 4, 6, 150, 25, 15};
-            else if (command == "v") pc = new Vampire{s.picture(), 's', 4, 6, 50, 25, 5};
-            else if (command == "t") pc = new Troll{s.picture(), 's', 4, 6, 120, 25, 15};
-            else if (command == "g") pc = new Goblin{s.picture(), 's', 4, 6, 110, 25, 15};
+        if (!initialized) {
+            if (command == "s" || command == "d" ||command == "v" 
+                || command == "g" || command == "t") {
+                // set races
+                if (command == "s") pc = new Shade{s.picture(), 's', 4, 6, 125, 25, 15};
+                else if (command == "d") pc = new Drow{s.picture(), 's', 4, 6, 150, 25, 15};
+                else if (command == "v") pc = new Vampire{s.picture(), 's', 4, 6, 50, 25, 5};
+                else if (command == "t") pc = new Troll{s.picture(), 's', 4, 6, 120, 25, 15};
+                else if (command == "g") pc = new Goblin{s.picture(), 's', 4, 6, 110, 25, 15};
 
-            s.picture() = pc;
-            // start game, spawn enemies, spawn potions  
-            curr_g.play();
+                s.picture() = pc;
+                // start game, spawn enemies, spawn potions  
+                curr_g.play();
+                initialized = 1;
+                s.setAction(pc->getAnnouncement());
+                s.render(pc);
+            } else {
+                std::cout << "Please choose an appropriate command" << std::endl;
+            }
+        }
+        else if (initialized) {
+            if (command == "a") {   // attack
+                std::cout << "Please specify direction" << std::endl;
+                std::string dir;
+                std::cin >> dir;
+                // attack enemies
+                bool hit = 0;       // eason will write attack enemy function in gameplay here
+                if (hit) pc->attack(hit);
+                else pc->move(dir, s.picture());
 
-        } else if (command == "a") {   // attack
-            std::cout << "Please specify direction" << std::endl;
-            std::string dir;
-            std::cin >> dir;
-            // attack enemies
-            bool hit = 0;       // eason will write attack enemy function in gameplay here
-            if (hit) pc->attack(hit);
-            else pc->move(dir, s.picture());
+            } else if (command == "no" || command == "so" || command == "ea" 
+                    || command == "we" || command == "ne" || command == "nw" 
+                    || command == "se" || command =="sw") {
 
-        } else if (command == "no" || command == "so" || command == "ea" 
-                || command == "we" || command == "ne" || command == "nw" 
-                || command == "se" || command =="sw") {
+                pc->move(command, s.picture());
 
-            pc->move(command, s.picture());
-
-        } else if (command == "u" ) {   // use potion
-            std::string dir;
-            std::cin >> dir;
-            // use potion
+            } else if (command == "u" ) {   // use potion
+                std::string dir;
+                std::cin >> dir;
+                // use potion
             
+            } else if (command == "lu") {   // for testing purposes, not actual command
+                curr_g.levelUp(pc);
+                floor->shuffleStaireCase();
+                s.setAction("Next Floor Unlocked! Good job! ");
+            } else if (command == "f" ) {   // use potion
+                
+            }  else if (command == "r" ) {   // restart game
+                curr_g.restart(pc);
+                initialized = 0;
+            }
 
-        } else if (command == "lu") {   // for testing purposes, not actual command
-            curr_g.levelUp(pc);
-            floor->shuffleStaireCase();
-            s.setAction("Next Floor Unlocked! Good job! ");
-        } else if (command == "f" ) {   // use potion
-            
-        }  else if (command == "r" ) {   // restart game
-            curr_g.restart(pc);
+            if (pc->isDead() || command == "q") {
+                std::cout << "                 WOMP WOMP !    "           << std::endl;
+                std::cout << "             WOULD YOU LIKE TO PLAY AGAIN?" << std::endl;
+                std::cout << "   (enter -r to restart)" << std::endl;
+
+                if (command == "r" ) {
+                    curr_g.restart(pc);  
+                    initialized = 0;
+                } // restart game
+                else break;
+                break;
+            } else if (s.getLevel() == 5) {
+                std::cout << "   CONGRATULATIONS! YOU HAVE ESCAPED THE DUNGEON!    " << std::endl;
+                std::cout << "             WOULD YOU LIKE TO PLAY AGAIN?           " << std::endl;
+                std::cout << "   (enter -r to restart)" << std::endl;
+
+                if (command == "r" ) curr_g.restart(pc);
+                else break;
+            }
+            else if (pc->isLevelUp()) {
+                curr_g.levelUp(pc);
+                floor->shuffleStaireCase();
+                s.setAction("Next Floor Unlocked! Good job! ");
+            }
+            s.setAction(pc->getAnnouncement());
+            s.render(pc);
         }
-
-        if (pc->isDead() || command == "q") {
-            std::cout << "                 WOMP WOMP !    "           << std::endl;
-            std::cout << "             WOULD YOU LIKE TO PLAY AGAIN?" << std::endl;
-            std::cout << "   (enter -r to restart)" << std::endl;
-
-            if (command == "r" ) curr_g.restart(pc);   // restart game
-            else break;
-            break;
-        } else if (s.getLevel() == 5) {
-            std::cout << "   CONGRATULATIONS! YOU HAVE ESCAPED THE DUNGEON!    " << std::endl;
-            std::cout << "             WOULD YOU LIKE TO PLAY AGAIN?           " << std::endl;
-            std::cout << "   (enter -r to restart)" << std::endl;
-
-            if (command == "r" ) curr_g.restart(pc);   // restart game
-            else break;
-        }
-        else if (pc->isLevelUp()) {
-            curr_g.levelUp(pc);
-            floor->shuffleStaireCase();
-            s.setAction("Next Floor Unlocked! Good job! ");
-        }
-        s.setAction(pc->getAnnouncement());
-        s.render(pc);
+       
     }
 }

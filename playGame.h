@@ -6,7 +6,7 @@
 #include "dungeon.h"
 #include "Potion.h"
 #include "Treasure.h"
-#include "gameplayfunc.h"
+#include "randomGenerator.h"
 #include <algorithm>
 #include <cstdlib> 
 #include <ctime>
@@ -22,19 +22,20 @@ class PlayGame {
     Potion * first_P;
     std::vector<Enemy *> eVec;
 
-
     public:
         PlayGame(Dungeon * d);
         ~PlayGame() = default; 
         void play();
-        void end();
+        void end(); 
 
-        void spawnEnemies();
-        // destroyEnemies();
+        bool checkCoord(int x, int y); 
+
+        void spawnEnemies(PRNG prng);
+        void destroyEnemies();
         void attackOrMove(Player &pc); // take it in yourself  
         bool defeatEnemies(int x, int y, int PCAtk, std::string dir); // subtract hp, return whether the pc has a lower success beat rate 
 
-        void spawnPotions();
+        void spawnPotions(PRNG prng);
         void destroyPotions();
 
         // void spawnTreasure();

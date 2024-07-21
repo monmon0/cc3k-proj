@@ -4,66 +4,73 @@ using namespace std;
 
 PlayGame::PlayGame(Dungeon *d) : d{d} {}
 
-void PlayGame::play() {
-    spawnPotions();
+void PlayGame::play() {    
+    uint32_t seed = getpid(); 
+    PRNG prng(seed); 
+
+    spawnPotions(prng);
     // spawnTreasure();
-    spawnEnemies();
+    spawnEnemies(prng);
 }
 
 void PlayGame::restart(Player * p) {
     levelUp(p);
+    d->resetLevel();
     std::cout << "Let's restart, choose your race again!" << std::endl;
     std::string command;
     std::cin >> command;
     // command and restart stat
-    if (command == "s") p->restartSettings('s', 125, 25, 15);
+    if (command == "s")      p->restartSettings('s', 125, 25, 15);
     else if (command == "d") p->restartSettings('d', 150, 25, 15);
     else if (command == "v") p->restartSettings('v', 50, 25, 5);
     else if (command == "t") p->restartSettings('t', 120, 25, 15);
-    else if (command == "g") p->restartSettings( 'g', 110, 25, 15);
+    else if (command == "g") p->restartSettings('g', 110, 25, 15);
 }
 
 void PlayGame::levelUp(Player * p) {
     // delete all decorator until player
 
-    // destroyEnemies();
+    destroyEnemies();
     // destroyTreasure();
     destroyPotions();
- 
+
     d->levelUp();
     p->toggleLevel();
     d->picture() = p;
     play();
 
-    // NOTE: when enemies or potions its used, 
-    // in getChar(), using a boolean to track,
-    // if it false, return next
+}
+
+bool PlayGame::checkCoord(int x, int y) {
+    return (d->picture()->charAt(y, x, 1) == '.'); 
 }
 
 void PlayGame::destroyPotions() {
     // delete all potions until player
-    for (int i = 0; i < 10; i++) {
-        d->picture() = first_P->nextChar();
-    }
+    for (int i = 0; i < 10; i++) d->picture() = first_P->nextChar();
+    eVec.clear();
     first_P->nextChar() = nullptr;
 }
 
-void PlayGame::spawnPotions() {    
+void PlayGame::destroyEnemies() {
+    delete all potions until player
+    for (int i = 0; i < 20; i++) d->picture() = first_P->nextChar();
+    d->picture() = first_P;
+}
+
+void PlayGame::spawnPotions(PRNG prng) {  
     vector<string> names = {"RH", "BA", "BD", "PH", "WA", "WD"};
 
     for (int i = 0; i < 10; i++) {
         int idx = rand() % 6;
         string name = names[idx];
 
-        RandomPos random{d};
-        random.setPos();
         int r1 = rand() % 79;
         int r2 = rand() % 25;
 
         if (name == "RH") {
             Potion * potion = new RH(d->picture(), r1, r2, name);
             d->picture() = potion;
-
             if (i == 9) first_P = potion;
         } else if (name == "BA") {
             Potion * potion  = new BA(d->picture(), r1, r2, name);
@@ -86,54 +93,57 @@ void PlayGame::spawnPotions() {
             d->picture() = potion;
             if (i == 9) first_P = potion;
         }
-        std::cout << name << std::endl;
     }
 }
 
-void PlayGame::spawnEnemies() {
+void PlayGame::spawnEnemies(PRNG prng) {    
     vector<char> characters = {'H', 'W', 'E', 'O', 'M', 'L'};
 
-    srand(time(0));
     for (int i = 0; i < 20; i++) {
-        int idx = rand() % 6;
-        cout << idx << endl; 
+        int idx = prng() % 6; 
         char name = characters[idx];
 
-        // RandomPos random{d};
-        // random.setPos();
-        
-        int r1 = 4 + (i * 2);
-        int r2 = 4;
+        int r1 = prng() % 79;
+        int r2 = prng() % 25; 
 
-        if (name == 'H') {
-            Enemy *hp = new Human(d->picture(), r1, r2); 
-            d->picture() = hp;  
-            eVec.emplace_back(hp);
-        } else if (name == 'W') {
-            Enemy *wp = new Dwarf(d->picture(), r1, r2); 
-            d->picture() = wp; 
-            eVec.emplace_back(wp);
-        } else if (name == 'E') {
-            Enemy *ep = new Elf(d->picture(),r1, r2); 
-            d->picture() = ep; 
-            eVec.emplace_back(ep);
-        } else if (name == 'O') {
-            Enemy *op = new Orc(d->picture(), r1, r2); 
-            d->picture() = op; 
-            eVec.emplace_back(op);
-        } else if (name == 'M') {
-            Enemy *mp = new Merchant(d->picture(), r1, r2); 
-            d->picture() = mp; 
-            eVec.emplace_back(mp);
-        } else if (name == 'L') {
-            Enemy *lp = new Halfling(d->picture(), r1, r2); 
-            d->picture() = lp; 
-            eVec.emplace_back(lp);
-        } else {
-            Enemy *dp = new Dragon(d->picture(), r1, r2); 
-            d->picture() = dp; 
-            eVec.emplace_back(dp);
-        }
+        if (checkCoord(r1, r2)) {
+            if (name == 'H') {
+                Enemy *hp = new Human(d->picture(), r1, r2); 
+                d->picture() = hp;  
+                eVec.emplace_back(hp);
+                if (i == 9) first_E = hp;
+            } else if (name == 'W') {
+                Enemy *wp = new Dwarf(d->picture(), r1, r2); 
+                d->picture() = wp; 
+                eVec.emplace_back(wp);
+                if (i == 9) first_E = wp;
+            } else if (name == 'E') {
+                Enemy *ep = new Elf(d->picture(),r1, r2); 
+                d->picture() = ep; 
+                eVec.emplace_back(ep);
+                if (i == 9) first_E = ep;
+            } else if (name == 'O') {
+                Enemy *op = new Orc(d->picture(), r1, r2); 
+                d->picture() = op; 
+                eVec.emplace_back(op);
+                if (i == 9) first_E = op;
+            } else if (name == 'M') {
+                Enemy *mp = new Merchant(d->picture(), r1, r2); 
+                d->picture() = mp; 
+                eVec.emplace_back(mp);
+                if (i == 9) first_E = mp;
+            } else if (name == 'L') {
+                Enemy *lp = new Halfling(d->picture(), r1, r2); 
+                d->picture() = lp; 
+                eVec.emplace_back(lp);
+                if (i == 9) first_E = lp;
+            } else {
+                Enemy *dp = new Dragon(d->picture(), r1, r2); 
+                d->picture() = dp; 
+                eVec.emplace_back(dp);
+                if (i == 9) first_E = dp;
+            }
+        } else { i--; }
     }
 }
 
