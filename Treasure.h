@@ -29,8 +29,7 @@ class Dragon_Hoard: public Treasure {
         Dragon_Hoard(AsciiArt *next, int x, int y);
         void unGuarded();
         void applyEffect(Player *player) override;
-        // void notify() override;
-        // Enemy *getDragon();
+        char charAt(int row, int col, int tick) override;
 };
 
 #endif
