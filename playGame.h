@@ -35,7 +35,7 @@ class PlayGame {
         void end(); 
 
         bool checkCoord(int x, int y); 
-
+        void attachPC(Player * pc) {p = pc;}
         void spawnStaircase(uint32_t seed); 
 
         void spawnPotions(uint32_t seed);

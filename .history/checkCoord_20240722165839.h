@@ -25,6 +25,6 @@ class CheckCoord {
         int getX() const { return x; };
         int getY() const { return y; };
         int getChamber() const;
-};
+    ;};
 
 #endif
