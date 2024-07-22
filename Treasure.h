@@ -29,5 +29,4 @@ class Treasure: public Item {
 //         void applyEffect(Player *player) override;
 //         Enemy *getDragon();
 // };
-
 #endif
