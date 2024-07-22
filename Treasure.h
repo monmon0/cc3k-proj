@@ -14,7 +14,7 @@ class Treasure: public Item {
     protected:
         bool isGuarded;
     public:
-        Treasure(AsciiArt *next, int x, int y, double val, bool isGuarded = false);
+        Treasure(AsciiArt *next, int x, int y, double val);
         char charAt(int x, int y, int tick) override;
         void applyEffect(Player *player) override;
 };
