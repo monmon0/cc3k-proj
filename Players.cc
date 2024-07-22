@@ -25,7 +25,7 @@ void Player::move(std::string dir, AsciiArt * curr) {
         y += new_block_y;
         if (pos_check == 'G') {
             // check for type of gold
-            Item * gold = Item::getItem(y, x);
+            Item * gold = Item::getItem(x, y);
             gold->applyEffect(this);
             announcement = "PC collects a gold coin and moves " + dirMap[dir] + ". ";
         }
@@ -122,7 +122,7 @@ void Player::takePotion(AsciiArt * m, std::string dir) {
     char pos_check = atPostion(m, dir);
 
     if (pos_check == 'P') {
-        Item * p = Item::getItem(y + new_block_y, x + new_block_x);
+        Item * p = Item::getItem(x + new_block_x, y + new_block_y);
         p->applyEffect(this);
         announcement = p->getAnnouncement();
     } else {

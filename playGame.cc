@@ -142,27 +142,27 @@ void PlayGame::spawnPotions(uint32_t seed) {
         int r1 = c.getX(), r2 = c.getY();
     
         if (name == "RH") {
-            Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_RH, d->picture(), r2, r1);
+            Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_RH, d->picture(), r1, r2);
             d->picture() = potion;
             if (i == 9) first_P = potion;
         } else if (name == "BA") { 
-            Item * potion  = ItemFactory::createItem(ItemFactory::Type::POTION_BA, d->picture(), r2, r1);
+            Item * potion  = ItemFactory::createItem(ItemFactory::Type::POTION_BA, d->picture(), r1, r2);
             d->picture() = potion;
             if (i == 9) first_P = potion;
         } else if (name == "BD") { 
-            Item * potion  = ItemFactory::createItem(ItemFactory::Type::POTION_BD, d->picture(), r2, r1);
+            Item * potion  = ItemFactory::createItem(ItemFactory::Type::POTION_BD, d->picture(), r1, r2);
             d->picture() = potion;
             if (i == 9) first_P = potion;
         } else if (name == "PH") { 
-            Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_PH, d->picture(), r2, r1);
+            Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_PH, d->picture(), r1, r2);
             d->picture() = potion;
             if (i == 9) first_P = potion;
         } else if (name == "WA") { 
-            Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_WA, d->picture(), r2, r1);
+            Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_WA, d->picture(), r1, r2);
             d->picture() = potion;
             if (i == 9) first_P = potion;
         } else { 
-            Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_WD, d->picture(), r2, r1);
+            Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_WD, d->picture(), r1, r2);
             d->picture() = potion;
             if (i == 9) first_P = potion;
         }
@@ -178,13 +178,13 @@ void PlayGame::spawnTreasure(uint32_t seed) {
         
         Item *treasure;
         if (num < 1) {          // spawn normal gold
-            treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_NORMAL, d->picture(), r2, r1);
+            treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_NORMAL, d->picture(), r1, r2);
             d->picture() = treasure;
             if (i == 9) {
                 first_T = treasure;
             }
         } else if (num < 9) {   // spawn dragon hoard
-            treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_DRAGON, d->picture(), r2, r1);
+            treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_DRAGON, d->picture(), r1, r2);
             d->picture() = treasure;
             Enemy *dragon = new Dragon(d->picture(), r1 + 1, r2 + 1, static_cast<Dragon_Hoard*>(treasure));
             eVec.emplace_back(dragon);
@@ -193,7 +193,7 @@ void PlayGame::spawnTreasure(uint32_t seed) {
                 first_T = treasure;
             }
         } else {    // spawn small hoard
-            treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_SMALL, d->picture(), r2, r1);
+            treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_SMALL, d->picture(), r1, r2);
             d->picture() = treasure;
             if (i == 9) {
                 first_T = treasure;

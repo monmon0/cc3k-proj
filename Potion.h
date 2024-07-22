@@ -18,7 +18,7 @@ class Potion: public Item {
 
     public:
         Potion(AsciiArt *next, int x, int y, double amt, string name);
-        char charAt(int x, int y, int tick) override;
+        char charAt(int row, int col, int tick) override;
         string getName() const;
         virtual void undoEffect(Player *player) = 0;
 };

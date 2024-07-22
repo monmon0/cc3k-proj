@@ -2,11 +2,11 @@
 #include <random>
 #include <iostream>
 
-char Treasure::charAt(int x, int y, int tick) {
-    if (active && x == this->x && y == this->y) {
+char Treasure::charAt(int row, int col, int tick) {
+    if (active && col == this->x && row == this->y) {
         return 'G';
     }
-    return next->charAt(x, y, tick);
+    return next->charAt(row, col, tick);
 }
 
 Treasure::Treasure(AsciiArt *next, int x, int y, double val): Item{next, x, y, val}{}

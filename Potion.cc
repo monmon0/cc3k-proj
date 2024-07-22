@@ -3,11 +3,11 @@
 Potion::Potion(AsciiArt *next, int x, int y, double amt, string name): 
                                                         Item{next, x, y, amt}, name{name}{}
 
-char Potion::charAt(int x, int y, int tick) {
-    if (active && x == this->x && y == this->y) {
+char Potion::charAt(int row, int col, int tick) {
+    if (active && col == this->x && row == this->y) {
         return 'P';
     }
-    return next->charAt(x, y, tick);
+    return next->charAt(row, col, tick);
 }
 
 string Potion::getName() const {
