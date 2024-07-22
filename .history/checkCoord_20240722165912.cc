@@ -5,7 +5,7 @@
 
 int CheckCoord::giveRandomInt(int i) {
     return prng() % i; 
-}
+}`
 
 void CheckCoord::setPos() {		
     int new_x, new_y; 
