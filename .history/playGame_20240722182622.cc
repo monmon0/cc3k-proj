@@ -142,27 +142,27 @@ void PlayGame::spawnPotions(uint32_t seed) {
         int r1 = c.getX(), r2 = c.getY();
     
         if (name == "RH") {
-            Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_RH, d->picture(), r1, r2);
+            Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_RH, d->picture(), r2, r1);
             d->picture() = potion;
             if (i == 9) first_P = potion;
         } else if (name == "BA") { 
-            Item * potion  = ItemFactory::createItem(ItemFactory::Type::POTION_BA, d->picture(), r1, r2);
+            Item * potion  = ItemFactory::createItem(ItemFactory::Type::POTION_BA, d->picture(), r2, r1);
             d->picture() = potion;
             if (i == 9) first_P = potion;
         } else if (name == "BD") { 
-            Item * potion  = ItemFactory::createItem(ItemFactory::Type::POTION_BD, d->picture(), r1, r2);
+            Item * potion  = ItemFactory::createItem(ItemFactory::Type::POTION_BD, d->picture(), r2, r1);
             d->picture() = potion;
             if (i == 9) first_P = potion;
         } else if (name == "PH") { 
-            Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_PH, d->picture(), r1, r2);
+            Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_PH, d->picture(), r2, r1);
             d->picture() = potion;
             if (i == 9) first_P = potion;
         } else if (name == "WA") { 
-            Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_WA, d->picture(), r1, r2);
+            Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_WA, d->picture(), r2, r1);
             d->picture() = potion;
             if (i == 9) first_P = potion;
         } else { 
-            Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_WD, d->picture(), r1, r2);
+            Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_WD, d->picture(), r2, r1);
             d->picture() = potion;
             if (i == 9) first_P = potion;
         }
@@ -178,40 +178,40 @@ void PlayGame::spawnTreasure(uint32_t seed) {
         
         Item *treasure;
         if (num < 1) {          // spawn normal gold
-            treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_NORMAL, d->picture(), r1, r2);
+            treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_NORMAL, d->picture(), r2, r1);
             d->picture() = treasure;
             if (i == 9) {
                 first_T = treasure;
             }
         } else if (num < 9) {   // spawn dragon hoard
-            treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_DRAGON, d->picture(), r1, r2);
+            treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_DRAGON, d->picture(), r2, r1);
             d->picture() = treasure;
-            
+
             std::vector<int> arr = {-1, 0, 1}; 
-            int x, y; 
-            
+
             while (true) {
                 int idx = rand() % 3;
                 int dx = arr[idx]; 
                 idx = rand() % 3;
                 int dy = arr[idx]; 
 
-                x = treasure->getX() + dx;
-                y = treasure->getY() + dy; 
+                int x = treasure->getX() + dx;
+                int y = treasure->getY() + dy; 
 
-                if (d->picture()->charAt(y, x, 1) == '.') {
+                if (d->picture()->charAt(x, y, 1) == '.') {
                     break; 
                 } 
             } 
 
-            Enemy *dragon = new Dragon(d->picture(), x, y, static_cast<Dragon_Hoard*>(treasure));
+            Enemy *dragon = new Dragon(d->picture(), r1 + 1, r2 + 1, static_cast<Dragon_Hoard*>(treasure));
             eVec.emplace_back(dragon);
             d->picture() = dragon;
+            // treasure = new Dragon_Hoard(next, r2, r1, 6, new Dragon(d->picture(), r2 + 1, r1 + 2););
             if (i == 9) {
                 first_T = treasure;
             }
         } else {    // spawn small hoard
-            treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_SMALL, d->picture(), r1, r2);
+            treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_SMALL, d->picture(), r2, r1);
             d->picture() = treasure;
             if (i == 9) {
                 first_T = treasure;
@@ -220,7 +220,7 @@ void PlayGame::spawnTreasure(uint32_t seed) {
     }
 }
 
-void PlayGame::spawnEnemies(uint32_t seed) { 
+void PlayGame::spawnEnemies(uint32_t seed) {    
     vector<char> characters = {'H', 'W', 'E', 'O', 'M', 'L'};
     for (int i = 0; i < 20; i++) {
         int idx = rand() % 6;
@@ -257,7 +257,7 @@ void PlayGame::spawnEnemies(uint32_t seed) {
             eVec.emplace_back(lp);
         }
     } 
-    first_E = eVec.back(); 
+    first_E = eVec.back();
 }
 
 void PlayGame::fPressed() {

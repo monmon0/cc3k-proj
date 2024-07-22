@@ -186,8 +186,9 @@ void PlayGame::spawnTreasure(uint32_t seed) {
         } else if (num < 9) {   // spawn dragon hoard
             treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_DRAGON, d->picture(), r1, r2);
             d->picture() = treasure;
-            
-            std::vector<int> arr = {-1, 0, 1}; 
+<<<<<<< Updated upstream
+            Enemy *dragon = new Dragon(d->picture(), r1 + 1, r2 + 1, static_cast<Dragon_Hoard*>(treasure));
+                std::vector<int> arr = {-1, 0, 1}; 
             int x, y; 
             
             while (true) {
@@ -220,7 +221,7 @@ void PlayGame::spawnTreasure(uint32_t seed) {
     }
 }
 
-void PlayGame::spawnEnemies(uint32_t seed) { 
+void PlayGame::spawnEnemies(uint32_t seed) {    
     vector<char> characters = {'H', 'W', 'E', 'O', 'M', 'L'};
     for (int i = 0; i < 20; i++) {
         int idx = rand() % 6;
@@ -257,7 +258,7 @@ void PlayGame::spawnEnemies(uint32_t seed) {
             eVec.emplace_back(lp);
         }
     } 
-    first_E = eVec.back(); 
+    first_E = eVec.back();
 }
 
 void PlayGame::fPressed() {
