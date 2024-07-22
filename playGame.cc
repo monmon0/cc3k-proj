@@ -184,12 +184,12 @@ void PlayGame::spawnTreasure(uint32_t seed) {
             }
         } else if (num < 9) {   // spawn dragon hoard
             // treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_DRAGON, d->picture(), r2, r1);
-            Dragon_Hoard *dh = new Dragon_Hoard(d->picture(), r2, r1);
-            d->picture() = treasure;
-            Enemy *dragon = new Dragon(d->picture(), r2 + 1, r1 + 1, dh);
-            // int x_dir = rand() % 2;
-            // int y_dir = rand() % 2;
-            // d->picture() = treasure;
+            Dragon_Hoard *dh = new Dragon_Hoard(d->picture(), r1, r2);
+            d->picture() = dh;
+            Enemy *dragon = new Dragon(d->picture(), r1 + 1, r2 + 1, dh);
+            // // int x_dir = rand() % 2;
+            // // int y_dir = rand() % 2;
+            // // d->picture() = treasure;
             eVec.emplace_back(dragon);
             d->picture() = dragon;
             // treasure = new Dragon_Hoard(next, r2, r1, 6, new Dragon(d->picture(), r2 + 1, r1 + 2););
