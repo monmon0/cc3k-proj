@@ -46,6 +46,7 @@ int main() {
                 // --------- start game, spawn enemies, spawn potions -----------  //
                 curr_g.play();
                 initialized = 1;
+                s.setAction(pc->getAnnouncement());
                 s.render(pc);
             } else std::cout << "Please choose an appropriate command" << std::endl;
         } else if (initialized) {
@@ -72,13 +73,14 @@ int main() {
                 pc->takePotion(s.picture(), dir);
 
             } else if (command == "lu") {   // Level up, for testing purposes, not actual command
-                curr_g.levelUp(pc);
+                curr_g.levelUp();
+                s.clearAction();
                 s.setAction("Next Floor Unlocked! Good job! ");
             } else if (command == "f" ) {   // stop enemies from moving;
                 
             // --------------- RESTART GAME ------------------------- //
             } else if (command == "r" ) {   // restart game
-                curr_g.restart(pc);
+                curr_g.restart();
                 initialized = 0;
             }
 
@@ -91,13 +93,13 @@ int main() {
                 std::cout << "   (enter -r to restart)" << std::endl;
 
                 if (command == "r" ) {          // restart game
-                    curr_g.restart(pc);  
+                    curr_g.restart();  
                     initialized = 0;
                 } else break;
             } 
             
             if (pc->isLevelUp() && s.getLevel() < 5) {
-                curr_g.levelUp(pc);
+                curr_g.levelUp();
                 s.setAction("Next Floor Unlocked! Good job! ");
             }
 
@@ -105,11 +107,12 @@ int main() {
             if (s.getLevel() == 5) {
                 curr_g.end();
                 std::cin >> command;
-                if (command == "r" ) curr_g.restart(pc);
+                if (command == "r" ) curr_g.restart();
                 else break;
             }
             s.setAction(pc->getAnnouncement());
             s.render(pc);
+            std::cout << "Your command: ";
         }
     }
 }

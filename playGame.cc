@@ -21,6 +21,7 @@ PlayGame::PlayGame(Dungeon *d) : d{d} {
               << "         WELCOME to SYLVIA, EASON & MONICA CC3k    " << std::endl
     << "Please start by entering one of the following command to choose your hero:" << std::endl
     << "       (s): Shade, (d): Drow, (v): Vampire, (g):Goblin, (t):Troll"          << std::endl;
+    std::cout << "Your command: ";
 }
 
 void PlayGame::play() {    
@@ -31,8 +32,8 @@ void PlayGame::play() {
     spawnEnemies(seed);
 }
 
-void PlayGame::restart(Player * p) {
-    levelUp(p);
+void PlayGame::restart() {
+    levelUp();
     d->resetLevel();
     std::cout << "Let's restart, choose your race again!" << std::endl;
     std::string command;
@@ -46,15 +47,13 @@ void PlayGame::restart(Player * p) {
     // else if (command == "g") p->restartSettings('g', 110, 25, 15);
 }
 
-void PlayGame::levelUp(Player * p) {
+void PlayGame::levelUp() {
     // delete all decorator until player
-
     destroyEnemies();
     destroyPotions();
     destroyTreasure();
-    
     d->levelUp();
-
+    
     uint32_t seed = getpid();
     CheckCoord c{d, seed}; 
     c.setPos(); 
@@ -66,9 +65,7 @@ void PlayGame::levelUp(Player * p) {
     play();
 }
 
-void PlayGame::attachPC(Player *pc) {
-    p = pc; 
-}
+void PlayGame::attachPC(Player *pc) {p = pc;}
 
 void PlayGame::spawnStaircase(uint32_t seed) {
     CheckCoord c{d, seed}; 

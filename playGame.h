@@ -51,9 +51,9 @@ class PlayGame {
         void spawnTreasure(uint32_t seed);
         void destroyTreasure();
 
-        void levelUp(Player * p);
-        void restart(Player * p);
-        void sendAnnouncement();
+        void levelUp();
+        void restart();
+        // void sendAnnouncement();
         
 };
 

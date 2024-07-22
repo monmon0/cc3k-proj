@@ -27,9 +27,9 @@ void Player::move(std::string dir, AsciiArt * curr) {
             // check for type of gold
             Item * gold = Item::getItem(y, x);
             gold->applyEffect(this);
-            announcement = "PC collects a gold coin. ";
+            announcement = "PC collects a gold coin and moves " + dirMap[dir] + ". ";
         }
-        announcement = "PC moves " + dirMap[dir];
+        else announcement = "PC moves " + dirMap[dir];
     }
 
     // troll gains 5 hp every turn
