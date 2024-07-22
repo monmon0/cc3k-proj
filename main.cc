@@ -34,14 +34,17 @@ int main() {
                 CheckCoord c{&s, seed}; 
                 c.setPos(); 
                 int r1 = c.getX(), r2 = c.getY();
-                int location = c.getChamber();
+                int location = c.getChamber(); 
 
-                if      (command == "s") pc = new Shade{s.picture(), 's', r1, r2, 125, 25, 15, location};
+                if (command == "s") pc = new Shade{s.picture(), 's', r1, r2, 125, 25, 15, location};
                 else if (command == "d") pc = new Drow{s.picture(), 'd', r1, r2, 150, 25, 15, location};
                 else if (command == "v") pc = new Vampire{s.picture(), 'v', r1, r2, 50, 25, 5, location};
                 else if (command == "t") pc = new Troll{s.picture(), 't', r1, r2, 120, 25, 15, location};
                 else if (command == "g") pc = new Goblin{s.picture(), 'g', r1, r2, 110, 25, 15, location};
-                curr_g.attachPC(pc);
+
+                s.picture() = pc;
+                curr_g.attachPC(pc); 
+
                 // --------- start game, spawn enemies, spawn potions -----------  //
                 curr_g.play();
                 initialized = 1;
