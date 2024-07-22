@@ -8,7 +8,7 @@
 
 Player::Player(AsciiArt *next, char race, int x, int y, int hp, int atk, int def): 
     Character(next, race, x, y, hp, atk, def) {
-        if (race != 'v') max_hp = INT_MAX;
+        if (race == 'v') max_hp = INT_MAX;
         else max_hp = hp;
 }
 
@@ -45,9 +45,14 @@ void Player::move(std::string dir, AsciiArt * curr) {
 
     pos_check = curr->charAt(y + new_block_y, x + new_block_x, 1);
 
-    if (pos_check == '.' || pos_check == '#' || pos_check == '\\' || pos_check == '+') {
+    if (pos_check == '.' || pos_check == '#' || pos_check == '\\' || pos_check == '+' || pos_check == 'G') {
         x += new_block_x;
         y += new_block_y;
+        if (pos_check == 'G') {
+            // check for type of gold
+            Item * gold = Item::getItem(y + new_block_y, x + new_block_x);
+            // gold->applyEffect(this);
+        }
         announcement = "PC moves " + dirToString(dir);
     }
 
@@ -135,8 +140,9 @@ void Player::takePotion(AsciiArt * m, std::string dir) {
     if (m->charAt(new_block_y, new_block_x, 1) == 'P') {
         Item * p = Item::getItem(new_block_y, new_block_x);
         p->applyEffect(this);
+        announcement = "PC picked up potion. ";
     } else {
-        std::cout << "No potions here" << std::endl;
+        announcement = "PC didn't find any potions in this direction. ";
     }
 }
 

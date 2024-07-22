@@ -54,7 +54,6 @@ int main() {
                 // --------- start game, spawn enemies, spawn potions -----------  
                 curr_g.play();
                 initialized = 1;
-                s.setAction(pc->getAnnouncement());
                 s.render(pc);
 
             } else std::cout << "Please choose an appropriate command" << std::endl;
@@ -67,7 +66,10 @@ int main() {
                 // attack enemies
                 bool hit = 0;       // eason will write attack enemy function in gameplay here
                 if (hit) pc->attack(hit);
-                else pc->move(dir, s.picture());
+                else {
+                    s.setAction("PC didn't sucessfully attack. ");
+                    pc->move(dir, s.picture());
+                }
 
             } else if (command == "no" || command == "so" || command == "ea" 
                     || command == "we" || command == "ne" || command == "nw" 
@@ -85,6 +87,7 @@ int main() {
             } else if (command == "lu") {   // Level up, for testing purposes, not actual command
                 curr_g.levelUp(pc);
                 s.setAction("Next Floor Unlocked! Good job! ");
+
             } else if (command == "f" ) {   // stop enemies from moving;
 
             
@@ -125,7 +128,6 @@ int main() {
                 if (command == "r" ) curr_g.restart(pc);
                 else break;
             }
-            s.setAction(pc->getAnnouncement());
             s.render(pc);
            
         }

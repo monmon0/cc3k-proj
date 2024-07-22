@@ -23,18 +23,36 @@ char Enemy::charAt(int row, int col, int tick) {
 }
 
 void Enemy::atkOrMv(Player *pc, Dungeon *d) {
+    announcement = "";
     std::vector<int> arr = {-1, 0, 1}; 
 
     int xDiff = abs(pc->getX() - x); 
     int yDiff = abs(pc->getY() - y);  
 
     if (xDiff <= 1 && yDiff <= 1) {
-        double damage = ceil((100/(100 + pc->getDef())) * getAtk()); 
-        pc->changeHP(-damage); 
-        announcement = std::to_string(getRace()) 
-                        + " deals " 
-                        + std::to_string(getAtk()) 
-                        + " damage to PC."; 
+        int damage = ceil((100/(100 + pc->getDef())) * getAtk()); 
+        if (getRace() == 'O' && pc->getRace() != 'g') damage *= 1.5; 
+        if (rand() % 2 == 0) {
+            pc->changeHP(-damage); 
+            announcement = std::string(1, getRace())  // Convert char to std::string
+                            + " deals " 
+                            + std::to_string(damage)  // Convert int to std::string
+                            + " damage to PC. ";
+        } else {
+            announcement = std::string(1, getRace()) + " missed. "; 
+        }
+        if (getRace() == 'E' && pc->getRace() != 'd') {
+            if (rand() % 2 == 0) {
+                pc->changeHP(-damage); 
+                announcement + "On the second try "
+                                + std::string(1, getRace())  // Convert char to std::string
+                                + " deals " 
+                                + std::to_string(damage)  // Convert int to std::string
+                                + " damage to PC. ";
+            } else {
+                announcement + "On the second try " + std::string(1, getRace()) + " missed. "; 
+            }
+        }
     } else {
         while (! fPressed) {
             int idx = rand() % 3;

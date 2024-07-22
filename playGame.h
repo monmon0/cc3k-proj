@@ -24,12 +24,12 @@ class PlayGame {
     Enemy * first_E;
     Item * first_P;
     Item * first_T;
-    Player * p;
+    Player *p = nullptr;
     std::vector<Enemy *> eVec;
 
 
     public:
-        PlayGame(Dungeon * d, Player *p = nullptr);
+        PlayGame(Dungeon * d);
         ~PlayGame() = default; 
         void play();
         void end(); 
@@ -45,14 +45,15 @@ class PlayGame {
         void spawnEnemies(uint32_t seed);
         void destroyEnemies();
         
-        void attackOrMove();   // take it in yourself  
-        bool defeatEnemies(int x, int y, int PCAtk, std::string dir);
+        void attackOrMove(); 
+        bool defeatEnemies(int x, int y, int PCAtk, std::string dir); 
 
         void spawnTreasure(uint32_t seed);
         void destroyTreasure();
 
         void levelUp(Player * p);
         void restart(Player * p);
+        void sendAnnouncement();
         
 };
 
