@@ -9,6 +9,6 @@ double Character::getHp() const { return hp; }
 double Character::getAtk() const { return atk; }
 double Character::getDef() const { return def; }
 std::string Character::getAnnouncement() const { return announcement; }
-void Character::changeHP(double damage) { hp -= damage; }
+void Character::changeHP(double damage) { hp += damage; }
 bool Character::isDead() { return hp <= 0; }
 char Character::getRace() { return race; }

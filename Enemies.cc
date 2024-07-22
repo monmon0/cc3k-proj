@@ -1,5 +1,7 @@
 #include "Enemies.h"
 
+#include <iostream>
+
 // Implement the Enemy constructor
 Enemy::Enemy(AsciiArt *next, char race, int x, int y, int hp, int atk, int def)
     : Character(next, race, x, y, hp, atk, def) {}
@@ -21,16 +23,37 @@ char Enemy::charAt(int row, int col, int tick) {
 }
 
 void Enemy::atkOrMv(Player *pc, Dungeon *d) {
+    announcement = "";
     std::vector<int> arr = {-1, 0, 1}; 
-    
-    // int xDiff = pc->getX() - x; 
-    // int yDiff = pc->getY() - y; 
-    // std::vector<int>::iterator a1 = std::find(std::begin(arr), std::end(arr), xDiff);
-    // std::vector<int>::iterator a2 = std::find(std::begin(arr), std::end(arr), yDiff);
 
-    // if (a1 != std::end(arr) && a2 != std::end(arr)) {
-    //     // attack pc 
-    // } else {
+    int xDiff = abs(pc->getX() - x); 
+    int yDiff = abs(pc->getY() - y);  
+
+    if (xDiff <= 1 && yDiff <= 1) {
+        int damage = ceil((100/(100 + pc->getDef())) * getAtk()); 
+        if (getRace() == 'O' && pc->getRace() != 'g') damage *= 1.5; 
+        if (rand() % 2 == 0) {
+            pc->changeHP(-damage); 
+            announcement = std::string(1, getRace())  // Convert char to std::string
+                            + " deals " 
+                            + std::to_string(damage)  // Convert int to std::string
+                            + " damage to PC. ";
+        } else {
+            announcement = std::string(1, getRace()) + " missed. "; 
+        }
+        if (getRace() == 'E' && pc->getRace() != 'd') {
+            if (rand() % 2 == 0) {
+                pc->changeHP(-damage); 
+                announcement + "On the second try "
+                                + std::string(1, getRace())  // Convert char to std::string
+                                + " deals " 
+                                + std::to_string(damage)  // Convert int to std::string
+                                + " damage to PC. ";
+            } else {
+                announcement + "On the second try " + std::string(1, getRace()) + " missed. "; 
+            }
+        }
+    } else {
         while (! fPressed) {
             int idx = rand() % 3;
             int dx = arr[idx]; 
@@ -45,7 +68,7 @@ void Enemy::atkOrMv(Player *pc, Dungeon *d) {
                 break; 
             } 
         } 
-    // }
+    }
 }
 
 // Implement constructors for derived classes

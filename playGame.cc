@@ -6,7 +6,6 @@ using namespace std;
 PlayGame::PlayGame(Dungeon *d) : d{d} {}
 
 void PlayGame::play() {    
-
     int seed = time(0);
     spawnStaircase(seed); 
     spawnTreasure(seed);
@@ -47,6 +46,10 @@ void PlayGame::levelUp(Player * p) {
     d->picture() = p;
 
     play();
+}
+
+void PlayGame::attachPC(Player *pc) {
+    p = pc; 
 }
 
 void PlayGame::spawnStaircase(uint32_t seed) {
@@ -197,6 +200,7 @@ void PlayGame::spawnEnemies(uint32_t seed) {
 void PlayGame::attackOrMove() {
     for (auto e : eVec) {
         e->atkOrMv(p, d); 
+        d->setAction(e->getAnnouncement());
     }
 }
 
