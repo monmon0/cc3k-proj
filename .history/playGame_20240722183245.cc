@@ -186,6 +186,8 @@ void PlayGame::spawnTreasure(uint32_t seed) {
         } else if (num < 9) {   // spawn dragon hoard
             treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_DRAGON, d->picture(), r1, r2);
             d->picture() = treasure;
+
+            // Enemy *dragon = new Dragon(d->picture(), r1 + 1, r2 + 1, static_cast<Dragon_Hoard*>(treasure));
             
             std::vector<int> arr = {-1, 0, 1}; 
             int x, y; 
