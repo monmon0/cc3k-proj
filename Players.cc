@@ -40,9 +40,7 @@ void Player::move(std::string dir, AsciiArt * curr) {
         if (pos_check == 'G') {
             // check for type of gold
             Item * gold = Item::getItem(y, x);
-            if (! gold) std::cout << "No Gold" << std::endl;
-            else gold->applyEffect(this);
-            //std::cout << getGold() << std::endl;
+            gold->applyEffect(this);
         }
         announcement = "PC moves " + dirToString(dir);
     }
