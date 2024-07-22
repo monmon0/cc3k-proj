@@ -28,8 +28,8 @@ class Player : public Character {
 
         std::string getAnnouncement() {return announcement;}
 
-        void changeAtk(int x) { atk += x;}
-        void changeDef(int x) { def += x;}
+        void changeAtk(double x) { atk += x;}
+        void changeDef(double x) { def += x;}
         std::string dirToString(std::string dir);
 
         int getMaxHP() {return max_hp;}

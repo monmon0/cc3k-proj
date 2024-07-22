@@ -9,20 +9,20 @@ class Character : public Decorator {
     protected: 
         char race; 
         int x,y;
-        int hp, atk, def;
+        double hp, atk, def;
         std::string announcement;
 
     public:
-        Character(AsciiArt *next, char id, int x, int y, int hp, int atk, int def);
+        Character(AsciiArt *next, char id, int x, int y, double hp, double atk, double def);
         ~Character() = default; 
 
         int getX() const;
         int getY() const;
-        int getHp() const;
-        int getAtk() const;
-        int getDef() const;
+        double getHp() const;
+        double getAtk() const;
+        double getDef() const;
         std::string getAnnouncement() const;
-        void changeHP(int damage);
+        void changeHP(double damage);
         bool isDead();
         char getRace();
         AsciiArt *&nextChar() {return next;}

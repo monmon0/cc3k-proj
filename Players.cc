@@ -138,7 +138,7 @@ void Player::takePotion(AsciiArt * m, std::string dir) {
     }
 
     if (m->charAt(new_block_y, new_block_x, 1) == 'P') {
-        Item * p = Item::getItem(y + 1, x);
+        Item * p = Item::getItem(new_block_y, new_block_x);
         p->applyEffect(this);
     } else {
         announcement = "PC didn't find any potions in this direction. ";

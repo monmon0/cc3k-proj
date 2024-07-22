@@ -1,6 +1,6 @@
 #include "Potion.h"
 
-Potion::Potion(AsciiArt *next, int x, int y, int amt, string name): 
+Potion::Potion(AsciiArt *next, int x, int y, double amt, string name): 
                                                         Item{next, x, y, amt}, name{name}{
     addItem(x, y, this);
 }
@@ -21,6 +21,10 @@ RH::RH(AsciiArt *next, int x, int y, string name) :
 }
 
 void RH::applyEffect(Player *player) {
+    if (player->getRace() == 'd') {
+        amt *= 1.5;
+    }
+    
     if (player->getHp() + amt <= player->getMaxHP()) {
         player->changeHP(amt);
     } else {
@@ -28,16 +32,21 @@ void RH::applyEffect(Player *player) {
     }
     active = false;
     deleteItem(this);
+    announcement = "PC uses" + getName();
 }
 
 BA::BA(AsciiArt *next, int x, int y, string name) :
                         Potion{next, x, y, 5, name}{}
 
 void BA::applyEffect(Player *player) {
+    if (player->getRace() == 'd') {
+        amt *= 1.5;
+    }
     player->attach(this);
     active = false;
     deleteItem(this);
     player->changeAtk(amt);
+    announcement = "PC uses" + getName();
 }
 
 void BA::undoEffect(Player *player) {
@@ -50,10 +59,14 @@ BD::BD(AsciiArt *next, int x, int y, string name) :
                         Potion{next, x, y, 5, name}{}
 
 void BD::applyEffect(Player *player) {
+    if (player->getRace() == 'd') {
+        amt *= 1.5;
+    }
     player->attach(this);
     active = false;
     deleteItem(this);
     player->changeDef(amt);
+    announcement = "PC uses" + getName();
 }
 
 void BD::undoEffect(Player *player) {
@@ -66,6 +79,10 @@ PH::PH(AsciiArt *next, int x, int y, string name) :
                         Potion{next, x, y, -10, name}{}
 
 void PH::applyEffect(Player *player) {
+    if (player->getRace() == 'd') {
+        amt *= 1.5;
+    }
+
     if (player->getHp() >= amt) {
         player->changeHP(amt);
     } else {
@@ -73,16 +90,21 @@ void PH::applyEffect(Player *player) {
     }
     active = false;
     deleteItem(this);
+    announcement = "PC uses" + getName();
 }
 
 WA::WA(AsciiArt *next, int x, int y, string name) :
                         Potion{next, x, y, -5, name}{}
 
 void WA::applyEffect(Player *player) {
+    if (player->getRace() == 'd') {
+        amt *= 1.5;
+    }
     player->attach(this);
     active = false;
     deleteItem(this);
     player->changeDef(amt);
+    announcement = "PC uses" + getName();
 }
 
 void WA::undoEffect(Player *player) {
@@ -95,10 +117,14 @@ WD::WD(AsciiArt *next, int x, int y, string name) :
                         Potion{next, x, y, -5, name}{}
 
 void WD::applyEffect(Player *player) {
+    if (player->getRace() == 'd') {
+        amt *= 1.5;
+    }
     player->attach(this);
     active = false;
     deleteItem(this);
     player->changeDef(amt);
+    announcement = "PC uses" + getName();
 }
 
 void WD::undoEffect(Player *player) {
