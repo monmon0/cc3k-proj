@@ -3,13 +3,24 @@
 #include <ctime>
 using namespace std;
 
+ 
 PlayGame::PlayGame(Dungeon *d) : d{d} {
      // --------------- START GAME ------------------------- //
-    std::cout << "                                              " << std::endl
-              << "                                              " << std::endl
-              << "    WELCOME to SYLVIA, EASON & MONICA CC3k    " << std::endl
-    << "Please start by entering one of the following command to choose your hero:"
-    << "(s): Shade, (d): Drow, (v): Vampire, (g):Goblin, (t):Troll" << std::endl;
+    std::cout << R"(
+                      _                            _               
+        __      _____| | ___ ___  _ __ ___   ___  | |_ ___         
+        \ \ /\ / / _ \ |/ __/ _ \| '_ ` _ \ / _ \ | __/ _ \        
+         \ V  V /  __/ | (_| (_) | | | | | |  __/ | || (_) |       
+  ____ ___\_/\_/_\___|_|\___\___/|_| |_| |_|\___|  \__\___/        
+ / ___/ ___|___ /| |/ /   __| |_   _ _ __   __ _  ___  ___  _ __   
+| |  | |     |_ \| ' /   / _` | | | | '_ \ / _` |/ _ \/ _ \| '_ \  
+| |__| |___ ___) | . \  | (_| | |_| | | | | (_| |  __/ (_) | | | | 
+ \____\____|____/|_|\_\  \__,_|\__,_|_| |_|\__, |\___|\___/|_| |_| 
+                                           |___/                        
+    )" << '\n'
+              << "         WELCOME to SYLVIA, EASON & MONICA CC3k    " << std::endl
+    << "Please start by entering one of the following command to choose your hero:" << std::endl
+    << "       (s): Shade, (d): Drow, (v): Vampire, (g):Goblin, (t):Troll"          << std::endl;
 }
 
 void PlayGame::play() {    
@@ -245,9 +256,16 @@ void PlayGame::end() {
     // score game
     int pts = p->getGold();
     if (p->getRace() == 's') pts *= 2;
+    std::cout << R"(
+__     _____ ____ _____ ___  ______   __  _   _ 
+\ \   / /_ _/ ___|_   _/ _ \|  _ \ \ / / | | | |
+ \ \ / / | | |     | || | | | |_) \ V /  | | | |
+  \ V /  | | |___  | || |_| |  _ < | |   |_| |_|
+   \_/  |___\____| |_| \___/|_| \_\|_|   (_) (_)        
+    )" << '\n';
     std::cout << "   CONGRATULATIONS! YOU HAVE ESCAPED THE DUNGEON!    " << std::endl;
-                std::cout << "        YOUR SCORE: " << pts << " points "             << std::endl;
-                std::cout << "             WOULD YOU LIKE TO PLAY AGAIN?           " << std::endl;
-                std::cout << "        (enter -r to restart, any key to esc)"         << std::endl;
+                std::cout << "        YOUR SCORE: " << pts << " points"             << std::endl;
+                std::cout << "    WOULD YOU LIKE TO PLAY AGAIN?" << std::endl;
+                std::cout << " (enter -r to restart, any key to esc)"         << std::endl;
 }
 

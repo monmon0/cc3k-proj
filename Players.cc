@@ -1,7 +1,6 @@
 #include "Players.h"
 #include "decorator.h"
 #include <iostream>
-#include <map>
 #include "Potion.h"
 #include "item.h"
 #include <ctime>
@@ -9,22 +8,9 @@
 
 Player::Player(AsciiArt *next, char race, int x, int y, int hp, int atk, int def): 
     Character(next, race, x, y, hp, atk, def) {
+        announcement = "Player chooses " + raceMap[race];
         if (race == 'v') max_hp = INT_MAX;
         else max_hp = hp;
-}
-
-std::string Player::dirToString(std::string dir) {
-    std::map<std::string, std::string> dirMap;
-    dirMap["so"] = "South";
-    dirMap["no"] = "North";
-    dirMap["ea"] = "East";
-    dirMap["we"] = "West";
-    dirMap["ne"] = "North East";
-    dirMap["nw"] = "North West";
-    dirMap["sw"] = "South West";
-    dirMap["se"] = "South East";
-    
-    return dirMap[dir];
 }
 
 void Player::move(std::string dir, AsciiArt * curr) {
@@ -41,8 +27,9 @@ void Player::move(std::string dir, AsciiArt * curr) {
             // check for type of gold
             Item * gold = Item::getItem(y, x);
             gold->applyEffect(this);
+            announcement = "PC collects a gold coin. ";
         }
-        announcement = "PC moves " + dirToString(dir);
+        announcement = "PC moves " + dirMap[dir];
     }
 
     // troll gains 5 hp every turn

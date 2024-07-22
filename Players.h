@@ -19,7 +19,7 @@ class Player : public Character {
         int hitbyH = 1;
         bool hitMerchant = false; 
         std::vector <Potion * > potions;
-
+        
     public:
         // Constructor and destructor 
         Player(AsciiArt *next, char race, int x, int y, int hp, int atk, int def);
@@ -33,7 +33,7 @@ class Player : public Character {
         void setAtk(int x) {atk = x;}
         void changeAtk(double x) { atk += x;}
         void changeDef(double x) { def += x;}
-        std::string dirToString(std::string dir);
+        // std::string dirToString(std::string dir);
 
         int getMaxHP() {return max_hp;}
         int getGold() const { return gold;}

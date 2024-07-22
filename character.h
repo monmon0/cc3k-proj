@@ -1,6 +1,6 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
-
+#include <map>
 #include "decorator.h"
 #include "asciiart.h"
 #include <string>
@@ -11,6 +11,12 @@ class Character : public Decorator {
         int x,y;
         double hp, atk, def;
         std::string announcement;
+        std::map<std::string, std::string> dirMap = {{"so", "South"}, {"no", "North"}, {"ea", "East"}, {"we", "West"},
+                                                     {"ne", "North East"}, {"nw", "North West"}, {"se", "South East"}, 
+                                                     {"sw", "South West"}};
+        std::map<char, std::string> raceMap = {{'d', "Drow"},  {'v', "Vampire"}, {'t', "Troll"},
+                                               {'g',"Goblin"}, {'s', "Shade"}};
+
 
     public:
         Character(AsciiArt *next, char id, int x, int y, double hp, double atk, double def);
