@@ -52,6 +52,13 @@ void CheckCoord::setPos() {
     };
 }
 
+void CheckCoord::setPosStair(int PCChamber) {
+    while (true) {
+        setPos(); 
+        if (p1x <= x <= p2x && p1y <= y <= p2y) break; 
+    }
+}
+
 int CheckCoord::getChamber() const {
     return chamber; 
 }

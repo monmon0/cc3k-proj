@@ -21,6 +21,7 @@ class CheckCoord {
         CheckCoord(Dungeon * curr, uint32_t seed): curr{curr}, prng{seed} {};
         int giveRandomInt(int i); 
         void setPos(); 
+        void setPosStair(int PCChamber); 
         int getX() const { return x; };
         int getY() const { return y; };
         int getChamber() const;

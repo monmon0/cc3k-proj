@@ -83,7 +83,6 @@ void PlayGame::levelUp() {
 void PlayGame::spawnStaircase(uint32_t seed) { 
     CheckCoord c{d, seed}; 
     while (true) {
-        c.setPos(); 
         int r1 = c.getX(), r2 = c.getY();
         if (p->getLocation() != c.getChamber()) {
             Staircase *sp = new Staircase(d->picture(), r1, r2); 
@@ -196,7 +195,7 @@ void PlayGame::spawnTreasure(uint32_t seed) {
             d->picture() = dragon;
             // treasure = new Dragon_Hoard(next, r2, r1, 6, new Dragon(d->picture(), r2 + 1, r1 + 2););
             if (i == 9) {
-                first_T = treasure;
+                first_T = dh;
             }
         } else {    // spawn small hoard
             treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_SMALL, d->picture(), r2, r1);

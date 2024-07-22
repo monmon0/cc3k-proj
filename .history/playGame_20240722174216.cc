@@ -83,7 +83,6 @@ void PlayGame::levelUp() {
 void PlayGame::spawnStaircase(uint32_t seed) { 
     CheckCoord c{d, seed}; 
     while (true) {
-        c.setPos(); 
         int r1 = c.getX(), r2 = c.getY();
         if (p->getLocation() != c.getChamber()) {
             Staircase *sp = new Staircase(d->picture(), r1, r2); 
@@ -184,20 +183,19 @@ void PlayGame::spawnTreasure(uint32_t seed) {
                 first_T = treasure;
             }
         } else if (num < 9) {   // spawn dragon hoard
-            treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_DRAGON, d->picture(), r2, r1);
-            d->picture() = treasure;
+            // treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_DRAGON, d->picture(), r2, r1);
             // Dragon_Hoard *dh = new Dragon_Hoard(d->picture(), r2, r1);
             // d->picture() = dh;
-            Enemy *dragon = new Dragon(d->picture(), r1 + 1, r2 + 1, static_cast<Dragon_Hoard*>(treasure));
-            // // int x_dir = rand() % 2;
-            // // int y_dir = rand() % 2;
-            // // d->picture() = treasure;
-            eVec.emplace_back(dragon);
-            d->picture() = dragon;
-            // treasure = new Dragon_Hoard(next, r2, r1, 6, new Dragon(d->picture(), r2 + 1, r1 + 2););
-            if (i == 9) {
-                first_T = treasure;
-            }
+            // Enemy *dragon = new Dragon(d->picture(), r1 + 1, r2 + 1, static_cast<Dragon_Hoard*>(treasure));
+            // // // int x_dir = rand() % 2;
+            // // // int y_dir = rand() % 2;
+            // // // d->picture() = treasure;
+            // eVec.emplace_back(dragon);
+            // d->picture() = dragon;
+            // // treasure = new Dragon_Hoard(next, r2, r1, 6, new Dragon(d->picture(), r2 + 1, r1 + 2););
+            // if (i == 9) {
+            //     first_T = dh;
+            // }
         } else {    // spawn small hoard
             treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_SMALL, d->picture(), r2, r1);
             d->picture() = treasure;
