@@ -64,13 +64,9 @@ int main() {
                 std::string dir;
                 std::cin >> dir;
                 // attack enemies
-                bool hit = 0;       // eason will write attack enemy function in gameplay here
-                if (hit) pc->attack(hit);
-                else {
-                    s.setAction("PC didn't sucessfully attack. ");
-                    pc->move(dir, s.picture());
-                }
-
+                bool hit = pc->attack(s.picture(), dir);     
+                if (hit) curr_g.defeatEnemies(pc->getX(), pc->getY(), pc, dir);
+                
             } else if (command == "no" || command == "so" || command == "ea" 
                     || command == "we" || command == "ne" || command == "nw" 
                     || command == "se" || command =="sw") {
@@ -99,6 +95,8 @@ int main() {
 
             // --------------- QUIT GAME ------------------------- //
             if (pc->isDead() || command == "q") {
+                pc->setAtk(0);
+                s.render(pc);
                 std::cout << "                 WOMP WOMP !    "           << std::endl;
                 std::cout << "             WOULD YOU LIKE TO PLAY AGAIN?" << std::endl;
                 std::cout << "   (enter -r to restart)" << std::endl;
@@ -128,9 +126,8 @@ int main() {
                 if (command == "r" ) curr_g.restart(pc);
                 else break;
             }
+            s.setAction(pc->getAnnouncement());
             s.render(pc);
-           
         }
-       
     }
 }

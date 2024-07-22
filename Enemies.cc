@@ -8,7 +8,7 @@ Enemy::Enemy(AsciiArt *next, char race, int x, int y, int hp, int atk, int def)
 
 // Implement the virtual charAt method
 char Enemy::charAt(int row, int col, int tick) {
-    if (col == x && row == y) {
+    if (col == x && row == y && !isDead()) {
         char id = getRace(); 
         if (id == 'H') return 'H'; 
         else if (id == 'W') return 'W'; 
@@ -23,6 +23,7 @@ char Enemy::charAt(int row, int col, int tick) {
 }
 
 void Enemy::atkOrMv(Player *pc, Dungeon *d) {
+    if (isDead()) return; 
     announcement = "";
     std::vector<int> arr = {-1, 0, 1}; 
 
@@ -31,7 +32,7 @@ void Enemy::atkOrMv(Player *pc, Dungeon *d) {
 
     if (xDiff <= 1 && yDiff <= 1) {
         int damage = ceil((100/(100 + pc->getDef())) * getAtk()); 
-        if (getRace() == 'O' && pc->getRace() != 'g') damage *= 1.5; 
+        if (getRace() == 'O' && pc->getRace() == 'g') damage *= 1.5; 
         if (rand() % 2 == 0) {
             pc->changeHP(-damage); 
             announcement = std::string(1, getRace())  // Convert char to std::string
@@ -44,13 +45,13 @@ void Enemy::atkOrMv(Player *pc, Dungeon *d) {
         if (getRace() == 'E' && pc->getRace() != 'd') {
             if (rand() % 2 == 0) {
                 pc->changeHP(-damage); 
-                announcement + "On the second try "
+                announcement += "On the second try "
                                 + std::string(1, getRace())  // Convert char to std::string
                                 + " deals " 
                                 + std::to_string(damage)  // Convert int to std::string
                                 + " damage to PC. ";
             } else {
-                announcement + "On the second try " + std::string(1, getRace()) + " missed. "; 
+                announcement += "On the second try " + std::string(1, getRace()) + " missed. "; 
             }
         }
     } else {

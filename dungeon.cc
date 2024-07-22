@@ -14,7 +14,6 @@
 void Dungeon::reset() { ticks = 0; }
 
 void Dungeon::render(Player * player) {
-  setAction(player->getAnnouncement());
   // draws current map
   // 79 x 25
   for (int i = 0; i < rows - 5; ++i) {

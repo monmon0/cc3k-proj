@@ -15,6 +15,8 @@ class Player : public Character {
         int max_hp;         
         int gold = 0;      
         bool levelUp;      
+        int new_block_x = 0, new_block_y = 0;
+        int hitbyH = 1;
         std::vector <Potion * > potions;
 
     public:
@@ -25,9 +27,8 @@ class Player : public Character {
         void move(std::string dir, AsciiArt *next);
         char getRace() {return race;}
         void addGold(int amt) {gold += amt;}
-
-        std::string getAnnouncement() {return announcement;}
-
+        void getHitbyHalfing() {hitbyH = 2;}
+        void setAtk(int x) {atk = x;}
         void changeAtk(double x) { atk += x;}
         void changeDef(double x) { def += x;}
         std::string dirToString(std::string dir);
@@ -35,7 +36,7 @@ class Player : public Character {
         int getMaxHP() {return max_hp;}
         int getGold() const { return gold;}
         
-        bool attack(bool hit);      // Attack 
+        bool attack(AsciiArt * d, std::string dir);      // Attack 
         void takePotion(AsciiArt * m, std::string dir);         //  Use Potion
         void nextLevel(int x, int y);        
         void restartSettings(char n_race, int n_hp, int n_atk, int n_def);
@@ -43,6 +44,7 @@ class Player : public Character {
         bool isLevelUp() const;
         void attach(Potion * o);
         void detach(Potion* o);
+        char atPostion(AsciiArt * d, std::string dir);
 
 }; 
 

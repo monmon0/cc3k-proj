@@ -28,6 +28,7 @@ public:
     void atkOrMv(Player *pc, Dungeon *d);
     bool isDead() { return hp <= 0; }
     void attack(Player& pc) { pc.changeHP(-getAtk()); }
+    void loseHP(double damage) { hp -= damage; }
     char charAt(int row, int col, int tick) override;
 };
 

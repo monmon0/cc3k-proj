@@ -204,6 +204,37 @@ void PlayGame::attackOrMove() {
     }
 }
 
+void PlayGame::defeatEnemies(int x, int y, Player *p, std::string dir) {
+    if (dir == "no") {
+        y--; 
+    } else if (dir == "ne") {
+        x++; 
+        y--; 
+    } else if (dir == "ea") {
+        x++; 
+    } else if (dir == "se") {
+        x++; 
+        y++; 
+    } else if (dir == "so") { 
+        y++; 
+    } else if (dir == "sw") {
+        x--; 
+        y++; 
+    } else if (dir == "we") {
+        x--; 
+    } else if (dir == "nw") {
+        x--; 
+        y--; 
+    } 
+    for (auto e : eVec) {
+        if (e->getX() == x && e->getY() == y) {
+            double damage = ceil((100/(100 + e->getDef())) * p->getAtk()); 
+            e->loseHP(damage); 
+            if (e->isDead()) p->addGold(5); 
+        }
+    }
+}
+
 void PlayGame::end() {
     // score game
 }
