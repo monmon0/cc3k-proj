@@ -37,12 +37,13 @@ void PlayGame::spawnPlayer(Player * pc, std::string command) {
     CheckCoord c{d, seed}; 
     c.setPos(); 
     int r1 = c.getX(), r2 = c.getY();
+    int location = c.getChamber();
 
-    if      (command == "s") pc = new Shade{d->picture(), 's', r1, r2, 125, 25, 15};
-    else if (command == "d") pc = new Drow{d->picture(), 'd', r1, r2, 150, 25, 15};
-    else if (command == "v") pc = new Vampire{d->picture(), 'v', r1, r2, 50, 25, 5};
-    else if (command == "t") pc = new Troll{d->picture(), 't', r1, r2, 120, 25, 15};
-    else if (command == "g") pc = new Goblin{d->picture(), 'g', r1, r2, 110, 25, 15};
+    if      (command == "s") pc = new Shade{d->picture(), 's', r1, r2, 125, 25, 15, location};
+    else if (command == "d") pc = new Drow{d->picture(), 'd', r1, r2, 150, 25, 15, location};
+    else if (command == "v") pc = new Vampire{d->picture(), 'v', r1, r2, 50, 25, 5, location};
+    else if (command == "t") pc = new Troll{d->picture(), 't', r1, r2, 120, 25, 15, location};
+    else if (command == "g") pc = new Goblin{d->picture(), 'g', r1, r2, 110, 25, 15, location};
 
     p = pc;
     d->picture() = pc;
@@ -80,38 +81,15 @@ void PlayGame::levelUp() {
 }
 
 void PlayGame::spawnStaircase(uint32_t seed) { 
-    struct Point {
-        int x = 0, y = 0; 
-    };
-    
-    Point p1, p2; 
-    if (p->getX() < 32) {
-        if (p->getY() < 11) {
-            p1 = {0, 0};
-            p2 = {32, 11}; 
-        } else { chamber = 1; }
-            p1 = {0, 11};
-            p2 = {32, 25};
-    } else {
-        if (p->getX() < 55 && p->getY() > 8 && p->getY() < 15 ) {
-            p1 = {32, 8};
-            p2 = {55, 15};
-        } else {
-            if (p->getY() < 14) {
-                p1 = {32, 0};
-                p2 = {70, 14};
-            } else { 
-                p1 = {32, 14};
-                p2 = {70, 25};
-            }
+    CheckCoord c{d, seed}; 
+    while (true) {
+        int r1 = c.getX(), r2 = c.getY();
+        if (p->getLocation() != c.getChamber()) {
+            Staircase *sp = new Staircase(d->picture(), r1, r2); 
+            d->picture() = sp; 
+            break; 
         }
     }
-
-    CheckCoord c{d, seed}; 
-    c.setPosStair(p1.x, p1.y, p2.x, p2.y); 
-    int r1 = c.getX(), r2 = c.getY();
-    Staircase *sp = new Staircase(d->picture(), r1, r2); 
-    d->picture() = sp; 
 }
 
 void PlayGame::destroyPotions() {
@@ -205,15 +183,18 @@ void PlayGame::spawnTreasure(uint32_t seed) {
                 first_T = treasure;
             }
         } else if (num < 9) {   // spawn dragon hoard
-            treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_DRAGON, d->picture(), r2, r1);
+            // treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_DRAGON, d->picture(), r2, r1);
+            Dragon_Hoard *dh = new Dragon_Hoard(d->picture(), r2, r1);
+            d->picture() = treasure;
+            Enemy *dragon = new Dragon(d->picture(), r2 + 1, r1 + 1, dh);
             // int x_dir = rand() % 2;
             // int y_dir = rand() % 2;
-            Enemy *dragon = new Dragon(d->picture(), r2 + 1, r1 + 2); 
+            // d->picture() = treasure;
             eVec.emplace_back(dragon);
             d->picture() = dragon;
-            d->picture() = treasure;
+            // treasure = new Dragon_Hoard(next, r2, r1, 6, new Dragon(d->picture(), r2 + 1, r1 + 2););
             if (i == 9) {
-                first_T = treasure;
+                first_T = dh;
             }
         } else {    // spawn small hoard
             treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_SMALL, d->picture(), r2, r1);
@@ -267,7 +248,7 @@ void PlayGame::spawnEnemies(uint32_t seed) {
 
 void PlayGame::fPressed() {
     for (auto e : eVec) {
-        e.fPressed = !e.fPressed; 
+        e->fPressed = !e->fPressed; 
     }
 }
 

@@ -21,15 +21,15 @@ class Treasure: public Item {
         void applyEffect(Player *player) override;
 };
 
-class Dragon_Hoard: public Treasure, public Observer {
+class Dragon_Hoard: public Treasure {
     protected:
         bool isGuarded;
-        Subject *dragon;
 
     public:
-        Dragon_Hoard(AsciiArt *next, int x, int y, double val, Subject *dragon);
+        Dragon_Hoard(AsciiArt *next, int x, int y);
+        void unGuarded();
         void applyEffect(Player *player) override;
-        void notify() override;
+        // void notify() override;
         // Enemy *getDragon();
 };
 

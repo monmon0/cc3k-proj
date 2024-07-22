@@ -18,11 +18,12 @@ class Player : public Character {
         int new_block_x = 0, new_block_y = 0;
         int hitbyH = 1;
         bool hitMerchant = false; 
+        int location = -1;  
         std::vector <Potion * > potions;
         
     public:
         // Constructor and destructor 
-        Player(AsciiArt *next, char race, int x, int y, int hp, int atk, int def);
+        Player(AsciiArt *next, char race, int x, int y, int hp, int atk, int def, int location);
         ~Player() = default;
         char charAt(int row, int col, int tick) override;
         void move(std::string dir, AsciiArt *next);
@@ -31,6 +32,7 @@ class Player : public Character {
         void getHitbyHalfing() {hitbyH = 2;}
         bool isFriend() { return hitMerchant == false; }
         void setAtk(int x) {atk = x;}
+        int getLocation() { return location; }
         void changeAtk(double x) { atk += x;}
         void changeDef(double x) { def += x;}
         // std::string dirToString(std::string dir);
@@ -54,32 +56,32 @@ class Player : public Character {
 
 class Shade : public Player {
     public:
-        Shade(AsciiArt *next, char race, int x, int y, int hp, int atk, int def):
-            Player(next, race, x, y, hp, atk, def) {
+        Shade(AsciiArt *next, char race, int x, int y, int hp, int atk, int def, int location):
+            Player(next, race, x, y, hp, atk, def, location) {
             announcement = "Player chooses Shade.";
            };
 };
 
 class Troll : public Player {
     public:
-        Troll(AsciiArt *next, char race, int x, int y, int hp, int atk, int def):
-           Player(next, race, x, y, hp, atk, def)  {
+        Troll(AsciiArt *next, char race, int x, int y, int hp, int atk, int def, int location):
+           Player(next, race, x, y, hp, atk, def, location)  {
                 announcement = "Player chooses Troll.";
             };
 };
 
 class Drow : public Player {
     public:
-        Drow(AsciiArt *next, char race, int x, int y, int hp, int atk, int def):
-           Player(next, race, x, y, hp, atk, def) {
+        Drow(AsciiArt *next, char race, int x, int y, int hp, int atk, int def, int location):
+           Player(next, race, x, y, hp, atk, def, location) {
             announcement = "Player chooses Drow.";
            };
 };
 
 class Goblin : public Player {
     public:
-        Goblin(AsciiArt *next, char race, int x, int y, int hp, int atk, int def):
-           Player(next, race, x, y, hp, atk, def) {
+        Goblin(AsciiArt *next, char race, int x, int y, int hp, int atk, int def, int location):
+           Player(next, race, x, y, hp, atk, def, location) {
             announcement = "Player chooses Goblin.";
            };
 };
@@ -87,8 +89,8 @@ class Goblin : public Player {
 
 class Vampire : public Player {
     public:
-        Vampire(AsciiArt *next, char race, int x, int y, int hp, int atk, int def):
-           Player(next, race, x, y, hp, atk, def)  {
+        Vampire(AsciiArt *next, char race, int x, int y, int hp, int atk, int def, int location):
+           Player(next, race, x, y, hp, atk, def, location)  {
             announcement = "Player chooses Vampire.";
            };
 };

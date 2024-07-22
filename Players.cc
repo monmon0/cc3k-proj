@@ -6,8 +6,8 @@
 #include <ctime>
 #include <string>
 
-Player::Player(AsciiArt *next, char race, int x, int y, int hp, int atk, int def): 
-    Character(next, race, x, y, hp, atk, def) {
+Player::Player(AsciiArt *next, char race, int x, int y, int hp, int atk, int def, int location): 
+    Character(next, race, x, y, hp, atk, def), location{location} {
         announcement = "Player chooses " + raceMap[race];
         if (race == 'v') max_hp = INT_MAX;
         else max_hp = hp;
