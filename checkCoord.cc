@@ -7,8 +7,6 @@ int CheckCoord::giveRandomInt(int i) {
     return prng() % i; 
 }
 
-int CheckCoord::getChamber() { return chamber; }
-
 void CheckCoord::setPos() {		
     int new_x, new_y; 
     while (true) {
