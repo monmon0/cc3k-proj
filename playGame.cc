@@ -77,7 +77,7 @@ void PlayGame::destroyTreasure() {
 
 void PlayGame::destroyEnemies() {
     // delete all potions until player
-    for (int i = 0; i < 20; i++) d->picture() = first_E->nextChar();
+    for (int i = 0; i < eVec.size(); i++) d->picture() = first_E->nextChar();
     eVec.clear();
     d->picture() = first_P;
 }
@@ -131,14 +131,19 @@ void PlayGame::spawnTreasure(uint32_t seed) {
         int r1 = c.getX(), r2 = c.getY();
         
         Item *treasure;
-        if (num < 5) {  // spawn normal gold
+        if (num < 1) {  // spawn normal gold
             treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_NORMAL, d->picture(), r2, r1);
             d->picture() = treasure;
             if (i == 9) {
                 first_T = treasure;
             }
-        } else if (num < 6) {   // spawn dragon hoard
+        } else if (num < 9) {   // spawn dragon hoard
             treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_DRAGON, d->picture(), r2, r1);
+            // int x_dir = rand() % 2;
+            // int y_dir = rand() % 2;
+            // Enemy *dragon = new Dragon(d->picture(), r2 + 1, r1 + 2); 
+            // eVec.emplace_back(dragon);
+            // d->picture() = dragon;
             d->picture() = treasure;
             if (i == 9) {
                 first_T = treasure;
@@ -155,7 +160,6 @@ void PlayGame::spawnTreasure(uint32_t seed) {
 
 void PlayGame::spawnEnemies(uint32_t seed) {    
     vector<char> characters = {'H', 'W', 'E', 'O', 'M', 'L'};
-
     for (int i = 0; i < 20; i++) {
         int idx = rand() % 6;
         char name = characters[idx]; 
@@ -185,14 +189,10 @@ void PlayGame::spawnEnemies(uint32_t seed) {
             Enemy *mp = new Merchant(d->picture(), r1, r2); 
             d->picture() = mp; 
             eVec.emplace_back(mp);
-        } else if (name == 'L') {
+        } else {
             Enemy *lp = new Halfling(d->picture(), r1, r2); 
             d->picture() = lp; 
             eVec.emplace_back(lp);
-        } else {
-            Enemy *dp = new Dragon(d->picture(), r1, r2); 
-            d->picture() = dp; 
-            eVec.emplace_back(dp);
         }
     } 
     first_E = eVec.back();
