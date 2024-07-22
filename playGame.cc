@@ -33,20 +33,20 @@ void PlayGame::play() {
 }
 
 void PlayGame::spawnPlayer(Player * pc, std::string command) {
-    uint32_t seed = getpid();
-    CheckCoord c{d, seed}; 
-    c.setPos(); 
-    int r1 = c.getX(), r2 = c.getY();
-    int location = c.getChamber();
+    // uint32_t seed = getpid();
+    // CheckCoord c{d, seed}; 
+    // c.setPos(); 
+    // int r1 = c.getX(), r2 = c.getY();
+    // int location = c.getChamber();
 
-    if      (command == "s") pc = new Shade{d->picture(), 's', r1, r2, 125, 25, 15, location};
-    else if (command == "d") pc = new Drow{d->picture(), 'd', r1, r2, 150, 25, 15, location};
-    else if (command == "v") pc = new Vampire{d->picture(), 'v', r1, r2, 50, 25, 5, location};
-    else if (command == "t") pc = new Troll{d->picture(), 't', r1, r2, 120, 25, 15, location};
-    else if (command == "g") pc = new Goblin{d->picture(), 'g', r1, r2, 110, 25, 15, location};
+    // if      (command == "s") pc = new Shade{d->picture(), 's', r1, r2, 125, 25, 15, location};
+    // else if (command == "d") pc = new Drow{d->picture(), 'd', r1, r2, 150, 25, 15, location};
+    // else if (command == "v") pc = new Vampire{d->picture(), 'v', r1, r2, 50, 25, 5, location};
+    // else if (command == "t") pc = new Troll{d->picture(), 't', r1, r2, 120, 25, 15, location};
+    // else if (command == "g") pc = new Goblin{d->picture(), 'g', r1, r2, 110, 25, 15, location};
 
-    p = pc;
-    d->picture() = pc;
+    // p = pc;
+    // d->picture() = pc;
 }
 
 void PlayGame::restart(Player * p) {
