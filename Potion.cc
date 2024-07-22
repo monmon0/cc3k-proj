@@ -32,7 +32,7 @@ void RH::applyEffect(Player *player) {
     }
     active = false;
     deleteItem(this);
-    announcement = "PC uses" + getName();
+    announcement = "PC uses " + getName() + ". ";
 }
 
 BA::BA(AsciiArt *next, int x, int y, string name) :
@@ -46,7 +46,7 @@ void BA::applyEffect(Player *player) {
     active = false;
     deleteItem(this);
     player->changeAtk(amt);
-    announcement = "PC uses" + getName();
+    announcement = "PC uses " + getName() + ". ";
 }
 
 void BA::undoEffect(Player *player) {
@@ -66,7 +66,7 @@ void BD::applyEffect(Player *player) {
     active = false;
     deleteItem(this);
     player->changeDef(amt);
-    announcement = "PC uses" + getName();
+    announcement = "PC uses " + getName() + ". ";
 }
 
 void BD::undoEffect(Player *player) {
@@ -90,7 +90,7 @@ void PH::applyEffect(Player *player) {
     }
     active = false;
     deleteItem(this);
-    announcement = "PC uses" + getName();
+    announcement = "PC uses " + getName() + ". ";
 }
 
 WA::WA(AsciiArt *next, int x, int y, string name) :
@@ -104,7 +104,7 @@ void WA::applyEffect(Player *player) {
     active = false;
     deleteItem(this);
     player->changeDef(amt);
-    announcement = "PC uses" + getName();
+    announcement = "PC uses " + getName() + ". ";
 }
 
 void WA::undoEffect(Player *player) {
@@ -124,7 +124,7 @@ void WD::applyEffect(Player *player) {
     active = false;
     deleteItem(this);
     player->changeDef(amt);
-    announcement = "PC uses" + getName();
+    announcement = "PC uses " + getName() + ". ";
 }
 
 void WD::undoEffect(Player *player) {

@@ -46,7 +46,7 @@ class PlayGame {
         void destroyEnemies();
         
         void attackOrMove(); 
-        bool defeatEnemies(int x, int y, int PCAtk, std::string dir); 
+        void defeatEnemies(int x, int y, Player *p, std::string dir); 
 
         void spawnTreasure(uint32_t seed);
         void destroyTreasure();

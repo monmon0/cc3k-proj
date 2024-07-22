@@ -14,7 +14,6 @@
 void Dungeon::reset() { ticks = 0; }
 
 void Dungeon::render(Player * player) {
-  setAction(player->getAnnouncement());
   // draws current map
   // 79 x 25
   for (int i = 0; i < rows - 5; ++i) {
@@ -22,7 +21,8 @@ void Dungeon::render(Player * player) {
       char curr = picture()->charAt(i, j, ticks);
       if (curr == '\\' || curr == '@') {
         out << ESC << LIGHT_BLUE <<"m"<< picture()->charAt(i, j, ticks) << RESET;
-      } else if (curr == 'E' || curr == 'H' || curr == 'D' || curr == 'O' || curr == 'L'  || curr == 'M'  || curr == 'R') {
+      } else if (curr == 'E' || curr == 'H' || curr == 'D' || curr == 'O' 
+             || curr == 'L'  || curr == 'M'  || curr == 'R' || curr == 'W' ) {
         out << ESC << RED <<"m"<< picture()->charAt(i, j, ticks) << RESET;
       } else if (curr == 'P') {
          out << ESC << GREEN <<"m"<< picture()->charAt(i, j, ticks) << RESET;
