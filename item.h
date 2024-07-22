@@ -24,6 +24,7 @@ class Item: public Decorator {
         double getAmt();
         string getAnnouncement() const;
         virtual void applyEffect(Player *player) = 0;
+        virtual bool collectable();
         static void addItem(Item* item);
         static Item *getItem(int x, int y);
         static void deleteItem(Item *item);

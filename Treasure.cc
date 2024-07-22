@@ -30,10 +30,6 @@ void Treasure::applyEffect(Player *player) {
     announcement = "PC obtained" + std::to_string(getAmt()) + "gold";
 }
 
-bool Treasure::collectable() {
-    return true;
-}
-
 Dragon_Hoard::Dragon_Hoard(AsciiArt *next, int x, int y): Treasure{next, x, y, 6},
                                                                 isGuarded{true}{}
 
