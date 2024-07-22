@@ -3,7 +3,14 @@
 #include <ctime>
 using namespace std;
 
-PlayGame::PlayGame(Dungeon *d) : d{d} {}
+PlayGame::PlayGame(Dungeon *d) : d{d} {
+     // --------------- START GAME ------------------------- //
+    std::cout << "                                              " << std::endl
+              << "                                              " << std::endl
+              << "    WELCOME to SYLVIA, EASON & MONICA CC3k    " << std::endl
+    << "Please start by entering one of the following command to choose your hero:"
+    << "(s): Shade, (d): Drow, (v): Vampire, (g):Goblin, (t):Troll" << std::endl;
+}
 
 void PlayGame::play() {    
     int seed = time(0);
@@ -92,7 +99,6 @@ void PlayGame::spawnPotions(uint32_t seed) {
         CheckCoord c{d, seed}; 
         c.setPos(); 
         int r1 = c.getX(), r2 = c.getY();
-        // int r2 = d->getLevel(), r1 = i + 4;
     
         if (name == "RH") {
             Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_RH, d->picture(), r2, r1);
@@ -130,7 +136,7 @@ void PlayGame::spawnTreasure(uint32_t seed) {
         int r1 = c.getX(), r2 = c.getY();
         
         Item *treasure;
-        if (num < 1) {  // spawn normal gold
+        if (num < 1) {          // spawn normal gold
             treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_NORMAL, d->picture(), r2, r1);
             d->picture() = treasure;
             if (i == 9) {
@@ -237,5 +243,11 @@ void PlayGame::defeatEnemies(int x, int y, Player *p, std::string dir) {
 
 void PlayGame::end() {
     // score game
+    int pts = p->getGold();
+    if (p->getRace() == 's') pts *= 2;
+    std::cout << "   CONGRATULATIONS! YOU HAVE ESCAPED THE DUNGEON!    " << std::endl;
+                std::cout << "        YOUR SCORE: " << pts << " points "             << std::endl;
+                std::cout << "             WOULD YOU LIKE TO PLAY AGAIN?           " << std::endl;
+                std::cout << "        (enter -r to restart, any key to esc)"         << std::endl;
 }
 

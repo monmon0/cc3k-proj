@@ -21,13 +21,6 @@ int main() {
     PlayGame curr_g{&s};
     bool initialized = 0;
 
-    // --------------- START GAME ------------------------- //
-    std::cout << "                                              " << std::endl
-              << "                                              " << std::endl
-              << "    WELCOME to SYLVIA, EASON & MONICA CC3k    " << std::endl
-    << "Please start by entering one of the following command to choose your hero:"
-    << "(s): Shade, (d): Drow, (v): Vampire, (g):Goblin, (t):Troll" << std::endl;
-
     // ---------------  COMMAND --------------------------- //
     while (std::cin >> command) {
         s.clearAction();
@@ -42,7 +35,7 @@ int main() {
                 c.setPos(); 
                 int r1 = c.getX(), r2 = c.getY();
 
-                if (command == "s") pc = new Shade{s.picture(), 's', r1, r2, 125, 25, 15};
+                if      (command == "s") pc = new Shade{s.picture(), 's', r1, r2, 125, 25, 15};
                 else if (command == "d") pc = new Drow{s.picture(), 'd', r1, r2, 150, 25, 15};
                 else if (command == "v") pc = new Vampire{s.picture(), 'v', r1, r2, 50, 25, 5};
                 else if (command == "t") pc = new Troll{s.picture(), 't', r1, r2, 120, 25, 15};
@@ -50,12 +43,10 @@ int main() {
 
                 s.picture() = pc;
                 curr_g.attachPC(pc); 
-
-                // --------- start game, spawn enemies, spawn potions -----------  
+                // --------- start game, spawn enemies, spawn potions -----------  //
                 curr_g.play();
                 initialized = 1;
                 s.render(pc);
-
             } else std::cout << "Please choose an appropriate command" << std::endl;
         } else if (initialized) {
 
@@ -83,10 +74,8 @@ int main() {
             } else if (command == "lu") {   // Level up, for testing purposes, not actual command
                 curr_g.levelUp(pc);
                 s.setAction("Next Floor Unlocked! Good job! ");
-
             } else if (command == "f" ) {   // stop enemies from moving;
-
-            
+                
             // --------------- RESTART GAME ------------------------- //
             } else if (command == "r" ) {   // restart game
                 curr_g.restart(pc);
@@ -101,11 +90,10 @@ int main() {
                 std::cout << "             WOULD YOU LIKE TO PLAY AGAIN?" << std::endl;
                 std::cout << "   (enter -r to restart)" << std::endl;
 
-                if (command == "r" ) {
+                if (command == "r" ) {          // restart game
                     curr_g.restart(pc);  
                     initialized = 0;
-                } // restart game
-                else break;
+                } else break;
             } 
             
             if (pc->isLevelUp() && s.getLevel() < 5) {
@@ -115,13 +103,7 @@ int main() {
 
              // --------------- END GAME ------------------------- //
             if (s.getLevel() == 5) {
-                int pts = pc->getGold();
-                if (pc->getRace() == 's') pts *= 2;
-                // ascii art for winning
-                std::cout << "   CONGRATULATIONS! YOU HAVE ESCAPED THE DUNGEON!    " << std::endl;
-                std::cout << "        YOUR SCORE: " << pts << " points "             << std::endl;
-                std::cout << "             WOULD YOU LIKE TO PLAY AGAIN?           " << std::endl;
-                std::cout << "        (enter -r to restart, any key to esc)"         << std::endl;
+                curr_g.end();
                 std::cin >> command;
                 if (command == "r" ) curr_g.restart(pc);
                 else break;

@@ -111,6 +111,7 @@ char Player::atPostion(AsciiArt * d, std::string dir) {
 
 bool Player::attack(AsciiArt * d, std::string dir) {
     // if (d->charAt())
+    announcement = "";
     srand(time(0));
     int chance = rand() % hitbyH;
     char curr = atPostion(d, dir);
