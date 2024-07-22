@@ -248,11 +248,14 @@ void Merchant::atkOrMv(Player *pc, Dungeon *d) {
 
 // --------------------- Dragon --------------------- //
 
-Dragon::Dragon(AsciiArt *next, int xCoord, int yCoord)
-    : Enemy(next, 'D', xCoord, yCoord, 150, 20, 20) {}
+Dragon::Dragon(AsciiArt *next, int xCoord, int yCoord, Dragon_Hoard *dh)
+    : Enemy(next, 'D', xCoord, yCoord, 150, 20, 20), dh{dh} {}
 
 void Dragon::atkOrMv(Player *pc, Dungeon *d) {
-    if (isDead()) return; 
+    if (isDead()) {
+        dh->unGuarded(); 
+        return; 
+    }; 
     announcement = "";
     std::vector<int> arr = {-1, 0, 1}; 
 
@@ -288,6 +291,7 @@ void Dragon::atkOrMv(Player *pc, Dungeon *d) {
         } 
     }
 }
+
 
 // --------------------- Halfling --------------------- //
 

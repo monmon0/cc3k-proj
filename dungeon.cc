@@ -53,6 +53,7 @@ void Dungeon::render(Player * player) {
   out << "Action: " << action << std::endl;
   //
   ++ticks;
+
 }
 
 Dungeon::~Dungeon() { delete thePicture; }

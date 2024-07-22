@@ -35,7 +35,6 @@ class PlayGame {
         void end(); 
 
         bool checkCoord(int x, int y); 
-        void attachPC(Player *pc); 
 
         void spawnStaircase(uint32_t seed); 
 
@@ -44,16 +43,18 @@ class PlayGame {
 
         void spawnEnemies(uint32_t seed);
         void destroyEnemies();
-        
+        void fPressed(); 
+        void deadOrQuit();
         void attackOrMove(); 
-        void defeatEnemies(int x, int y, Player *p, std::string dir); 
+        void defeatEnemies(int x, int y, std::string dir); 
 
         void spawnTreasure(uint32_t seed);
         void destroyTreasure();
 
-        void levelUp(Player * p);
+        void levelUp();
         void restart(Player * p);
-        void sendAnnouncement();
+        void spawnPlayer(Player * p, std::string command);
+        // void sendAnnouncement();
         
 };
 

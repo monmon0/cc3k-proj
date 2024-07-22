@@ -3,7 +3,9 @@
 Item::Item(AsciiArt *next, int x, int y, double amt) : Decorator{next},
                                                     x{x},
                                                     y{y},
-                                                    amt{amt}{}
+                                                    amt{amt}{
+    addItem(this);
+}
 
 double Item::getAmt() {
     return amt;
@@ -13,7 +15,7 @@ string Item::getAnnouncement() const {
     return announcement;
 }
 
-void Item::addItem(int x, int y, Item* item) {
+void Item::addItem(Item* item) {
     iVec.emplace_back(item);
 }
 

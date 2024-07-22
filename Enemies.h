@@ -8,6 +8,7 @@
 #include "PRNG.h"
 #include "dungeon.h"
 #include "checkCoord.h"
+#include "Treasure.h"
 
 #include <cmath>
 #include <string>
@@ -17,15 +18,15 @@
 #include <random>
 
 class Dungeon; 
+// class Dragon_Hoard;
 
 class Enemy : public Character {
 public:
     Enemy(AsciiArt *next, char race, int x, int y, int hp, int atk, int def);
-
     ~Enemy() = default; 
 
     bool fPressed = false; 
-    bool isDead() { return hp <= 0; }
+    bool isDead() const { return hp <= 0; }
     void attack(Player& pc) { pc.changeHP(-getAtk()); }
     void loseHP(double damage) { hp -= damage; }
     char charAt(int row, int col, int tick) override;
@@ -62,15 +63,18 @@ public:
     void atkOrMv(Player *pc, Dungeon *d) override; 
 };
 
-class Dragon : public Enemy {
-public:
-    Dragon(AsciiArt *next, int xCoord, int yCoord);
-    void atkOrMv(Player *pc, Dungeon *d) override; 
-};
-
 class Halfling : public Enemy {
 public:
     Halfling(AsciiArt *next, int xCoord, int yCoord);
+    void atkOrMv(Player *pc, Dungeon *d) override; 
+};
+
+class Dragon_Hoard;
+
+class Dragon : public Enemy {
+    Dragon_Hoard *dh;
+public:
+    Dragon(AsciiArt *next, int xCoord, int yCoord, Dragon_Hoard *dh); 
     void atkOrMv(Player *pc, Dungeon *d) override; 
 };
 
