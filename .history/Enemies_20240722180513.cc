@@ -260,8 +260,8 @@ void Dragon::atkOrMv(Player *pc, Dungeon *d) {
 
     int xDiff1 = abs(pc->getX() - x); 
     int yDiff1 = abs(pc->getY() - y);  
-    int xDiff2 = abs(pc->getX() - dh->getX()); 
-    int yDiff2 = abs(pc->getY() - dh->getY());  
+    int xDiff2 = abs(pc->getX() - dh->getY()); 
+    int yDiff2 = abs(pc->getY() - dh->getX());  
 
     if ((xDiff1 <= 1 && yDiff1 <= 1) || (xDiff2 <= 1 && yDiff2 <= 1)) {
         int damage = ceil((100/(100 + pc->getDef())) * getAtk()); 
