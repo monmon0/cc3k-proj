@@ -183,10 +183,11 @@ void PlayGame::spawnTreasure(uint32_t seed) {
                 first_T = treasure;
             }
         } else if (num < 9) {   // spawn dragon hoard
-            // treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_DRAGON, d->picture(), r2, r1);
-            Dragon_Hoard *dh = new Dragon_Hoard(d->picture(), r1, r2);
-            d->picture() = dh;
-            Enemy *dragon = new Dragon(d->picture(), r1 + 1, r2 + 1, dh);
+            treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_DRAGON, d->picture(), r2, r1);
+            // Dragon_Hoard *dh = new Dragon_Hoard(d->picture(), r1, r2);
+            // d->picture() = dh;
+            d->picture() = treasure;
+            Enemy *dragon = new Dragon(d->picture(), r1 + 1, r2 + 1, static_cast<Dragon_Hoard*>(treasure));
             // // int x_dir = rand() % 2;
             // // int y_dir = rand() % 2;
             // // d->picture() = treasure;
@@ -194,7 +195,7 @@ void PlayGame::spawnTreasure(uint32_t seed) {
             d->picture() = dragon;
             // treasure = new Dragon_Hoard(next, r2, r1, 6, new Dragon(d->picture(), r2 + 1, r1 + 2););
             if (i == 9) {
-                first_T = dh;
+                first_T = treasure;
             }
         } else {    // spawn small hoard
             treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_SMALL, d->picture(), r2, r1);
