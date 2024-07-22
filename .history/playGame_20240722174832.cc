@@ -83,7 +83,7 @@ void PlayGame::levelUp() {
 void PlayGame::spawnStaircase(uint32_t seed) { 
     CheckCoord c{d, seed}; 
     while (true) {
-        c.setPos(); 
+        c.setPosStair()  
         int r1 = c.getX(), r2 = c.getY();
         if (p->getLocation() != c.getChamber()) {
             Staircase *sp = new Staircase(d->picture(), r1, r2); 

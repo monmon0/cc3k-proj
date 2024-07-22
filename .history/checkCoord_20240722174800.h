@@ -9,7 +9,7 @@
 class Dungeon;
 
 class CheckCoord {
-    int x = 1, y = 1; 
+    int x = 1, y = 0; 
     int chamber = 0; 
     Dungeon * curr;
     int new_x, new_y;
@@ -21,6 +21,7 @@ class CheckCoord {
         CheckCoord(Dungeon * curr, uint32_t seed): curr{curr}, prng{seed} {};
         int giveRandomInt(int i); 
         void setPos(); 
+        void setPosStair(int p1x, int p1y, int p2x, int p2y); 
         int getX() const { return x; };
         int getY() const { return y; };
         int getChamber() const;
