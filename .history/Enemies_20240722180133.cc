@@ -257,13 +257,12 @@ void Dragon::atkOrMv(Player *pc, Dungeon *d) {
         return; 
     }; 
     announcement = "";
+    std::vector<int> arr = {-1, 0, 1}; 
 
-    int xDiff1 = abs(pc->getX() - x); 
-    int yDiff1 = abs(pc->getY() - y);  
-    int xDiff2 = abs(pc->getX() - dh->getX()); 
-    int yDiff2 = abs(pc->getY() - dh->getY());  
+    int xDiff = abs(pc->getX() - x); 
+    int yDiff = abs(pc->getY() - y);  
 
-    if ((xDiff1 <= 1 && yDiff1 <= 1) || (xDiff2 <= 1 && yDiff2 <= 1)) {
+    if ((xDiff <= 1 && yDiff <= 1) || ) {
         int damage = ceil((100/(100 + pc->getDef())) * getAtk()); 
         if (rand() % 2 == 0) {
             pc->changeHP(-damage); 
