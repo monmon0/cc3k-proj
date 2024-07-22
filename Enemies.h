@@ -62,10 +62,11 @@ public:
     void atkOrMv(Player *pc, Dungeon *d) override; 
 };
 
-class Dragon : public Enemy {
+class Dragon : public Enemy, public Subject {
 public:
     Dragon(AsciiArt *next, int xCoord, int yCoord);
     void atkOrMv(Player *pc, Dungeon *d) override; 
+    bool getState() const override;
 };
 
 class Halfling : public Enemy {

@@ -1,9 +1,7 @@
 #include "Potion.h"
 
 Potion::Potion(AsciiArt *next, int x, int y, double amt, string name): 
-                                                        Item{next, x, y, amt}, name{name}{
-    addItem(x, y, this);
-}
+                                                        Item{next, x, y, amt}, name{name}{}
 
 char Potion::charAt(int x, int y, int tick) {
     if (active && x == this->x && y == this->y) {

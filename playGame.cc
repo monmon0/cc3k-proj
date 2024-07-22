@@ -18,7 +18,7 @@ PlayGame::PlayGame(Dungeon *d) : d{d} {
  \____\____|____/|_|\_\  \__,_|\__,_|_| |_|\__, |\___|\___/|_| |_| 
                                            |___/                        
     )" << '\n'
-              << "         WELCOME to SYLVIA, EASON & MONICA CC3k    " << std::endl
+              << "         WELCOME to SYLVIA, EASON & MONICA CC3k    "              << std::endl
     << "Please start by entering one of the following command to choose your hero:" << std::endl
     << "       (s): Shade, (d): Drow, (v): Vampire, (g):Goblin, (t):Troll"          << std::endl;
     std::cout << "Your command: ";
@@ -27,33 +27,47 @@ PlayGame::PlayGame(Dungeon *d) : d{d} {
 void PlayGame::play() {    
     int seed = time(0);
     spawnStaircase(seed); 
-    spawnTreasure(seed);
     spawnPotions(seed);
+    spawnTreasure(seed);
     spawnEnemies(seed);
 }
 
-void PlayGame::restart() {
+void PlayGame::spawnPlayer(Player * pc, std::string command) {
+    uint32_t seed = getpid();
+    CheckCoord c{d, seed}; 
+    c.setPos(); 
+    int r1 = c.getX(), r2 = c.getY();
+
+    if      (command == "s") pc = new Shade{d->picture(), 's', r1, r2, 125, 25, 15};
+    else if (command == "d") pc = new Drow{d->picture(), 'd', r1, r2, 150, 25, 15};
+    else if (command == "v") pc = new Vampire{d->picture(), 'v', r1, r2, 50, 25, 5};
+    else if (command == "t") pc = new Troll{d->picture(), 't', r1, r2, 120, 25, 15};
+    else if (command == "g") pc = new Goblin{d->picture(), 'g', r1, r2, 110, 25, 15};
+
+    p = pc;
+    d->picture() = pc;
+}
+
+void PlayGame::restart(Player * p) {
     levelUp();
     d->resetLevel();
     std::cout << "Let's restart, choose your race again!" << std::endl;
     std::string command;
     std::cin >> command;
-    // WRITE NEW RESTART
-
-    // if      (command == "s") p->restartSettings('s', 125, 25, 15);
-    // else if (command == "d") p->restartSettings('d', 150, 25, 15);
-    // else if (command == "v") p->restartSettings('v', 50, 25, 5);
-    // else if (command == "t") p->restartSettings('t', 120, 25, 15);
-    // else if (command == "g") p->restartSettings('g', 110, 25, 15);
+    spawnPlayer(p, command);
+    play();
 }
 
 void PlayGame::levelUp() {
     // delete all decorator until player
     destroyEnemies();
-    destroyPotions();
     destroyTreasure();
+    destroyPotions();
+
     d->levelUp();
-    
+    d->clearAction();
+    d->setAction("Next Floor Unlocked! Good job! ");
+
     uint32_t seed = getpid();
     CheckCoord c{d, seed}; 
     c.setPos(); 
@@ -65,11 +79,36 @@ void PlayGame::levelUp() {
     play();
 }
 
-void PlayGame::attachPC(Player *pc) {p = pc;}
+void PlayGame::spawnStaircase(uint32_t seed) { 
+    struct Point {
+        int x = 0, y = 0; 
+    };
+    
+    Point p1, p2; 
+    if (p->getX() < 32) {
+        if (p->getY() < 11) {
+            p1 = {0, 0};
+            p2 = {32, 11}; 
+        } else { chamber = 1; }
+            p1 = {0, 11};
+            p2 = {32, 25};
+    } else {
+        if (p->getX() < 55 && p->getY() > 8 && p->getY() < 15 ) {
+            p1 = {32, 8};
+            p2 = {55, 15};
+        } else {
+            if (p->getY() < 14) {
+                p1 = {32, 0};
+                p2 = {70, 14};
+            } else { 
+                p1 = {32, 14};
+                p2 = {70, 25};
+            }
+        }
+    }
 
-void PlayGame::spawnStaircase(uint32_t seed) {
     CheckCoord c{d, seed}; 
-    c.setPos(); 
+    c.setPosStair(p1.x, p1.y, p2.x, p2.y); 
     int r1 = c.getX(), r2 = c.getY();
     Staircase *sp = new Staircase(d->picture(), r1, r2); 
     d->picture() = sp; 
@@ -79,21 +118,36 @@ void PlayGame::destroyPotions() {
     // delete all potions until player
     for (int i = 0; i < 10; i++) d->picture() = first_P->nextChar();
     first_P->nextChar() = nullptr;
-    d->picture() = first_T;
+    d->picture() = p;
 }
 
 void PlayGame::destroyTreasure() {
     // delete all treasure until player
     for (int i = 0; i < 10; i++) d->picture() = first_T->nextChar();
-    first_T->nextChar() = nullptr;
+    first_T->nextChar() = first_P;
     
+}
+
+void PlayGame::deadOrQuit() {
+    p->setAtk(0);
+    d->render(p);
+    std::cout << R"(            
+__        __                     __        __                      _ 
+\ \      / /__  _ __ ___  _ __   \ \      / /__  _ __ ___  _ __   | |
+ \ \ /\ / / _ \| '_ ` _ \| '_ \   \ \ /\ / / _ \| '_ ` _ \| '_ \  | |
+  \ V  V / (_) | | | | | | |_) |   \ V  V / (_) | | | | | | |_) | |_|
+   \_/\_/ \___/|_| |_| |_| .__/     \_/\_/ \___/|_| |_| |_| .__/  (_)
+                         |_|                              |_|        
+    )" << std::endl;
+    std::cout << "             WOULD YOU LIKE TO PLAY AGAIN?" << std::endl;
+    std::cout << "                 (enter -r to restart)"     << std::endl;
 }
 
 void PlayGame::destroyEnemies() {
     // delete all potions until player
     for (int i = 0; i < eVec.size(); i++) d->picture() = first_E->nextChar();
     eVec.clear();
-    d->picture() = first_P;
+    d->picture() = first_T;
 }
 
 void PlayGame::spawnPotions(uint32_t seed) {  
@@ -154,9 +208,9 @@ void PlayGame::spawnTreasure(uint32_t seed) {
             treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_DRAGON, d->picture(), r2, r1);
             // int x_dir = rand() % 2;
             // int y_dir = rand() % 2;
-            // Enemy *dragon = new Dragon(d->picture(), r2 + 1, r1 + 2); 
-            // eVec.emplace_back(dragon);
-            // d->picture() = dragon;
+            Enemy *dragon = new Dragon(d->picture(), r2 + 1, r1 + 2); 
+            eVec.emplace_back(dragon);
+            d->picture() = dragon;
             d->picture() = treasure;
             if (i == 9) {
                 first_T = treasure;
@@ -211,6 +265,12 @@ void PlayGame::spawnEnemies(uint32_t seed) {
     first_E = eVec.back();
 }
 
+void PlayGame::fPressed() {
+    for (auto e : eVec) {
+        e.fPressed = !e.fPressed; 
+    }
+}
+
 void PlayGame::attackOrMove() {
     for (auto e : eVec) {
         e->atkOrMv(p, d); 
@@ -218,7 +278,7 @@ void PlayGame::attackOrMove() {
     }
 }
 
-void PlayGame::defeatEnemies(int x, int y, Player *p, std::string dir) {
+void PlayGame::defeatEnemies(int x, int y, std::string dir) {
     if (dir == "no") {
         y--; 
     } else if (dir == "ne") {
@@ -244,7 +304,9 @@ void PlayGame::defeatEnemies(int x, int y, Player *p, std::string dir) {
         if (e->getX() == x && e->getY() == y) {
             double damage = ceil((100/(100 + e->getDef())) * p->getAtk()); 
             e->loseHP(damage); 
-            if (e->isDead()) p->addGold(5); 
+            if (e->isDead()) {
+                p->addGold( p->getRace() == 'g' ? 10 : 5 );
+            }
         }
     }
 }
@@ -260,9 +322,9 @@ __     _____ ____ _____ ___  ______   __  _   _
   \ V /  | | |___  | || |_| |  _ < | |   |_| |_|
    \_/  |___\____| |_| \___/|_| \_\|_|   (_) (_)        
     )" << '\n';
-    std::cout << "   CONGRATULATIONS! YOU HAVE ESCAPED THE DUNGEON!    " << std::endl;
-                std::cout << "        YOUR SCORE: " << pts << " points"             << std::endl;
-                std::cout << "    WOULD YOU LIKE TO PLAY AGAIN?" << std::endl;
-                std::cout << " (enter -r to restart, any key to esc)"         << std::endl;
+    std::cout << "CONGRATULATIONS! YOU HAVE ESCAPED THE DUNGEON!    " << std::endl;
+    std::cout << "        YOUR SCORE: " << pts << " points"           << std::endl;
+    std::cout << "    WOULD YOU LIKE TO PLAY AGAIN?"                  << std::endl;
+    std::cout << " (enter -r to restart, any key to esc)"             << std::endl;
 }
 

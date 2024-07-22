@@ -22,6 +22,7 @@ class CheckCoord {
 
         int giveRandomInt(int i); 
         void setPos(); 
+        void setPosStair(int p1x, int p1y, int p2x, int p2y); 
         int getX() const { return x; };
         int getY() const { return y; };
 };

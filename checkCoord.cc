@@ -49,3 +49,10 @@ void CheckCoord::setPos() {
         } 
     };
 }
+
+void CheckCoord::setPosStair(int p1x, int p1y, int p2x, int p2y) {
+    while (true) {
+        setPos(); 
+        if (p1x <= x <= p2x && )
+    }
+}

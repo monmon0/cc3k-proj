@@ -289,6 +289,10 @@ void Dragon::atkOrMv(Player *pc, Dungeon *d) {
     }
 }
 
+bool Dragon::getState() const {
+    return isDead();
+}
+
 // --------------------- Halfling --------------------- //
 
 Halfling::Halfling(AsciiArt *next, int xCoord, int yCoord)
