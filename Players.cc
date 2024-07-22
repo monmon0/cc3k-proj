@@ -45,9 +45,14 @@ void Player::move(std::string dir, AsciiArt * curr) {
 
     pos_check = curr->charAt(y + new_block_y, x + new_block_x, 1);
 
-    if (pos_check == '.' || pos_check == '#' || pos_check == '\\' || pos_check == '+') {
+    if (pos_check == '.' || pos_check == '#' || pos_check == '\\' || pos_check == '+' || pos_check == 'G') {
         x += new_block_x;
         y += new_block_y;
+        if (pos_check == 'G') {
+            // check for type of gold
+            // Item * gold = Item::getItem(y + new_block_y, x + new_block_x);
+            // gold->applyEffect(this);
+        }
         announcement = "PC moves " + dirToString(dir);
     }
 
@@ -136,7 +141,7 @@ void Player::takePotion(AsciiArt * m, std::string dir) {
         Item * p = Item::getItem(y + 1, x);
         p->applyEffect(this);
     } else {
-        std::cout << "No potions here" << std::endl;
+        announcement = "PC didn't find any potions in this direction. ";
     }
 }
 
