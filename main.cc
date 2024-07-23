@@ -50,6 +50,7 @@ int main() {
                 initialized = 1;
                 s.setAction(pc->getAnnouncement());
                 s.render(pc);
+                std::cout << "Your command: ";
             }   else std::cout << "Please choose an appropriate command: ";
         } else if (initialized) {
             if (command == "a") {   // attack

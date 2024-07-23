@@ -28,22 +28,21 @@ void Player::move(std::string dir, AsciiArt * curr) {
             Item * gold = Item::getItem(x, y);
             gold->applyEffect(this);
             if (gold->collectable()) announcement = "PC collects a gold coin and moves " + dirMap[dir] + ". ";
-            else announcement = "PC moves " + dirMap[dir] + ". ";
+            announcement += "PC moves " + dirMap[dir] + ". ";
         }
-        else announcement = "PC couldn't move in this direction";
-    }
+        else announcement += "PC moves " + dirMap[dir] + ". ";
+        // troll gains 5 hp every turn
+        if (race == 't') {
+            if (max_hp > hp) hp += 5;
+            else hp = max_hp;
+        }
+         // check for staircase
+        if (pos_check == '\\') {
+            // notify to level up!
+            levelUp = true;
+        }
+    } else announcement = "PC tried to move but couldn't. ";
 
-    // troll gains 5 hp every turn
-    if (race == 't') {
-        if (max_hp > hp) hp += 5;
-        else hp = max_hp;
-    }
-
-    // check for staircase
-    if (pos_check == '\\') {
-        // notify to level up!
-        levelUp = true;
-    }
 }
 
 void Player::restartSettings(char n_race, int n_hp, int n_atk, int n_def) {
@@ -114,8 +113,8 @@ bool Player::attack(AsciiArt * d, std::string dir) {
             if (curr == 'M') hitMerchant = true;
             return 1;
         } 
+        announcement += "PC missed. ";
         move(dir, d);
-        announcement = "PC missed and move " + dirMap[dir] + ". ";
     } else { 
         announcement = "PC missed the attack due to Halfing Poison. ";
         // reset if get hit by halfing

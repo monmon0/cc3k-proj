@@ -43,7 +43,8 @@ void PlayGame::restart() {
     levelUp();
     d->resetLevel();  
     d->clearAction();
-    std::cout << "Welcome Back! START by choosing your race again!" << std::endl;
+    std::cout << RESTART << std::endl;
+    std::cout << "RESTART by choosing your race again: ";
 }
 
 void PlayGame::levelUp() {
@@ -96,7 +97,6 @@ void PlayGame::destroyTreasure() {
 
 void PlayGame::deadOrQuit() {
     p->setAtk(0);
-    d->render(p);
     std::cout << WOMP_WOMP << std::endl;
     std::cout << "             WOULD YOU LIKE TO PLAY AGAIN?" << std::endl;
     std::cout << "                 (enter -r to restart)"     << std::endl;
