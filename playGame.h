@@ -53,8 +53,6 @@ class PlayGame {
 
         void levelUp();
         void restart();
-        void spawnPlayer(Player * p, std::string command);
-        // void sendAnnouncement();
         
 };
 

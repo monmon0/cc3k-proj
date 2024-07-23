@@ -29,7 +29,6 @@ int main() {
             if (command == "s" || command == "d" ||command == "v" 
                 || command == "g" || command == "t") {
                 // set races
-                // curr_g.spawnPlayer(pc, command);
                 uint32_t seed = getpid();
                 CheckCoord c{&s, seed}; 
                 c.setPos(); 
@@ -106,7 +105,7 @@ int main() {
                 if (command == "r" ) curr_g.restart();
                 else break;
             }
-            if (command == "a" || command == "u" || command == "f" || command == "r") {
+            if (command == "a" || command == "u") {
                 curr_g.attackOrMove(); 
             }
 
