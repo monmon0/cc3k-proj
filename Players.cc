@@ -103,26 +103,26 @@ bool Player::attack(AsciiArt * d, std::string dir) {
     srand(time(0));
     char curr = atPostion(d, dir);
 
-    if (!hitbyH && (curr == 'H' || curr == 'W' || curr == 'E' || curr == 'L'
-        || curr == 'O' || curr == 'M' || curr == 'D')) {
 
-        if (race == 'v') {
-            if (curr == 'W') hp -= 5;
-            else hp += 5;
-        }
-        if (curr == 'M') hitMerchant = true;
-        return 1;
-    } 
-   
-    if (curr == '.'){ 
+    if (!hitbyH) {
+        if (curr == 'H' || curr == 'W' || curr == 'E' || curr == 'L'
+        ||  curr == 'O' || curr == 'M' || curr == 'D') {
+            if (race == 'v') {
+                if (curr == 'W') hp -= 5;
+                else hp += 5;
+            }
+            if (curr == 'M') hitMerchant = true;
+            return 1;
+        } 
         move(dir, d);
         announcement = "PC missed and move " + dirMap[dir] + ". ";
-    } else {
+    } else { 
         announcement = "PC missed the attack due to Halfing Poison. ";
+        // reset if get hit by halfing
+        move(dir, d);
         hitbyH = 0;
-    }
+    } 
 
-    // reset if get hit by halfing
     return 0;
 };
 

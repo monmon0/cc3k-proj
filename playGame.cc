@@ -280,11 +280,11 @@ void PlayGame::defeatEnemies(int x, int y, std::string dir) {
     } 
     for (auto e : eVec) {
         if (e->getX() == x && e->getY() == y) {
-            double damage = ceil((100/(100 + e->getDef())) * p->getAtk()); 
+            int damage = ceil((100/(100 + e->getDef())) * p->getAtk()); 
             e->loseHP(damage); 
             d->setAction("PC deals " +
                             std::to_string(damage) + 
-                            "damage to" + std::string(1, e->getRace()) + ". ");
+                            " damage to " + std::string(1, e->getRace()) + ". ");
             if (e->isDead()) {
                 p->addGold( p->getRace() == 'g' ? 10 : 5 );
                 d->setAction(std::string(1, e->getRace()) + " is slained. ");

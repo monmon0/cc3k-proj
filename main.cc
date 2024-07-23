@@ -67,7 +67,6 @@ int main() {
 
                 pc->move(command, s.picture());
                 s.setAction(pc->getAnnouncement());
-                curr_g.attackOrMove(); 
 
             } else if (command == "u" ) {   // use potion
                 std::cout << "Please specify direction: ";
@@ -105,6 +104,8 @@ int main() {
                 if (command == "r" ) curr_g.restart(pc);
                 else break;
             }
+            curr_g.attackOrMove(); 
+
             s.render(pc);
             std::cout << "Your command: ";
         }
