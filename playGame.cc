@@ -177,13 +177,13 @@ void PlayGame::spawnTreasure(uint32_t seed) {
         int r1 = c.getX(), r2 = c.getY();
         
         Item *treasure;
-        if (num < 1) {          // spawn normal gold
+        if (num < 5) {          // spawn normal gold
             treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_NORMAL, d->picture(), r1, r2);
             d->picture() = treasure;
             if (i == 9) {
                 first_T = treasure;
             }
-        } else if (num < 9) {   // spawn dragon hoard
+        } else if (num < 6) {   // spawn dragon hoard
             treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_DRAGON, d->picture(), r1, r2);
             d->picture() = treasure;
             

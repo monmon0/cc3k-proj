@@ -19,7 +19,7 @@ class Treasure: public Item {
         Treasure(AsciiArt *next, int x, int y, double val);
         char charAt(int row, int col, int tick) override;
         void applyEffect(Player *player) override;
-        virtual bool collectable();
+        // virtual bool collectable();
 };
 
 class Dragon_Hoard: public Treasure {

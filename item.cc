@@ -11,6 +11,10 @@ double Item::getAmt() {
     return amt;
 }
 
+bool Item::collectable() {
+    return true;
+}
+
 string Item::getAnnouncement() const {
     return announcement;
 }
