@@ -1,13 +1,23 @@
 #include "playGame.h"
 #include <string>
 #include <ctime>
-#include "asciitext.h"
 using namespace std;
 
  
 PlayGame::PlayGame(Dungeon *d) : d{d} {
      // --------------- START GAME ------------------------- //
-    std::cout << WELCOME << '\n'
+    std::cout << R"(
+                      _                            _               
+        __      _____| | ___ ___  _ __ ___   ___  | |_ ___         
+        \ \ /\ / / _ \ |/ __/ _ \| '_ ` _ \ / _ \ | __/ _ \        
+         \ V  V /  __/ | (_| (_) | | | | | |  __/ | || (_) |       
+  ____ ___\_/\_/_\___|_|\___\___/|_| |_| |_|\___|  \__\___/        
+ / ___/ ___|___ /| |/ /   __| |_   _ _ __   __ _  ___  ___  _ __   
+| |  | |     |_ \| ' /   / _` | | | | '_ \ / _` |/ _ \/ _ \| '_ \  
+| |__| |___ ___) | . \  | (_| | |_| | | | | (_| |  __/ (_) | | | | 
+ \____\____|____/|_|\_\  \__,_|\__,_|_| |_|\__, |\___|\___/|_| |_| 
+                                           |___/                        
+    )" << '\n'
               << "         WELCOME to SYLVIA, EASON & MONICA CC3k    "              << std::endl
     << "Please start by entering one of the following command to choose your hero:" << std::endl
     << "       (s): Shade, (d): Drow, (v): Vampire, (g):Goblin, (t):Troll"          << std::endl;
@@ -100,7 +110,14 @@ void PlayGame::destroyTreasure() {
 void PlayGame::deadOrQuit() {
     p->setAtk(0);
     d->render(p);
-    std::cout << WOMP_WOMP << std::endl;
+    std::cout << R"(            
+__        __                     __        __                      _ 
+\ \      / /__  _ __ ___  _ __   \ \      / /__  _ __ ___  _ __   | |
+ \ \ /\ / / _ \| '_ ` _ \| '_ \   \ \ /\ / / _ \| '_ ` _ \| '_ \  | |
+  \ V  V / (_) | | | | | | |_) |   \ V  V / (_) | | | | | | |_) | |_|
+   \_/\_/ \___/|_| |_| |_| .__/     \_/\_/ \___/|_| |_| |_| .__/  (_)
+                         |_|                              |_|        
+    )" << std::endl;
     std::cout << "             WOULD YOU LIKE TO PLAY AGAIN?" << std::endl;
     std::cout << "                 (enter -r to restart)"     << std::endl;
 }
@@ -160,15 +177,17 @@ void PlayGame::spawnTreasure(uint32_t seed) {
         int r1 = c.getX(), r2 = c.getY();
         
         Item *treasure;
-        if (num < 5) {          // spawn normal gold
+        if (num < 1) {          // spawn normal gold
             treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_NORMAL, d->picture(), r1, r2);
             d->picture() = treasure;
             if (i == 9) {
                 first_T = treasure;
             }
-        } else if (num < 6) {   // spawn dragon hoard
+        } else if (num < 9) {   // spawn dragon hoard
             treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_DRAGON, d->picture(), r1, r2);
             d->picture() = treasure;
+
+            // Enemy *dragon = new Dragon(d->picture(), r1 + 1, r2 + 1, static_cast<Dragon_Hoard*>(treasure));
             
             std::vector<int> arr = {-1, 0, 1}; 
             int x, y; 
@@ -203,7 +222,7 @@ void PlayGame::spawnTreasure(uint32_t seed) {
     }
 }
 
-void PlayGame::spawnEnemies(uint32_t seed) { 
+void PlayGame::spawnEnemies(uint32_t seed) {    
     vector<char> characters = {'H', 'W', 'E', 'O', 'M', 'L'};
     for (int i = 0; i < 20; i++) {
         int idx = rand() % 6;
@@ -282,12 +301,8 @@ void PlayGame::defeatEnemies(int x, int y, std::string dir) {
         if (e->getX() == x && e->getY() == y) {
             double damage = ceil((100/(100 + e->getDef())) * p->getAtk()); 
             e->loseHP(damage); 
-            d->setAction("PC deals " +
-                            std::to_string(damage) + 
-                            "damage to" + std::string(1, e->getRace()) + ". ");
             if (e->isDead()) {
                 p->addGold( p->getRace() == 'g' ? 10 : 5 );
-                d->setAction(std::string(1, e->getRace()) + " is slained. ");
             }
         }
     }
@@ -297,7 +312,13 @@ void PlayGame::end() {
     // score game
     int pts = p->getGold();
     if (p->getRace() == 's') pts *= 2;
-    std::cout << VICTORY << '\n';
+    std::cout << R"(
+__     _____ ____ _____ ___  ______   __  _   _ 
+\ \   / /_ _/ ___|_   _/ _ \|  _ \ \ / / | | | |
+ \ \ / / | | |     | || | | | |_) \ V /  | | | |
+  \ V /  | | |___  | || |_| |  _ < | |   |_| |_|
+   \_/  |___\____| |_| \___/|_| \_\|_|   (_) (_)        
+    )" << '\n';
     std::cout << "CONGRATULATIONS! YOU HAVE ESCAPED THE DUNGEON!    " << std::endl;
     std::cout << "        YOUR SCORE: " << pts << " points"           << std::endl;
     std::cout << "    WOULD YOU LIKE TO PLAY AGAIN?"                  << std::endl;

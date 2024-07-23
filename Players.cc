@@ -113,10 +113,16 @@ bool Player::attack(AsciiArt * d, std::string dir) {
         if (curr == 'M') hitMerchant = true;
         return 1;
     } 
-    move(dir, d);
-    announcement = "PC missed and move " + dirMap[dir] + ". ";
+   
+    if (curr == '.'){ 
+        move(dir, d);
+        announcement = "PC missed and move " + dirMap[dir] + ". ";
+    } else {
+        announcement = "PC missed the attack due to Halfing Poison. ";
+        hitbyH = 0;
+    }
+
     // reset if get hit by halfing
-    hitbyH = 0;
     return 0;
 };
 
