@@ -36,7 +36,7 @@ int main() {
                 int r1 = c.getX(), r2 = c.getY();
                 int location = c.getChamber(); 
 
-                if (command == "s") pc = new Shade{s.picture(), 's', r1, r2, 125, 25, 15, location};
+                if      (command == "s") pc = new Shade{s.picture(), 's', r1, r2, 125, 25, 15, location};
                 else if (command == "d") pc = new Drow{s.picture(), 'd', r1, r2, 150, 25, 15, location};
                 else if (command == "v") pc = new Vampire{s.picture(), 'v', r1, r2, 50, 25, 5, location};
                 else if (command == "t") pc = new Troll{s.picture(), 't', r1, r2, 120, 25, 15, location};
@@ -59,12 +59,14 @@ int main() {
                 // attack enemies
                 bool hit = pc->attack(s.picture(), dir);     
                 if (hit) curr_g.defeatEnemies(pc->getX(), pc->getY(), dir);
-                
+                s.setAction(pc->getAnnouncement());
+
             } else if (command == "no" || command == "so" || command == "ea" 
                     || command == "we" || command == "ne" || command == "nw" 
                     || command == "se" || command =="sw") {
 
                 pc->move(command, s.picture());
+                s.setAction(pc->getAnnouncement());
                 curr_g.attackOrMove(); 
 
             } else if (command == "u" ) {   // use potion
@@ -72,7 +74,7 @@ int main() {
                 std::string dir;
                 std::cin >> dir;
                 pc->takePotion(s.picture(), dir);
-
+                s.setAction(pc->getAnnouncement());
             } else if (command == "lu") {   // Level up, for testing purposes, not actual command
                 curr_g.levelUp();
             } else if (command == "f" ) {   // stop enemies from moving;
@@ -103,7 +105,6 @@ int main() {
                 if (command == "r" ) curr_g.restart(pc);
                 else break;
             }
-            s.setAction(pc->getAnnouncement());
             s.render(pc);
             std::cout << "Your command: ";
         }

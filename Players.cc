@@ -27,9 +27,10 @@ void Player::move(std::string dir, AsciiArt * curr) {
             // check for type of gold
             Item * gold = Item::getItem(x, y);
             gold->applyEffect(this);
-            announcement = "PC collects a gold coin and moves " + dirMap[dir] + ". ";
+            if (gold->collectable()) announcement = "PC collects a gold coin and moves " + dirMap[dir] + ". ";
+            else announcement = "PC moves " + dirMap[dir] + ". ";
         }
-        else announcement = "PC moves " + dirMap[dir];
+        else announcement = "PC moves " + dirMap[dir] + ". ";
     }
 
     // troll gains 5 hp every turn
@@ -100,20 +101,22 @@ bool Player::attack(AsciiArt * d, std::string dir) {
     // if (d->charAt())
     announcement = "";
     srand(time(0));
-    int chance = rand() % hitbyH;
     char curr = atPostion(d, dir);
 
-    if (!chance && (curr == 'H' || curr == 'W' || curr == 'E' || curr == 'L'
+    if (!hitbyH && (curr == 'H' || curr == 'W' || curr == 'E' || curr == 'L'
         || curr == 'O' || curr == 'M' || curr == 'D')) {
 
         if (race == 'v') {
             if (curr == 'W') hp -= 5;
             else hp += 5;
         }
-        if (curr == 'M') hitMerchant = true;  
+        if (curr == 'M') hitMerchant = true;
         return 1;
     } 
-    else move(dir, d);
+    move(dir, d);
+    announcement = "PC missed and move " + dirMap[dir] + ". ";
+    // reset if get hit by halfing
+    hitbyH = 0;
     return 0;
 };
 
