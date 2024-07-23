@@ -306,7 +306,7 @@ void Halfling::atkOrMv(Player *pc, Dungeon *d) {
         } 
         if (rand() % 2 == 0) {
             pc->getHitbyHalfing(); 
-            announcement += "PC is poisoned by Halfling. "; 
+            announcement += ""
         }
     } else {
         while (! fPressed) {
