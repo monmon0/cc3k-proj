@@ -52,9 +52,7 @@ class PlayGame {
         void destroyTreasure();
 
         void levelUp();
-        void restart(Player * p);
-        void spawnPlayer(Player * p, std::string command);
-        // void sendAnnouncement();
+        void restart();
         
 };
 

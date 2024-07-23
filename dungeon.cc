@@ -1,7 +1,4 @@
 #include "dungeon.h"
-#include "asciiart.h"
-// #include "Enemies.h"
-#include <string>
 
 #define ESC "\033["
 #define LIGHT_BLUE "34"
@@ -45,11 +42,12 @@ void Dungeon::render(Player * player) {
 
   out << "Race: " << race << " Gold: " << player->getGold();
   // print spaces
+  double zero = 0;
   for (int i = 0; i < 54 - race.length(); i++) out << " ";
   out << "Floor: " << floor << std::endl;
-  out << "HP: " << player->getHp() << std::endl;
-  out << "Atk: " << player->getAtk() << std::endl;
-  out << "Def: " << player->getDef() << std::endl;
+  out << "HP: " << std::max(player->getHp(), zero) << std::endl;
+  out << "Atk: " << std::max(player->getAtk(), zero) << std::endl;
+  out << "Def: " << std::max(player->getDef(), zero) << std::endl;
   out << "Action: " << action << std::endl;
   //
   ++ticks;

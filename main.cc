@@ -29,14 +29,13 @@ int main() {
             if (command == "s" || command == "d" ||command == "v" 
                 || command == "g" || command == "t") {
                 // set races
-                // curr_g.spawnPlayer(pc, command);
                 uint32_t seed = getpid();
                 CheckCoord c{&s, seed}; 
                 c.setPos(); 
                 int r1 = c.getX(), r2 = c.getY();
                 int location = c.getChamber(); 
 
-                if (command == "s") pc = new Shade{s.picture(), 's', r1, r2, 125, 25, 15, location};
+                if      (command == "s") pc = new Shade{s.picture(), 's', r1, r2, 125, 25, 15, location};
                 else if (command == "d") pc = new Drow{s.picture(), 'd', r1, r2, 150, 25, 15, location};
                 else if (command == "v") pc = new Vampire{s.picture(), 'v', r1, r2, 50, 25, 5, location};
                 else if (command == "t") pc = new Troll{s.picture(), 't', r1, r2, 120, 25, 15, location};
@@ -50,6 +49,7 @@ int main() {
                 initialized = 1;
                 s.setAction(pc->getAnnouncement());
                 s.render(pc);
+                std::cout << "Your command: ";
             }   else std::cout << "Please choose an appropriate command: ";
         } else if (initialized) {
             if (command == "a") {   // attack
@@ -59,35 +59,37 @@ int main() {
                 // attack enemies
                 bool hit = pc->attack(s.picture(), dir);     
                 if (hit) curr_g.defeatEnemies(pc->getX(), pc->getY(), dir);
-                
+                s.setAction(pc->getAnnouncement());
+
             } else if (command == "no" || command == "so" || command == "ea" 
                     || command == "we" || command == "ne" || command == "nw" 
                     || command == "se" || command =="sw") {
 
                 pc->move(command, s.picture());
-                curr_g.attackOrMove(); 
+                s.setAction(pc->getAnnouncement());
+                curr_g.attackOrMove();
 
             } else if (command == "u" ) {   // use potion
                 std::cout << "Please specify direction: ";
                 std::string dir;
                 std::cin >> dir;
                 pc->takePotion(s.picture(), dir);
-
+                s.setAction(pc->getAnnouncement());
             } else if (command == "lu") {   // Level up, for testing purposes, not actual command
                 curr_g.levelUp();
             } else if (command == "f" ) {   // stop enemies from moving;
                 
             // --------------- RESTART GAME ------------------------- //
             } else if (command == "r" ) {   // restart game
-                curr_g.restart(pc);
+                curr_g.restart();
                 initialized = 0;
             }
-
             // --------------- QUIT GAME ------------------------- //
             if (pc->isDead() || command == "q") {
                 curr_g.deadOrQuit();
+                std::cin >> command;
                 if (command == "r" ) {          // restart game
-                    curr_g.restart(pc);  
+                    curr_g.restart();  
                     initialized = 0;
                 } else break;
             } 
@@ -100,12 +102,18 @@ int main() {
             if (s.getLevel() == 5) {
                 curr_g.end();
                 std::cin >> command;
-                if (command == "r" ) curr_g.restart(pc);
+                if (command == "r" ) curr_g.restart();
                 else break;
             }
-            s.setAction(pc->getAnnouncement());
-            s.render(pc);
-            std::cout << "Your command: ";
+            if (command == "a" || command == "u") {
+                curr_g.attackOrMove(); 
+            }
+
+            if (command != "r" && command != "q") {
+                s.render(pc);
+                std::cout << "Your command: ";
+            }
+            
         }
     }
 }

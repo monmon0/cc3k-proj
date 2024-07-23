@@ -7,6 +7,10 @@
 #include <memory>
 #include "Players.h"
 #include "Enemies.h"
+#include <algorithm>
+#include <iostream>
+#include <string>
+
 
 class Enemy;
 

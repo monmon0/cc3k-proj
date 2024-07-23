@@ -27,22 +27,22 @@ void Player::move(std::string dir, AsciiArt * curr) {
             // check for type of gold
             Item * gold = Item::getItem(x, y);
             gold->applyEffect(this);
-            announcement = "PC collects a gold coin and moves " + dirMap[dir] + ". ";
+            if (gold->collectable()) announcement = "PC collects a gold coin and moves " + dirMap[dir] + ". ";
+            announcement += "PC moves " + dirMap[dir] + ". ";
         }
-        else announcement = "PC moves " + dirMap[dir];
-    }
+        else announcement += "PC moves " + dirMap[dir] + ". ";
+        // troll gains 5 hp every turn
+        if (race == 't') {
+            if (max_hp > hp) hp += 5;
+            else hp = max_hp;
+        }
+         // check for staircase
+        if (pos_check == '\\') {
+            // notify to level up!
+            levelUp = true;
+        }
+    } else announcement = "PC tried to move but couldn't. ";
 
-    // troll gains 5 hp every turn
-    if (race == 't') {
-        if (max_hp > hp) hp += 5;
-        else hp = max_hp;
-    }
-
-    // check for staircase
-    if (pos_check == '\\') {
-        // notify to level up!
-        levelUp = true;
-    }
 }
 
 void Player::restartSettings(char n_race, int n_hp, int n_atk, int n_def) {
@@ -100,20 +100,28 @@ bool Player::attack(AsciiArt * d, std::string dir) {
     // if (d->charAt())
     announcement = "";
     srand(time(0));
-    int chance = rand() % hitbyH;
     char curr = atPostion(d, dir);
 
-    if (!chance && (curr == 'H' || curr == 'W' || curr == 'E' || curr == 'L'
-        || curr == 'O' || curr == 'M' || curr == 'D')) {
 
-        if (race == 'v') {
-            if (curr == 'W') hp -= 5;
-            else hp += 5;
-        }
-        if (curr == 'M') hitMerchant = true;  
-        return 1;
+    if (!hitbyH) {
+        if (curr == 'H' || curr == 'W' || curr == 'E' || curr == 'L'
+        ||  curr == 'O' || curr == 'M' || curr == 'D') {
+            if (race == 'v') {
+                if (curr == 'W') hp -= 5;
+                else hp += 5;
+            }
+            if (curr == 'M') hitMerchant = true;
+            return 1;
+        } 
+        announcement += "PC missed. ";
+        move(dir, d);
+    } else { 
+        announcement = "PC missed the attack due to Halfing Poison. ";
+        // reset if get hit by halfing
+        move(dir, d);
+        hitbyH = 0;
     } 
-    else move(dir, d);
+
     return 0;
 };
 

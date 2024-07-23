@@ -16,7 +16,7 @@ class Player : public Character {
         int gold = 0;      
         bool levelUp;      
         int new_block_x = 0, new_block_y = 0;
-        int hitbyH = 1;
+        int hitbyH = 0;
         bool hitMerchant = false; 
         int location = -1;  
         std::vector <Potion * > potions;
@@ -29,7 +29,7 @@ class Player : public Character {
         void move(std::string dir, AsciiArt *next);
         char getRace() {return race;}
         void addGold(int amt) {gold += amt;}
-        void getHitbyHalfing() {hitbyH = 2;}
+        void getHitbyHalfing() {hitbyH = 1;}
         bool isFriend() { return hitMerchant == false; }
         void setAtk(int x) {atk = x;}
         int getLocation() { return location; }

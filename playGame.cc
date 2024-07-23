@@ -1,30 +1,20 @@
 #include "playGame.h"
 #include <string>
 #include <ctime>
+#include "asciitext.h"
 using namespace std;
 
  
 PlayGame::PlayGame(Dungeon *d) : d{d} {
      // --------------- START GAME ------------------------- //
-    std::cout << R"(
-                      _                            _               
-        __      _____| | ___ ___  _ __ ___   ___  | |_ ___         
-        \ \ /\ / / _ \ |/ __/ _ \| '_ ` _ \ / _ \ | __/ _ \        
-         \ V  V /  __/ | (_| (_) | | | | | |  __/ | || (_) |       
-  ____ ___\_/\_/_\___|_|\___\___/|_| |_| |_|\___|  \__\___/        
- / ___/ ___|___ /| |/ /   __| |_   _ _ __   __ _  ___  ___  _ __   
-| |  | |     |_ \| ' /   / _` | | | | '_ \ / _` |/ _ \/ _ \| '_ \  
-| |__| |___ ___) | . \  | (_| | |_| | | | | (_| |  __/ (_) | | | | 
- \____\____|____/|_|\_\  \__,_|\__,_|_| |_|\__, |\___|\___/|_| |_| 
-                                           |___/                        
-    )" << '\n'
+    std::cout << WELCOME << '\n'
               << "         WELCOME to SYLVIA, EASON & MONICA CC3k    "              << std::endl
     << "Please start by entering one of the following command to choose your hero:" << std::endl
     << "       (s): Shade, (d): Drow, (v): Vampire, (g):Goblin, (t):Troll"          << std::endl;
     std::cout << "Your command: ";
 }
 
-void PlayGame::play() {    
+void PlayGame::play() {
     int seed = time(0);
     spawnStaircase(seed); 
     spawnPotions(seed);
@@ -32,31 +22,12 @@ void PlayGame::play() {
     spawnEnemies(seed);
 }
 
-void PlayGame::spawnPlayer(Player * pc, std::string command) {
-    // uint32_t seed = getpid();
-    // CheckCoord c{d, seed}; 
-    // c.setPos(); 
-    // int r1 = c.getX(), r2 = c.getY();
-    // int location = c.getChamber();
-
-    // if      (command == "s") pc = new Shade{d->picture(), 's', r1, r2, 125, 25, 15, location};
-    // else if (command == "d") pc = new Drow{d->picture(), 'd', r1, r2, 150, 25, 15, location};
-    // else if (command == "v") pc = new Vampire{d->picture(), 'v', r1, r2, 50, 25, 5, location};
-    // else if (command == "t") pc = new Troll{d->picture(), 't', r1, r2, 120, 25, 15, location};
-    // else if (command == "g") pc = new Goblin{d->picture(), 'g', r1, r2, 110, 25, 15, location};
-
-    // p = pc;
-    // d->picture() = pc;
-}
-
-void PlayGame::restart(Player * p) {
+void PlayGame::restart() {
     levelUp();
-    d->resetLevel();
-    std::cout << "Let's restart, choose your race again!" << std::endl;
-    std::string command;
-    std::cin >> command;
-    spawnPlayer(p, command);
-    play();
+    d->resetLevel();  
+    d->clearAction();
+    std::cout << RESTART << std::endl;
+    std::cout << "RESTART by choosing your race again: ";
 }
 
 void PlayGame::levelUp() {
@@ -109,15 +80,7 @@ void PlayGame::destroyTreasure() {
 
 void PlayGame::deadOrQuit() {
     p->setAtk(0);
-    d->render(p);
-    std::cout << R"(            
-__        __                     __        __                      _ 
-\ \      / /__  _ __ ___  _ __   \ \      / /__  _ __ ___  _ __   | |
- \ \ /\ / / _ \| '_ ` _ \| '_ \   \ \ /\ / / _ \| '_ ` _ \| '_ \  | |
-  \ V  V / (_) | | | | | | |_) |   \ V  V / (_) | | | | | | |_) | |_|
-   \_/\_/ \___/|_| |_| |_| .__/     \_/\_/ \___/|_| |_| |_| .__/  (_)
-                         |_|                              |_|        
-    )" << std::endl;
+    std::cout << WOMP_WOMP << std::endl;
     std::cout << "             WOULD YOU LIKE TO PLAY AGAIN?" << std::endl;
     std::cout << "                 (enter -r to restart)"     << std::endl;
 }
@@ -297,10 +260,14 @@ void PlayGame::defeatEnemies(int x, int y, std::string dir) {
     } 
     for (auto e : eVec) {
         if (e->getX() == x && e->getY() == y) {
-            double damage = ceil((100/(100 + e->getDef())) * p->getAtk()); 
+            int damage = ceil((100/(100 + e->getDef())) * p->getAtk()); 
             e->loseHP(damage); 
+            d->setAction("PC deals " +
+                            std::to_string(damage) + 
+                            " damage to " + std::string(1, e->getRace()) + ". ");
             if (e->isDead()) {
                 p->addGold( p->getRace() == 'g' ? 10 : 5 );
+                d->setAction(std::string(1, e->getRace()) + " is slained. ");
             }
         }
     }
@@ -310,16 +277,9 @@ void PlayGame::end() {
     // score game
     int pts = p->getGold();
     if (p->getRace() == 's') pts *= 2;
-    std::cout << R"(
-__     _____ ____ _____ ___  ______   __  _   _ 
-\ \   / /_ _/ ___|_   _/ _ \|  _ \ \ / / | | | |
- \ \ / / | | |     | || | | | |_) \ V /  | | | |
-  \ V /  | | |___  | || |_| |  _ < | |   |_| |_|
-   \_/  |___\____| |_| \___/|_| \_\|_|   (_) (_)        
-    )" << '\n';
+    std::cout << VICTORY << '\n';
     std::cout << "CONGRATULATIONS! YOU HAVE ESCAPED THE DUNGEON!    " << std::endl;
     std::cout << "        YOUR SCORE: " << pts << " points"           << std::endl;
     std::cout << "    WOULD YOU LIKE TO PLAY AGAIN?"                  << std::endl;
     std::cout << " (enter -r to restart, any key to esc)"             << std::endl;
 }
-
