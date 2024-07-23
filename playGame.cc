@@ -39,14 +39,11 @@ void PlayGame::spawnPlayer(Player * pc, std::string command) {
     // d->picture() = pc;
 }
 
-void PlayGame::restart(Player * p) {
+void PlayGame::restart() {
     levelUp();
-    d->resetLevel();
-    std::cout << "Let's restart, choose your race again!" << std::endl;
-    std::string command;
-    std::cin >> command;
-    spawnPlayer(p, command);
-    play();
+    d->resetLevel();  
+    d->clearAction();
+    std::cout << "Welcome Back! START by choosing your race again!" << std::endl;
 }
 
 void PlayGame::levelUp() {

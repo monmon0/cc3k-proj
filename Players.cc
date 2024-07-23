@@ -30,7 +30,7 @@ void Player::move(std::string dir, AsciiArt * curr) {
             if (gold->collectable()) announcement = "PC collects a gold coin and moves " + dirMap[dir] + ". ";
             else announcement = "PC moves " + dirMap[dir] + ". ";
         }
-        else announcement = "PC moves " + dirMap[dir] + ". ";
+        else announcement = "PC couldn't move in this direction";
     }
 
     // troll gains 5 hp every turn

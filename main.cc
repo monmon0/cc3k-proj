@@ -67,6 +67,7 @@ int main() {
 
                 pc->move(command, s.picture());
                 s.setAction(pc->getAnnouncement());
+                curr_g.attackOrMove();
 
             } else if (command == "u" ) {   // use potion
                 std::cout << "Please specify direction: ";
@@ -80,15 +81,15 @@ int main() {
                 
             // --------------- RESTART GAME ------------------------- //
             } else if (command == "r" ) {   // restart game
-                curr_g.restart(pc);
+                curr_g.restart();
                 initialized = 0;
             }
-
             // --------------- QUIT GAME ------------------------- //
             if (pc->isDead() || command == "q") {
                 curr_g.deadOrQuit();
+                std::cin >> command;
                 if (command == "r" ) {          // restart game
-                    curr_g.restart(pc);  
+                    curr_g.restart();  
                     initialized = 0;
                 } else break;
             } 
@@ -101,13 +102,18 @@ int main() {
             if (s.getLevel() == 5) {
                 curr_g.end();
                 std::cin >> command;
-                if (command == "r" ) curr_g.restart(pc);
+                if (command == "r" ) curr_g.restart();
                 else break;
             }
-            curr_g.attackOrMove(); 
+            if (command == "a" || command == "u" || command == "f" || command == "r") {
+                curr_g.attackOrMove(); 
+            }
 
-            s.render(pc);
-            std::cout << "Your command: ";
+            if (command != "r" && command != "q") {
+                s.render(pc);
+                std::cout << "Your command: ";
+            }
+            
         }
     }
 }
