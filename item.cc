@@ -32,19 +32,8 @@ Item *Item::getItem(int x, int y) {
     return nullptr;
 }
 
-void Item::deleteItem(Item *item) {
-    auto it = iVec.begin();
-    while (it != iVec.end()) {
-        if (*it == item) {
-            iVec.erase(it);
-            break;
-        }
-        ++it;
-    }
-}
-
 void Item::deleteAll() {
-    for (auto &item : iVec) {
+    for (Item *item : iVec) {
         delete item;
     }
     iVec.clear();

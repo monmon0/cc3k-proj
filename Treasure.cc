@@ -26,7 +26,6 @@ Treasure::Treasure(AsciiArt *next, int x, int y, double val): Item{next, x, y, v
 void Treasure::applyEffect(Player *player) {
     player->addGold(getAmt());
     active = false;
-    deleteItem(this);
     announcement = "PC obtained" + std::to_string(getAmt()) + "gold";
 }
 
@@ -37,7 +36,6 @@ void Dragon_Hoard::applyEffect(Player *player) {
     if (!isGuarded) {
         player->addGold(getAmt());
         active = false;
-        deleteItem(this);
         announcement = "PC obtained" + std::to_string(getAmt()) + "gold";
     }
 }

@@ -27,7 +27,6 @@ class Item: public Decorator {
         virtual bool collectable();
         static void addItem(Item* item);
         static Item *getItem(int x, int y);
-        static void deleteItem(Item *item);
         static void deleteAll();
 
         int getX();
