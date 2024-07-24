@@ -29,11 +29,20 @@ int main() {
             if (command == "s" || command == "d" ||command == "v" 
                 || command == "g" || command == "t") {
                 // set races
-                uint32_t seed = getpid();
-                CheckCoord c{&s, seed}; 
-                c.setPos(); 
-                int r1 = c.getX(), r2 = c.getY();
-                int location = c.getChamber(); 
+                int r_1 = 0, r_2 = 0;
+                int location = 0;
+                if (hasCommand) {
+                    int pos = fileName.find('@');
+                    r_1 = pos / 79;
+                    r_2 = pos % 79;
+                } else {
+                     uint32_t seed = getpid();
+                    CheckCoord c{&s, seed}; 
+                    c.setPos(); 
+                    r1 = c.getX();
+                    r2 = c.getY();
+                    location = c.getChamber(); 
+                }
 
                 if      (command == "s") pc = new Shade{s.picture(), 's', r1, r2, 125, 25, 25, location};
                 else if (command == "d") pc = new Drow{s.picture(), 'd', r1, r2, 150, 25, 15, location};
