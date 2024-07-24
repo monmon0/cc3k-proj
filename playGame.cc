@@ -14,6 +14,8 @@ PlayGame::PlayGame(Dungeon *d) : d{d} {
     std::cout << "Your command: ";
 }
 
+
+
 void PlayGame::play() {
     int seed = time(0);
     spawnStaircase(seed); 

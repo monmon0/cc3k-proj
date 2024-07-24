@@ -23,6 +23,7 @@ class Player : public Character {
         
     public:
         // Constructor and destructor 
+        Player();
         Player(AsciiArt *next, char race, int x, int y, int hp, int atk, int def, int location);
         ~Player() = default;
         char charAt(int row, int col, int tick) override;
@@ -49,7 +50,6 @@ class Player : public Character {
         void attach(Potion * o);
         void detach(Potion* o);
         char atPostion(AsciiArt * d, std::string dir);
-
 }; 
 
 // -------------------------- Derived Class of other PC -------------------------- //
