@@ -21,11 +21,12 @@
 class PlayGame {
 
     Dungeon * d;
-    Enemy * first_E;
-    Item * first_P;
-    Item * first_T;
+    // Enemy * first_E;
+    // Item * first_P;
+    // Item * first_T;
     Player *p = nullptr;
     std::vector<Enemy *> eVec;
+    Staircase * sc;
 
 
     public:
@@ -39,17 +40,17 @@ class PlayGame {
         void spawnStaircase(uint32_t seed); 
 
         void spawnPotions(uint32_t seed);
-        void destroyPotions();
+
 
         void spawnEnemies(uint32_t seed);
-        void destroyEnemies();
+
         void fPressed(); 
         void deadOrQuit();
         void attackOrMove(); 
         void defeatEnemies(int x, int y, std::string dir); 
 
         void spawnTreasure(uint32_t seed);
-        void destroyTreasure();
+
 
         void levelUp();
         void restart();

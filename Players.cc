@@ -10,31 +10,6 @@ Player::Player(AsciiArt *next, char race, int x, int y, int hp, int atk, int def
     Character(next, race, x, y, hp, atk, def), location{location} {
 }
 
-// Player * Player::CreatePlayer(std::string command, int x, int y, int location) {
-
-//     // , char race, int x, int y, int hp, int atk, int def, int location
-//     if (command == "s") {
-//         Player * pc = new Shade{s.picture(), 's', r1, r2, 125, 25, 15, location};
-//         return pc;
-//     }
-//     else if (command == "d") {
-//         Player * pc = new Drow{s.picture(), 'd', r1, r2, 150, 25, 15, location};
-//         return pc;
-//     }
-//     else if (command == "v"){
-//         Player * pc = new Vampire{s.picture(), 'v', r1, r2, 50, 25, 5, location};
-//         return pc;
-//     }
-//     else if (command == "t") {
-//         Player * pc = new Troll{s.picture(), 't', r1, r2, 120, 25, 15, location};
-//         return pc;
-//     }
-//     else if (command == "g") {
-//         pc = new Goblin{s.picture(), 'g', r1, r2, 110, 25, 15, location};
-//         return pc;
-//     }
-// }
-
 void Player::move(std::string dir, AsciiArt * curr) {
     // no,so,ea,we,ne,nw,se,sw
     // new block 
