@@ -26,7 +26,7 @@ public:
 
     AsciiArt *&picture() { return thePicture; }
     void render(Player * p);
-    void reset();
+    // void reset();
     void setAction(std::string a) { action += a;}
     void clearAction() { action = "";}
     void levelUp() { floor++;}

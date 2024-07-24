@@ -22,11 +22,11 @@ class Player : public Character {
         std::vector <Potion * > potions;
         
     public:
-        // Constructor and destructor 
+
         Player();
         Player(AsciiArt *next, char race, int x, int y, int hp, int atk, int def, int location);
         ~Player() = default;
-        char charAt(int row, int col, int tick) override;
+        char charAt(int row, int col) override;
         void move(std::string dir, AsciiArt *next);
         char getRace() {return race;}
         void addGold(int amt) {gold += amt;}
@@ -38,9 +38,9 @@ class Player : public Character {
         void changeDef(double x) { def += x;}
 
         int getMaxHP() {return max_hp;}
-        int getGold() const { return gold;}
+        int getGold() const { return gold;}                       
         
-        bool attack(AsciiArt * d, std::string dir);      // Attack 
+        bool attack(AsciiArt * d, std::string dir);              // Attack 
         void takePotion(AsciiArt * m, std::string dir);         //  Use Potion
         void nextLevel(int x, int y);        
 

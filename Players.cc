@@ -42,11 +42,11 @@ void Player::move(std::string dir, AsciiArt * curr) {
 
 }
 
-char Player::charAt(int row, int col, int tick) {
+char Player::charAt(int row, int col) {
     if (row == y && col == x) {
         return '@';
     }
-    return next->charAt(row, col, tick);
+    return next->charAt(row, col);
 }
 
 char Player::atPostion(AsciiArt * d, std::string dir) {
@@ -75,11 +75,10 @@ char Player::atPostion(AsciiArt * d, std::string dir) {
         new_block_y++;
     }
 
-    return d->charAt(y + new_block_y, x + new_block_x, 1);
+    return d->charAt(y + new_block_y, x + new_block_x);
 }
 
 bool Player::attack(AsciiArt * d, std::string dir) {
-    // if (d->charAt())
     announcement = "";
     srand(time(0));
     char curr = atPostion(d, dir);
@@ -108,7 +107,6 @@ bool Player::attack(AsciiArt * d, std::string dir) {
 };
 
 void Player::takePotion(AsciiArt * m, std::string dir) {
-    // magnified effects x 1.5
     char pos_check = atPostion(m, dir);
 
     if (pos_check == 'P') {

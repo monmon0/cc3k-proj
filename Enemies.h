@@ -28,7 +28,7 @@ public:
     bool fPressed = false; 
     bool isDead() const { return hp <= 0; }
     void attack(Player& pc) { pc.changeHP(-getAtk()); }
-    char charAt(int row, int col, int tick) override;
+    char charAt(int row, int col) override;
     void loseHP(double damage) { hp -= damage; }
     virtual void atkOrMv(Player *pc, Dungeon *d) = 0; 
 };

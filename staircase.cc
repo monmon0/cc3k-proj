@@ -3,9 +3,9 @@
 Staircase::Staircase(AsciiArt *next, int x, int y)
     : Decorator(next), x{x}, y{y} {}
 
-char Staircase::charAt(int row, int col, int tick) {
+char Staircase::charAt(int row, int col) {
     if (row == y && col == x) {
         return '\\';
     }
-    return next->charAt(row, col, tick);
+    return next->charAt(row, col);
 }

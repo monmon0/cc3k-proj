@@ -15,7 +15,7 @@ class Staircase : public Decorator {
 
         ~Staircase() = default; 
         AsciiArt *&nextChar() {return next;}
-        char charAt(int row, int col, int tick);
+        char charAt(int row, int col);
 };
 
 #endif
