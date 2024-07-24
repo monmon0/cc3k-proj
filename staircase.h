@@ -10,12 +10,12 @@
 
 class Staircase : public Decorator {
     int x, y; 
-public:
-    Staircase(AsciiArt *next, int x, int y);
+    public:
+        Staircase(AsciiArt *next, int x, int y);
 
-    ~Staircase() = default; 
-    AsciiArt *&nextChar() {return next;}
-    char charAt(int row, int col, int tick);
+        ~Staircase() = default; 
+        AsciiArt *&nextChar() {return next;}
+        char charAt(int row, int col, int tick);
 };
 
 #endif

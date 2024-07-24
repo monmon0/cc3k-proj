@@ -85,14 +85,7 @@ int main() {
                 initialized = 0;
             }
             // --------------- QUIT GAME ------------------------- //
-            if (pc->isDead() || command == "q") {
-                curr_g.deadOrQuit();
-                std::cin >> command;
-                if (command == "r" ) {          // restart game
-                    curr_g.restart();  
-                    initialized = 0;
-                } else break;
-            } 
+            
             
             if (pc->isLevelUp() && s.getLevel() < 5) {
                 curr_g.levelUp();
@@ -108,6 +101,15 @@ int main() {
             if (command == "a" || command == "u") {
                 curr_g.attackOrMove(); 
             }
+
+            if (pc->isDead() || command == "q") {
+                curr_g.deadOrQuit();
+                std::cin >> command;
+                if (command == "r" ) {          // restart game
+                    curr_g.restart();  
+                    initialized = 0;
+                } else break;
+            } 
 
             if (command != "r" && command != "q") {
                 s.render(pc);
