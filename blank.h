@@ -5,7 +5,8 @@
 #include <vector>
 
 class Blank: public AsciiArt {
-        std::vector<std::string> dungeonMap;
+        // std::vector<std::string> dungeonMap;
+        std::string dungeonMap;
     public:
         Blank(const std::string& filename);
         char charAt(int row, int col) override;

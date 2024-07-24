@@ -167,7 +167,6 @@ void PlayGame::spawnEnemies(uint32_t seed) {
         CheckCoord c{d, seed}; 
         c.setPos(); 
         int r1 = c.getX(), r2 = c.getY();
-        // int r2 = 4 + d->getLevel(), r1 = i + 4;
 
         if (name == 'H') {
             Enemy *hp = new Human(d->picture(), r1, r2); 
