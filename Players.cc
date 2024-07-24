@@ -42,21 +42,6 @@ void Player::move(std::string dir, AsciiArt * curr) {
 
 }
 
-void Player::restartSettings(char n_race, int n_hp, int n_atk, int n_def) {
-    race = race;
-    hp = n_hp;
-    atk = n_atk;
-    def = n_def;
-    gold = 0;
-    hp = hp;
-    if (race == 'v') max_hp = INT_MAX;
-    else max_hp = hp;
-
-    for (auto it = potions.begin(); it != potions.end(); ++it) {
-        potions.erase(it);
-    }
-}
-
 char Player::charAt(int row, int col, int tick) {
     if (row == y && col == x) {
         return '@';

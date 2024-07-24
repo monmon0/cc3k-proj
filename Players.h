@@ -36,7 +36,6 @@ class Player : public Character {
         int getLocation() { return location; }
         void changeAtk(double x) { atk += x;}
         void changeDef(double x) { def += x;}
-        // std::string dirToString(std::string dir);
 
         int getMaxHP() {return max_hp;}
         int getGold() const { return gold;}
@@ -44,7 +43,6 @@ class Player : public Character {
         bool attack(AsciiArt * d, std::string dir);      // Attack 
         void takePotion(AsciiArt * m, std::string dir);         //  Use Potion
         void nextLevel(int x, int y);        
-        void restartSettings(char n_race, int n_hp, int n_atk, int n_def);
 
         bool isLevelUp() const;
         void attach(Potion * o);
