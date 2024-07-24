@@ -32,7 +32,14 @@ void PlayGame::restart() {
 
 void PlayGame::levelUp() {
     // delete all decorator until player
+    uint32_t seed = getpid();
+    CheckCoord c{d, seed}; 
+    c.setPos(); 
+    int r1 = c.getX(), r2 = c.getY();
+
+    p->nextLevel(r1, r2);
     sc->nextChar() = nullptr;
+    
     delete d->picture();
     d->picture() = p;
 
@@ -41,13 +48,6 @@ void PlayGame::levelUp() {
     d->setAction("Next Floor Unlocked! Good job! ");
 
     eVec.clear();
-
-    uint32_t seed = getpid();
-    CheckCoord c{d, seed}; 
-    c.setPos(); 
-    int r1 = c.getX(), r2 = c.getY();
-
-    p->nextLevel(r1, r2);
     play();
 }
 
