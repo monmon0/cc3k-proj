@@ -2,22 +2,22 @@
 #include <random>
 #include <iostream>
 
-char Treasure::charAt(int row, int col, int tick) {
+char Treasure::charAt(int row, int col) {
     if (active && col == this->x && row == this->y) {
         return 'G';
     }
-    return next->charAt(row, col, tick);
+    return next->charAt(row, col);
 }
 
-char Dragon_Hoard::charAt(int row, int col, int tick) {
+char Dragon_Hoard::charAt(int row, int col) {
     if (active && isGuarded && col == this->x && row == this->y) {
-        if (next->charAt(row, col, tick) == '@') {
+        if (next->charAt(row, col) == '@') {
             return '@';
         } else {
             return 'G';
         }   
     }
-    return next->charAt(row, col, tick);
+    return next->charAt(row, col);
 }
 
 Treasure::Treasure(AsciiArt *next, int x, int y, double val): Item{next, x, y, val}{}

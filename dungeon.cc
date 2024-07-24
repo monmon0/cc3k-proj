@@ -8,26 +8,26 @@
 #define RESET "\033[m"
 
 // reset for new chambers?
-void Dungeon::reset() { ticks = 0; }
+// void Dungeon::reset() { ticks = 0; }
 
 void Dungeon::render(Player * player) {
   // draws current map
   // 79 x 25
   for (int i = 0; i < rows - 5; ++i) {
     for (int j = 0; j < cols; ++j) {
-      char curr = picture()->charAt(i, j, ticks);
+      char curr = picture()->charAt(i, j);
       if (curr == '\\' || curr == '@') {
-        out << ESC << LIGHT_BLUE <<"m"<< picture()->charAt(i, j, ticks) << RESET;
+        out << ESC << LIGHT_BLUE <<"m"<< picture()->charAt(i, j) << RESET;
       } else if (curr == 'E' || curr == 'H' || curr == 'D' || curr == 'O' 
              || curr == 'L'  || curr == 'M'  || curr == 'R' || curr == 'W' ) {
-        out << ESC << RED <<"m"<< picture()->charAt(i, j, ticks) << RESET;
+        out << ESC << RED <<"m"<< picture()->charAt(i, j) << RESET;
       } else if (curr == 'P') {
-         out << ESC << GREEN <<"m"<< picture()->charAt(i, j, ticks) << RESET;
+         out << ESC << GREEN <<"m"<< picture()->charAt(i, j) << RESET;
       } else if (curr == 'G') {
-         out << ESC << GOLD <<"m"<< picture()->charAt(i, j, ticks) << RESET;
+         out << ESC << GOLD <<"m"<< picture()->charAt(i, j) << RESET;
       }
       else {
-        out << picture()->charAt(i, j, ticks);
+        out << picture()->charAt(i, j);
       }
     }
     out << std::endl;

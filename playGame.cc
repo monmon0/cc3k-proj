@@ -141,7 +141,7 @@ void PlayGame::spawnTreasure(uint32_t seed) {
                 x = treasure->getX() + dx;
                 y = treasure->getY() + dy; 
 
-                if (d->picture()->charAt(y, x, 1) == '.') {
+                if (d->picture()->charAt(y, x) == '.') {
                     break; 
                 } 
             } 

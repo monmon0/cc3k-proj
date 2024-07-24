@@ -7,7 +7,7 @@ Enemy::Enemy(AsciiArt *next, char race, int x, int y, int hp, int atk, int def)
     : Character(next, race, x, y, hp, atk, def) {}
 
 // Implement the virtual charAt method
-char Enemy::charAt(int row, int col, int tick) {
+char Enemy::charAt(int row, int col) {
     if (col == x && row == y && !isDead()) {
         char id = getRace(); 
         if (id == 'H') return 'H'; 
@@ -18,7 +18,7 @@ char Enemy::charAt(int row, int col, int tick) {
         else if (id == 'D') return 'D'; 
         else if (id == 'L') return 'L'; 
     } else {
-        return next->charAt(row, col, tick);; 
+        return next->charAt(row, col);; 
     }
 }
 
@@ -52,7 +52,7 @@ void Human::atkOrMv(Player *pc, Dungeon *d) {
             idx = rand() % 3;
             int dy = arr[idx]; 
 
-            char pos_check = d->picture()->charAt(y + dy, x + dx, 1);
+            char pos_check = d->picture()->charAt(y + dy, x + dx);
 
             if (pos_check == '.') {
                 x += dx;
@@ -94,7 +94,7 @@ void Dwarf::atkOrMv(Player *pc, Dungeon *d) {
             idx = rand() % 3;
             int dy = arr[idx]; 
 
-            char pos_check = d->picture()->charAt(y + dy, x + dx, 1);
+            char pos_check = d->picture()->charAt(y + dy, x + dx);
 
             if (pos_check == '.') {
                 x += dx;
@@ -149,7 +149,7 @@ void Elf::atkOrMv(Player *pc, Dungeon *d) {
             idx = rand() % 3;
             int dy = arr[idx]; 
 
-            char pos_check = d->picture()->charAt(y + dy, x + dx, 1);
+            char pos_check = d->picture()->charAt(y + dy, x + dx);
 
             if (pos_check == '.') {
                 x += dx;
@@ -193,7 +193,7 @@ void Orc::atkOrMv(Player *pc, Dungeon *d) {
             idx = rand() % 3;
             int dy = arr[idx]; 
 
-            char pos_check = d->picture()->charAt(y + dy, x + dx, 1);
+            char pos_check = d->picture()->charAt(y + dy, x + dx);
 
             if (pos_check == '.') {
                 x += dx;
@@ -235,7 +235,7 @@ void Merchant::atkOrMv(Player *pc, Dungeon *d) {
             idx = rand() % 3;
             int dy = arr[idx]; 
 
-            char pos_check = d->picture()->charAt(y + dy, x + dx, 1);
+            char pos_check = d->picture()->charAt(y + dy, x + dx);
 
             if (pos_check == '.') {
                 x += dx;
@@ -315,7 +315,7 @@ void Halfling::atkOrMv(Player *pc, Dungeon *d) {
             idx = rand() % 3;
             int dy = arr[idx]; 
 
-            char pos_check = d->picture()->charAt(y + dy, x + dx, 1);
+            char pos_check = d->picture()->charAt(y + dy, x + dx);
 
             if (pos_check == '.') {
                 x += dx;

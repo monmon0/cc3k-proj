@@ -43,7 +43,7 @@ void CheckCoord::setPos() {
             }
         }
         
-        if (curr->picture()->charAt(new_y, new_x, 1) == '.') {
+        if (curr->picture()->charAt(new_y, new_x) == '.') {
             x = new_x;
             y = new_y;
             chamber = newChamber;

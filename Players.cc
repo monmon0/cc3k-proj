@@ -57,11 +57,11 @@ void Player::restartSettings(char n_race, int n_hp, int n_atk, int n_def) {
     }
 }
 
-char Player::charAt(int row, int col, int tick) {
+char Player::charAt(int row, int col) {
     if (row == y && col == x) {
         return '@';
     }
-    return next->charAt(row, col, tick);
+    return next->charAt(row, col);
 }
 
 char Player::atPostion(AsciiArt * d, std::string dir) {
@@ -90,7 +90,7 @@ char Player::atPostion(AsciiArt * d, std::string dir) {
         new_block_y++;
     }
 
-    return d->charAt(y + new_block_y, x + new_block_x, 1);
+    return d->charAt(y + new_block_y, x + new_block_x);
 }
 
 bool Player::attack(AsciiArt * d, std::string dir) {

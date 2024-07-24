@@ -12,7 +12,7 @@ Blank::Blank(const std::string& filename) {
 }
 
 
-char Blank::charAt(int row, int col, int tick) { 
+char Blank::charAt(int row, int col) { 
     // rewrite this to read from .txt file
     const char *DungeonMap = 
 "|-----------------------------------------------------------------------------|\
