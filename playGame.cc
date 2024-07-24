@@ -69,7 +69,7 @@ void PlayGame::deadOrQuit() {
     p->setAtk(0);
     std::cout << WOMP_WOMP << std::endl;
     std::cout << "             WOULD YOU LIKE TO PLAY AGAIN?" << std::endl;
-    std::cout << "                 (enter -r to restart)"     << std::endl;
+    std::cout << "                 (enter r to restart)"     << std::endl;
 }
 
 

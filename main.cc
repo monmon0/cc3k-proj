@@ -12,8 +12,14 @@
 #include "checkCoord.h"
 #include <string>
 
-int main() {
+int main(int argc, char *argv[]) {
     // creating new Dungeon
+    string fileName = "map.txt";
+    bool hasCommand = false;
+    if (argc > 1) {
+        fileName = argv[1];
+        hasCommand = true;
+    }
     Blank * floor = new Blank("map.txt");
     Dungeon s{floor};
     std::string command;
