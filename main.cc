@@ -32,11 +32,11 @@ int main() {
                 int r_1 = 0, r_2 = 0;
                 int location = 0;
                 if (hasCommand) {
-                    int pos = fileName.find('@');
+                    int pos = fileName.find("@");
                     r_1 = pos / 79;
                     r_2 = pos % 79;
                 } else {
-                     uint32_t seed = getpid();
+                    uint32_t seed = getpid();
                     CheckCoord c{&s, seed}; 
                     c.setPos(); 
                     r1 = c.getX();
