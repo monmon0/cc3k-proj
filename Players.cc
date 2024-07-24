@@ -180,7 +180,8 @@ void Player::nextLevel(int n_x, int n_y) {
     x = n_x;
     y = n_y;
     // delete temporary potions
-    for (auto it = potions.begin(); it != potions.end(); ++it) {
-        potions.erase(it);
+    for (Potion * p: potions) {
+        p->undoEffect(this);
     }
+    potions.clear();
 }

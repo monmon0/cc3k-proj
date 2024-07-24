@@ -98,8 +98,8 @@ void PlayGame::spawnPotions(uint32_t seed) {
     vector<string> names = {"RH", "BA", "BD", "PH", "WA", "WD"};
 
     for (int i = 0; i < 10; i++) {
-        int idx = rand() % 79;
-        string name = names[idx % 6];
+        int idx = rand() % 6;
+        string name = names[idx];
 
 
         CheckCoord c{d, seed}; 

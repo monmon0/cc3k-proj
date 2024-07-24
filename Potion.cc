@@ -29,7 +29,6 @@ void RH::applyEffect(Player *player) {
         player->changeHP(player->getMaxHP() - player->getHp());
     }
     active = false;
-    deleteItem(this);
     announcement = "PC uses " + getName() + ". ";
 }
 
@@ -42,14 +41,12 @@ void BA::applyEffect(Player *player) {
     }
     player->attach(this);
     active = false;
-    deleteItem(this);
     player->changeAtk(amt);
     announcement = "PC uses " + getName() + ". ";
 }
 
 void BA::undoEffect(Player *player) {
     player->detach(this);
-    delete this;
     player->changeAtk(-1 * amt);
 }
 
@@ -62,14 +59,12 @@ void BD::applyEffect(Player *player) {
     }
     player->attach(this);
     active = false;
-    deleteItem(this);
     player->changeDef(amt);
     announcement = "PC uses " + getName() + ". ";
 }
 
 void BD::undoEffect(Player *player) {
     player->detach(this);
-    delete this;
     player->changeDef(-1 * amt);
 }
 
@@ -87,7 +82,6 @@ void PH::applyEffect(Player *player) {
         player->changeHP(-1 * player->getHp());
     }
     active = false;
-    deleteItem(this);
     announcement = "PC uses " + getName() + ". ";
 }
 
@@ -100,14 +94,12 @@ void WA::applyEffect(Player *player) {
     }
     player->attach(this);
     active = false;
-    deleteItem(this);
     player->changeDef(amt);
     announcement = "PC uses " + getName() + ". ";
 }
 
 void WA::undoEffect(Player *player) {
     player->detach(this);
-    delete this;
     player->changeDef(-1 * amt);
 }
 
@@ -120,14 +112,12 @@ void WD::applyEffect(Player *player) {
     }
     player->attach(this);
     active = false;
-    deleteItem(this);
     player->changeDef(amt);
     announcement = "PC uses " + getName() + ". ";
 }
 
 void WD::undoEffect(Player *player) {
     player->detach(this);
-    delete this;
     player->changeDef(-1 * amt);
 }
 
