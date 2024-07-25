@@ -72,7 +72,10 @@ int main(int argc, char *argv[]) {
 
                 }
 
+<<<<<<< HEAD
                 
+=======
+>>>>>>> 636c25895eb17c8686d55e6b8e615ce68e7c2d78
                 if      (command == "s") pc = new Shade{s.picture(), 's', r1, r2, 125, 25, 25, location};
                 else if (command == "d") pc = new Drow{s.picture(), 'd', r1, r2, 150, 25, 15, location};
                 else if (command == "v") pc = new Vampire{s.picture(), 'v', r1, r2, 50, 25, 25, location};
