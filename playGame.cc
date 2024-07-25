@@ -46,25 +46,25 @@ void PlayGame::levelUp() {
     d->setAction("Next Floor Unlocked! Good job! ");
 
     eVec.clear();
+    eMap.clear();
     play();
 }
 
 void PlayGame::restart() {
-
+    // levelUp();
     AsciiArt * curr = p->nextChar();
     p->nextChar() = nullptr;
     delete d->picture();
 
     d->picture() = curr;
-
     p = nullptr;
     sc = nullptr;
     eVec.clear();
+    eMap.clear();
     d->resetLevel();  
     d->clearAction();
     std::cout << RESTART << std::endl;
     std::cout << "RESTART by choosing your race again: ";
-
 }
 void PlayGame::attachPC(Player * pc) {
     p = pc; 
@@ -328,6 +328,7 @@ void PlayGame::attackOrMove() {
         return a.second.second < b.second.second;
     };
 
+
     // Create a vector of pairs to sort because std::map can't be sorted directly
     std::vector<std::pair<int, std::pair<int, int>>> sortedMap(eMap.begin(), eMap.end());
 
@@ -335,8 +336,11 @@ void PlayGame::attackOrMove() {
     std::sort(sortedMap.begin(), sortedMap.end(), comparePairs);
 
     // Iterate over the sorted vector and perform the actions
+    std::cout << sortedMap.size() << std::endl;
+
     for (const auto& it : sortedMap) {
         int index = it.first;
+        std::cout << eVec[index]->getRace() << std::endl;
         eVec[index]->atkOrMv(p, d);
         d->setAction(eVec[index]->getAnnouncement());
         eMap[index] = std::make_pair(eVec[index]->getX(), eVec[index]->getY());
