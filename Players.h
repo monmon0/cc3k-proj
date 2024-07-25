@@ -50,48 +50,4 @@ class Player : public Character {
         char atPostion(AsciiArt * d, std::string dir);
 }; 
 
-// -------------------------- Derived Class of other PC -------------------------- //
-
-class Shade : public Player {
-    public:
-        Shade(AsciiArt *next, char race, int x, int y, int hp, int atk, int def, int location):
-            Player(next, race, x, y, hp, atk, def, location) {
-            announcement = "Player chooses Shade.";
-           };
-};
-
-class Troll : public Player {
-    public:
-        Troll(AsciiArt *next, char race, int x, int y, int hp, int atk, int def, int location):
-           Player(next, race, x, y, hp, atk, def, location)  {
-                announcement = "Player chooses Troll.";
-            };
-};
-
-class Drow : public Player {
-    public:
-        Drow(AsciiArt *next, char race, int x, int y, int hp, int atk, int def, int location):
-           Player(next, race, x, y, hp, atk, def, location) {
-            announcement = "Player chooses Drow.";
-           };
-};
-
-class Goblin : public Player {
-    public:
-        Goblin(AsciiArt *next, char race, int x, int y, int hp, int atk, int def, int location):
-           Player(next, race, x, y, hp, atk, def, location) {
-            announcement = "Player chooses Goblin.";
-           };
-};
-
-
-class Vampire : public Player {
-    public:
-        Vampire(AsciiArt *next, char race, int x, int y, int hp, int atk, int def, int location):
-           Player(next, race, x, y, hp, atk, def, location)  {
-            announcement = "Player chooses Vampire.";
-           };
-};
-
-
 #endif // PLAYERS_H

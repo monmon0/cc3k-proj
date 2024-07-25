@@ -11,6 +11,11 @@
 #include "playGame.h"
 #include "PRNG.h"
 #include "checkCoord.h"
+#include "Shade.h"
+#include "Drow.h"
+#include "Goblin.h"
+#include "Vampire.h"
+#include "Troll.h"
 #include <string>
 
 int main(int argc, char *argv[]) {
@@ -43,7 +48,7 @@ int main(int argc, char *argv[]) {
         if (!initialized) {
             if (command == "s" || command == "d" ||command == "v" 
                 || command == "g" || command == "t") {
-                // set races
+
                 int r1 = 1, r2 = 1;
                 int location = 0;
                 if (hasCommand) {
@@ -92,7 +97,7 @@ int main(int argc, char *argv[]) {
         } else if (initialized) {
             if (command == "a") {   // attack
                 std::string dir;
-                std::cin >> dir;dsx
+                std::cin >> dir;
                 // attack enemies
                 bool hit = pc->attack(s.picture(), dir);     
                 if (hit) curr_g.defeatEnemies(pc->getX(), pc->getY(), dir);
