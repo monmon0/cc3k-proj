@@ -92,6 +92,7 @@ int main(int argc, char *argv[]) {
                 std::cout << "Please specify direction: ";
                 std::string dir;
                 std::cin >> dir;
+                std::cout << std::endl;
                 // attack enemies
                 bool hit = pc->attack(s.picture(), dir);     
                 if (hit) curr_g.defeatEnemies(pc->getX(), pc->getY(), dir);
@@ -109,6 +110,7 @@ int main(int argc, char *argv[]) {
                 std::cout << "Please specify direction: ";
                 std::string dir;
                 std::cin >> dir;
+                std::cout << std::endl;
                 pc->takePotion(s.picture(), dir);
                 s.setAction(pc->getAnnouncement());
             } else if (command == "lu") {   // Level up, for testing purposes, not actual command
