@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
         if (!initialized) {
             if (command == "s" || command == "d" ||command == "v" 
                 || command == "g" || command == "t") {
-
+                // set races
                 int r1 = 1, r2 = 1;
                 int location = 0;
                 if (hasCommand) {
