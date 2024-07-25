@@ -8,11 +8,11 @@
 
 Player::Player(AsciiArt *next, char race, int x, int y, int hp, int atk, int def, int location): 
     Character(next, race, x, y, hp, atk, def), location{location} {
+        if (race == 'v') max_hp = INT_MAX;
+        else max_hp = hp;
 }
 
 void Player::move(std::string dir, AsciiArt * curr) {
-    // no,so,ea,we,ne,nw,se,sw
-    // new block 
     announcement = "";
 
     char pos_check = atPostion(curr, dir);
@@ -20,6 +20,7 @@ void Player::move(std::string dir, AsciiArt * curr) {
     if (pos_check == '.' || pos_check == '#' || pos_check == '\\' || pos_check == '+' || pos_check == 'G') {
         x += new_block_x;
         y += new_block_y;
+
         if (pos_check == 'G') {
             // check for type of gold
             Item * gold = Item::getItem(x, y);
@@ -28,9 +29,10 @@ void Player::move(std::string dir, AsciiArt * curr) {
             announcement += "PC moves " + dirMap[dir] + ". ";
         }
         else announcement += "PC moves " + dirMap[dir] + ". ";
+
         // troll gains 5 hp every turn
         if (race == 't') {
-            if (max_hp > hp) hp += 5;
+            if (hp + 5 <= max_hp) hp += 5;
             else hp = max_hp;
         }
          // check for staircase
@@ -39,7 +41,6 @@ void Player::move(std::string dir, AsciiArt * curr) {
             levelUp = true;
         }
     } else announcement = "PC tried to move but couldn't. ";
-
 }
 
 char Player::charAt(int row, int col) {
@@ -137,9 +138,21 @@ void Player::nextLevel(int n_x, int n_y) {
     levelUp = false;
     x = n_x;
     y = n_y;
+    
     // delete temporary potions
     for (Potion * p: potions) {
         p->undoEffect(this);
     }
     potions.clear();
 }
+
+char Player::getRace() {return race;}
+void Player::addGold(int amt) {gold += amt;}
+void Player::getHitbyHalfing() {hitbyH = 1;}
+bool Player::isFriend() { return hitMerchant == false; }
+void Player::setAtk(int x) {atk = x;}
+int Player::getLocation() { return location; }
+void Player::changeAtk(double x) { atk += x;}
+void Player::changeDef(double x) { def += x;}
+int Player::getMaxHP() {return max_hp;}
+int Player::getGold() const { return gold;}                

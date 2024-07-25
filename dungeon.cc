@@ -54,4 +54,10 @@ void Dungeon::render(Player * player) {
 
 }
 
+void Dungeon::setAction(std::string a) { action += a;}
+void Dungeon::clearAction() { action = "";}
+void Dungeon::levelUp() { floor++;}
+void Dungeon::resetLevel() { floor = 1; }
+int Dungeon::getLevel() {return floor;}
+
 Dungeon::~Dungeon() { delete thePicture; }

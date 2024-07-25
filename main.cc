@@ -15,8 +15,11 @@
 
 int main(int argc, char *argv[]) {
     // creating new Dungeon
+
     std::string fileName = "map.txt";
     std::string newMap = "";
+
+
     bool hasCommand = false;
 
     if (argc > 1) {
@@ -48,9 +51,11 @@ int main(int argc, char *argv[]) {
                 int location = 0;
                 if (hasCommand) {
                     int pos = newMap.find("@");
-                    std::cout << "POS" << pos << std::endl;
-                    r1 = pos / 79;
-                    r2 = pos % 79;
+                    std::cout << "POS: " << pos << std::endl;
+                    r1 = pos % 79;
+                    r2 = pos / 79;
+                    std::cout << newMap << std::endl;
+
 
                 } else {
                     uint32_t seed = getpid();

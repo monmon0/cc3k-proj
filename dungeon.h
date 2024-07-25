@@ -23,15 +23,14 @@ class Dungeon {
 
 public:
     explicit Dungeon(AsciiArt *picture): thePicture{picture} {}
-
     AsciiArt *&picture() { return thePicture; }
+
     void render(Player * p);
-    // void reset();
-    void setAction(std::string a) { action += a;}
-    void clearAction() { action = "";}
-    void levelUp() { floor++;}
-    void resetLevel() { floor = 1; }
-    int getLevel() {return floor;}
+    void setAction(std::string a);
+    void clearAction();
+    void levelUp();
+    void resetLevel();
+    int getLevel();
 
     ~Dungeon();
 };

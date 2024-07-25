@@ -28,17 +28,17 @@ class Player : public Character {
         ~Player() = default;
         char charAt(int row, int col) override;
         void move(std::string dir, AsciiArt *next);
-        char getRace() {return race;}
-        void addGold(int amt) {gold += amt;}
-        void getHitbyHalfing() {hitbyH = 1;}
-        bool isFriend() { return hitMerchant == false; }
-        void setAtk(int x) {atk = x;}
-        int getLocation() { return location; }
-        void changeAtk(double x) { atk += x;}
-        void changeDef(double x) { def += x;}
+        char getRace();
+        void addGold(int amt);
+        void getHitbyHalfing();
+        bool isFriend();
+        void setAtk(int x);
+        int getLocation();
+        void changeAtk(double x);
+        void changeDef(double x);
 
-        int getMaxHP() {return max_hp;}
-        int getGold() const { return gold;}                       
+        int getMaxHP();
+        int getGold() const;         
         
         bool attack(AsciiArt * d, std::string dir);              // Attack 
         void takePotion(AsciiArt * m, std::string dir);         //  Use Potion
