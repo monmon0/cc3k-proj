@@ -91,7 +91,6 @@ void PlayGame::spawn(Blank *map) {
     Staircase *sp = new Staircase(d->picture(), idx % 79, idx / 79);
     sc = sp;
     d->picture() = sp; 
-    
     for (int row = 0; row < 25; row++) {
         for (int col = 0; col < 79; col++) {
             char letter = map->charAt(row, col);
@@ -99,46 +98,55 @@ void PlayGame::spawn(Blank *map) {
             if (letter == '0') {
                 Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_RH, d->picture(), col, row);
                 d->picture() = potion;
+                break;
             } else if (letter == '1') {
                 Item * potion  = ItemFactory::createItem(ItemFactory::Type::POTION_BA, d->picture(), col, row);
                 d->picture() = potion;
+                break;
             } else if (letter == '2') {
                 Item * potion  = ItemFactory::createItem(ItemFactory::Type::POTION_BD, d->picture(), col, row);
                 d->picture() = potion;
+                break;
             } else if (letter == '3') {
                 Item * potion  = ItemFactory::createItem(ItemFactory::Type::POTION_PH, d->picture(), col, row);
                 d->picture() = potion;
+                break;
             } else if (letter == '4') {
                 Item * potion  = ItemFactory::createItem(ItemFactory::Type::POTION_WA, d->picture(), col, row);
                 d->picture() = potion;
+                break;
             } else if (letter == '5') {
                 Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_WD, d->picture(), col, row);
                 d->picture() = potion;
+                break;
             } else if (letter == '6') {
                 Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_NORMAL, d->picture(), col, row);
                 d->picture() = treasure;
+                break;
             } else if (letter == '7') {
                 Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_SMALL, d->picture(), col, row);
                 d->picture() = treasure;
+                break;
             } else if (letter == '8') {
                 Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_MERCHANT, d->picture(), col, row);
                 d->picture() = treasure;
+                break;
             } else if (letter == '9') {
                 Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_DRAGON, d->picture(), col, row);
                 d->picture() = treasure;
 
-                // Enemy *dp; 
-                // if (map->charAt(row - 1, col - 1) == 'D') dp = new Dragon(d->picture(), col - 1, row - 1, static_cast<Dragon_Hoard*>(treasure));
-                // else if (map->charAt(row - 1, col) == 'D') dp = new Dragon(d->picture(), col, row - 1, static_cast<Dragon_Hoard*>(treasure));
-                // else if (map->charAt(row, col - 1) == 'D') dp = new Dragon(d->picture(), col - 1, row, static_cast<Dragon_Hoard*>(treasure));
-                // else if (map->charAt(row + 1, col + 1) == 'D') dp = new Dragon(d->picture(), col + 1, row + 1, static_cast<Dragon_Hoard*>(treasure));
-                // else if (map->charAt(row + 1, col) == 'D') dp = new Dragon(d->picture(), col, row + 1, static_cast<Dragon_Hoard*>(treasure));
-                // else if (map->charAt(row, col + 1) == 'D') dp = new Dragon(d->picture(), col + 1, row, static_cast<Dragon_Hoard*>(treasure));
-                // else if (map->charAt(row + 1, col - 1) == 'D') dp = new Dragon(d->picture(), col - 1, row + 1, static_cast<Dragon_Hoard*>(treasure));
-                // else if (map->charAt(row - 1, col + 1) == 'D') dp = new Dragon(d->picture(), col + 1, row - 1, static_cast<Dragon_Hoard*>(treasure));
+                Enemy *dp; 
+                if (map->charAt(row - 1, col - 1) == 'D') dp = new Dragon(d->picture(), col - 1, row - 1, static_cast<Dragon_Hoard*>(treasure));
+                else if (map->charAt(row - 1, col) == 'D') dp = new Dragon(d->picture(), col, row - 1, static_cast<Dragon_Hoard*>(treasure));
+                else if (map->charAt(row, col - 1) == 'D') dp = new Dragon(d->picture(), col - 1, row, static_cast<Dragon_Hoard*>(treasure));
+                else if (map->charAt(row + 1, col + 1) == 'D') dp = new Dragon(d->picture(), col + 1, row + 1, static_cast<Dragon_Hoard*>(treasure));
+                else if (map->charAt(row + 1, col) == 'D') dp = new Dragon(d->picture(), col, row + 1, static_cast<Dragon_Hoard*>(treasure));
+                else if (map->charAt(row, col + 1) == 'D') dp = new Dragon(d->picture(), col + 1, row, static_cast<Dragon_Hoard*>(treasure));
+                else if (map->charAt(row + 1, col - 1) == 'D') dp = new Dragon(d->picture(), col - 1, row + 1, static_cast<Dragon_Hoard*>(treasure));
+                else if (map->charAt(row - 1, col + 1) == 'D') dp = new Dragon(d->picture(), col + 1, row - 1, static_cast<Dragon_Hoard*>(treasure));
                 
-                // d->picture() = dp;
-                // eVec.emplace_back(dp);
+                d->picture() = dp;
+                eVec.emplace_back(dp);
             } else if (letter == 'H') {
                 Enemy *hp = new Human(d->picture(), col, row); 
                 d->picture() = hp;  
@@ -165,6 +173,11 @@ void PlayGame::spawn(Blank *map) {
                 eVec.emplace_back(lp);
             }
 
+            Staircase *sp = new Staircase(d->picture(), x, y); 
+            sc = sp;
+            d->picture() = sp; 
+            break; 
+            
             int counter = 0; 
             for (auto e : eVec) {
                 eMap[counter] = make_pair(e->getX(), e->getY());

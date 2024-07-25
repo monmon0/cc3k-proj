@@ -64,7 +64,7 @@ void Human::atkOrMv(Player *pc, Dungeon *d) {
 }
 
 bool Human::isDead() {
-    if (!goldDropped) 
+    if ()
 }
 
 // --------------------- Dwarf --------------------- //
