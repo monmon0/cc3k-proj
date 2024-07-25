@@ -29,25 +29,19 @@ void PlayGame::play(Blank *map) {
 }
 
 void PlayGame::restart() {
-    levelUp(nullptr, false);
+    levelUp();
     d->resetLevel();  
     d->clearAction();
     std::cout << RESTART << std::endl;
     std::cout << "RESTART by choosing your race again: ";
 }
 
-void PlayGame::levelUp(Blank *map, bool hasCommand, int x, int y) {
+void PlayGame::levelUp(Blank *map, bool hasCommand) {
     // delete all decorator until player
-    int r1, r2;
-    if (hasCommand) {
-        r1 = x; 
-        r2 = y;
-    } else {
-        uint32_t seed = getpid();
-        CheckCoord c{d, seed}; 
-        c.setPos(); 
-        int r1 = c.getX(), r2 = c.getY();
-    }
+    uint32_t seed = getpid();
+    CheckCoord c{d, seed}; 
+    c.setPos(); 
+    int r1 = c.getX(), r2 = c.getY();
 
     p->nextLevel(r1, r2);
     sc->nextChar() = nullptr;
@@ -61,7 +55,6 @@ void PlayGame::levelUp(Blank *map, bool hasCommand, int x, int y) {
 
     eVec.clear();
     if (hasCommand) {
-        std::cout << "HEREEE" << std::endl;
         play(map);
     } else {
         play();
