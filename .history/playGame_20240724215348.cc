@@ -164,6 +164,11 @@ void PlayGame::spawn(Blank *map) {
                 eVec.emplace_back(lp);
             }
 
+            Staircase *sp = new Staircase(d->picture(), x, y); 
+            sc = sp;
+            d->picture() = sp; 
+            break; 
+            
             int counter = 0; 
             for (auto e : eVec) {
                 eMap[counter] = make_pair(e->getX(), e->getY());

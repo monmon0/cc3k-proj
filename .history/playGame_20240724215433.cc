@@ -93,7 +93,7 @@ void PlayGame::spawn(Blank *map) {
     d->picture() = sp; 
     for (int row = 0; row < 25; row++) {
         for (int col = 0; col < 79; col++) {
-            char letter = map->charAt(row, col);
+            char letter = map->charAt(row, );
             
             if (letter == '0') {
                 Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_RH, d->picture(), col, row);
@@ -124,7 +124,6 @@ void PlayGame::spawn(Blank *map) {
                 d->picture() = treasure;
             } else if (letter == '9') {
                 Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_DRAGON, d->picture(), col, row);
-                d->picture() = treasure;
 
                 Enemy *dp; 
                 if (map->charAt(row - 1, col - 1) == 'D') dp = new Dragon(d->picture(), col - 1, row - 1, static_cast<Dragon_Hoard*>(treasure));
@@ -164,6 +163,11 @@ void PlayGame::spawn(Blank *map) {
                 eVec.emplace_back(lp);
             }
 
+            Staircase *sp = new Staircase(d->picture(), x, y); 
+            sc = sp;
+            d->picture() = sp; 
+            break; 
+            
             int counter = 0; 
             for (auto e : eVec) {
                 eMap[counter] = make_pair(e->getX(), e->getY());

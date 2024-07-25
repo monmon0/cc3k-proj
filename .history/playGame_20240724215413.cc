@@ -98,30 +98,39 @@ void PlayGame::spawn(Blank *map) {
             if (letter == '0') {
                 Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_RH, d->picture(), col, row);
                 d->picture() = potion;
+                break;
             } else if (letter == '1') {
                 Item * potion  = ItemFactory::createItem(ItemFactory::Type::POTION_BA, d->picture(), col, row);
                 d->picture() = potion;
+                break;
             } else if (letter == '2') {
                 Item * potion  = ItemFactory::createItem(ItemFactory::Type::POTION_BD, d->picture(), col, row);
                 d->picture() = potion;
+                break;
             } else if (letter == '3') {
                 Item * potion  = ItemFactory::createItem(ItemFactory::Type::POTION_PH, d->picture(), col, row);
                 d->picture() = potion;
+                break;
             } else if (letter == '4') {
                 Item * potion  = ItemFactory::createItem(ItemFactory::Type::POTION_WA, d->picture(), col, row);
                 d->picture() = potion;
+                break;
             } else if (letter == '5') {
                 Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_WD, d->picture(), col, row);
                 d->picture() = potion;
+                break;
             } else if (letter == '6') {
                 Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_NORMAL, d->picture(), col, row);
                 d->picture() = treasure;
+                break;
             } else if (letter == '7') {
                 Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_SMALL, d->picture(), col, row);
                 d->picture() = treasure;
+                break;
             } else if (letter == '8') {
                 Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_MERCHANT, d->picture(), col, row);
                 d->picture() = treasure;
+                break;
             } else if (letter == '9') {
                 Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_DRAGON, d->picture(), col, row);
                 d->picture() = treasure;
@@ -164,6 +173,11 @@ void PlayGame::spawn(Blank *map) {
                 eVec.emplace_back(lp);
             }
 
+            Staircase *sp = new Staircase(d->picture(), x, y); 
+            sc = sp;
+            d->picture() = sp; 
+            break; 
+            
             int counter = 0; 
             for (auto e : eVec) {
                 eMap[counter] = make_pair(e->getX(), e->getY());

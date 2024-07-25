@@ -124,7 +124,7 @@ void PlayGame::spawn(Blank *map) {
                 d->picture() = treasure;
             } else if (letter == '9') {
                 Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_DRAGON, d->picture(), col, row);
-                d->picture() = treasure;
+                d->picture() = dp;
 
                 Enemy *dp; 
                 if (map->charAt(row - 1, col - 1) == 'D') dp = new Dragon(d->picture(), col - 1, row - 1, static_cast<Dragon_Hoard*>(treasure));
