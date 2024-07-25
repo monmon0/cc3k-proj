@@ -72,7 +72,7 @@ void PlayGame::deadOrQuit() {
     std::cout << "                 (enter r to restart)"     << std::endl;
 }
 
-
+void
 
 
 void PlayGame::spawnPotions(uint32_t seed) {  
