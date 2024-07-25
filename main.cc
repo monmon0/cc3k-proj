@@ -74,9 +74,9 @@ int main(int argc, char *argv[]) {
 
                 // --------- start game, spawn enemies, spawn potions -----------  //
                 if (hasCommand) {
-                    // curr_g.play(map);
+                    curr_g.play(map);
                 } else {
-                    // curr_g.play();
+                    curr_g.play();
                 }
                 initialized = 1;
                 s.setAction(pc->getAnnouncement());
