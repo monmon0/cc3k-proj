@@ -7,7 +7,8 @@
 class Blank: public AsciiArt {
     std::string dungeonMap;
     public:
-        Blank(const std::string& filename);
+        Blank(const std::string &filename);
+        Blank(const std::string &str, int floor);
         char charAt(int row, int col) override;
         std::string &getMap();
 };

@@ -50,7 +50,7 @@ class PlayGame {
         void attackOrMove(); 
         void defeatEnemies(int x, int y, std::string dir); 
         void spawnTreasure(uint32_t seed);
-        void levelUp();
+        void levelUp(Blank *map, bool hasCommand, int r1 = 0, int r2 = 0);
         void restart();
 };
 

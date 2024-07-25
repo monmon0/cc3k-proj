@@ -29,19 +29,25 @@ void PlayGame::play(Blank *map) {
 }
 
 void PlayGame::restart() {
-    levelUp();
+    levelUp(nullptr, false);
     d->resetLevel();  
     d->clearAction();
     std::cout << RESTART << std::endl;
     std::cout << "RESTART by choosing your race again: ";
 }
 
-void PlayGame::levelUp() {
+void PlayGame::levelUp(Blank *map, bool hasCommand, int x, int y) {
     // delete all decorator until player
-    uint32_t seed = getpid();
-    CheckCoord c{d, seed}; 
-    c.setPos(); 
-    int r1 = c.getX(), r2 = c.getY();
+    int r1, r2;
+    if (hasCommand) {
+        r1 = x; 
+        r2 = y;
+    } else {
+        uint32_t seed = getpid();
+        CheckCoord c{d, seed}; 
+        c.setPos(); 
+        int r1 = c.getX(), r2 = c.getY();
+    }
 
     p->nextLevel(r1, r2);
     sc->nextChar() = nullptr;
@@ -54,7 +60,12 @@ void PlayGame::levelUp() {
     d->setAction("Next Floor Unlocked! Good job! ");
 
     eVec.clear();
-    play();
+    if (hasCommand) {
+        std::cout << "HEREEE" << std::endl;
+        play(map);
+    } else {
+        play();
+    }
 }
 
 void PlayGame::spawnStaircase(uint32_t seed) { 
