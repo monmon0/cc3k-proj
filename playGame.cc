@@ -50,20 +50,21 @@ void PlayGame::levelUp() {
 }
 
 void PlayGame::restart() {
-    // levelUp();
+
     AsciiArt * curr = p->nextChar();
     p->nextChar() = nullptr;
     delete d->picture();
 
     d->picture() = curr;
+
     p = nullptr;
     sc = nullptr;
     eVec.clear();
     d->resetLevel();  
     d->clearAction();
-
     std::cout << RESTART << std::endl;
     std::cout << "RESTART by choosing your race again: ";
+
 }
 void PlayGame::attachPC(Player * pc) {
     p = pc; 

@@ -24,6 +24,8 @@ int main(int argc, char *argv[]) {
     std::string newMap = "";
     bool hasCommand = false;
 
+    bool restart = false;
+
     if (argc > 1) {
         fileName = argv[1];
         hasCommand = true;
@@ -70,7 +72,7 @@ int main(int argc, char *argv[]) {
 
                 }
 
-                std::cout << "here" << std::endl;
+                
                 if      (command == "s") pc = new Shade{s.picture(), 's', r1, r2, 125, 25, 25, location};
                 else if (command == "d") pc = new Drow{s.picture(), 'd', r1, r2, 150, 25, 15, location};
                 else if (command == "v") pc = new Vampire{s.picture(), 'v', r1, r2, 50, 25, 25, location};
@@ -79,6 +81,7 @@ int main(int argc, char *argv[]) {
 
                 s.picture() = pc;
                 curr_g.attachPC(pc); 
+                restart = false;
 
                 // --------- start game, spawn enemies, spawn potions -----------  //
                 if (hasCommand) {
@@ -94,7 +97,7 @@ int main(int argc, char *argv[]) {
             }   else std::cout << "Please choose an appropriate command: ";
         } else if (initialized) {
             if (command == "a") {   // attack
-                std::cout << "Please specify direction: ";
+                // std::cout << "Please specify direction: ";
                 std::string dir;
                 std::cin >> dir;
                 std::cout << std::endl;
@@ -102,25 +105,22 @@ int main(int argc, char *argv[]) {
                 bool hit = pc->attack(s.picture(), dir);     
                 if (hit) curr_g.defeatEnemies(pc->getX(), pc->getY(), dir);
                 s.setAction(pc->getAnnouncement());
-                
-                curr_g.attackOrMove(); 
+
             } else if (command == "no" || command == "so" || command == "ea" 
                     || command == "we" || command == "ne" || command == "nw" 
                     || command == "se" || command =="sw") {
 
                 pc->move(command, s.picture());
                 s.setAction(pc->getAnnouncement());
+                curr_g.attackOrMove();
 
-                curr_g.attackOrMove(); 
             } else if (command == "u" ) {   // use potion
-                std::cout << "Please specify direction: ";
+                // std::cout << "Please specify direction: ";
                 std::string dir;
                 std::cin >> dir;
                 std::cout << std::endl;
                 pc->takePotion(s.picture(), dir);
                 s.setAction(pc->getAnnouncement());
-
-                curr_g.attackOrMove(); 
             } else if (command == "lu") {   // Level up, for testing purposes, not actual command
                 curr_g.levelUp();
             } else if (command == "f" ) {   // stop enemies from moving;
@@ -128,12 +128,18 @@ int main(int argc, char *argv[]) {
                 s.setAction("Something happened to the enemies... "); 
             // --------------- RESTART GAME ------------------------- //
             } else if (command == "r" ) {   // restart game
-                std::cout << "restart" << std::endl;
                 curr_g.restart();
                 hasCommand = 0;
                 initialized = 0;
+
+                restart = true;
+
+
+
             }
-            if (pc->isLevelUp() && s.getLevel() < 5) {
+
+            if (!restart) {
+                if (pc->isLevelUp() && s.getLevel() < 5) {
                 curr_g.levelUp();
             } 
 
@@ -147,6 +153,9 @@ int main(int argc, char *argv[]) {
                 }
                 else break;
             }
+            if (command == "a" || command == "u") {
+                // curr_g.attackOrMove(); 
+            }
             // --------------- QUIT GAME ------------------------- //
             if (pc->isDead() || command == "q") {
                 curr_g.deadOrQuit();
@@ -156,6 +165,8 @@ int main(int argc, char *argv[]) {
                     initialized = 0;
                 } else break;
             } 
+            }
+            
 
             if (command != "r" && command != "q") {
                 s.render(pc);
