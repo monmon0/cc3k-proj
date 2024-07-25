@@ -19,7 +19,6 @@ int main(int argc, char *argv[]) {
     std::string fileName = "map.txt";
     std::string newMap = "";
 
-
     bool hasCommand = false;
 
     if (argc > 1) {
@@ -51,18 +50,9 @@ int main(int argc, char *argv[]) {
                 int r1 = 1, r2 = 1;
                 int location = 0;
                 if (hasCommand) {
-                    int pos = newMap.find("@");
-<<<<<<< HEAD
-                    std::cout << "POS: " << pos << std::endl;
-                    r1 = pos % 79;
-                    r2 = pos / 79;
-                    std::cout << newMap << std::endl;
-
-=======
-                    // int pos = map->getMap().find("@");
+                    int pos = newMap.find("@", (s.getLevel() - 1) * 25);
                     r1 = pos / 79;
                     r2 = pos % 79;
->>>>>>> 7f782495b73542ece8643760fbfbd165f559ee73
 
                 } else {
                     uint32_t seed = getpid();
@@ -84,9 +74,9 @@ int main(int argc, char *argv[]) {
 
                 // --------- start game, spawn enemies, spawn potions -----------  //
                 if (hasCommand) {
-                    curr_g.play(map);
+                    // curr_g.play(map);
                 } else {
-                    curr_g.play();
+                    // curr_g.play();
                 }
                 initialized = 1;
                 s.setAction(pc->getAnnouncement());

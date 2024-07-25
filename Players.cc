@@ -32,11 +32,7 @@ void Player::move(std::string dir, AsciiArt * curr) {
 
         // troll gains 5 hp every turn
         if (race == 't') {
-<<<<<<< HEAD
             if (hp + 5 <= max_hp) hp += 5;
-=======
-            if (max_hp > hp) hp += 5; 
->>>>>>> 7f782495b73542ece8643760fbfbd165f559ee73
             else hp = max_hp;
         }
          // check for staircase
