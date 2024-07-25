@@ -21,6 +21,7 @@
 #include <ctime>
 #include <map>
 
+class Blank;
 
 class PlayGame {
 
@@ -35,6 +36,7 @@ class PlayGame {
         PlayGame(Dungeon * d);
         ~PlayGame() = default; 
         void play();
+        void play(Blank *map);
         void end(); 
         bool checkCoord(int x, int y); 
         void attachPC(Player * pc) {p = pc;}

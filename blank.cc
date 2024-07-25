@@ -16,4 +16,8 @@ char Blank::charAt(int row, int col) {
     return dungeonMap[row * 79 + col]; 
 } 
 
+std::string &Blank::getMap() {
+    return dungeonMap;
+}
+
 

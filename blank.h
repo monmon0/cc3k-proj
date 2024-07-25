@@ -9,6 +9,7 @@ class Blank: public AsciiArt {
     public:
         Blank(const std::string& filename);
         char charAt(int row, int col) override;
+        std::string &getMap();
 };
 
 #endif
