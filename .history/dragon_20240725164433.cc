@@ -4,11 +4,11 @@ Dragon::Dragon(AsciiArt *next, int xCoord, int yCoord, Dragon_Hoard *dh)
     : Enemy(next, 'D', xCoord, yCoord, 150, 20, 20), dh{dh} {}
 
 void Dragon::atkOrMv(Player *pc, Dungeon *d) {
-    announcement = "";
     if (isDead()) {
         dh->unGuarded(); 
         return; 
     }; 
+    announcement = "";
 
     int xDiff1 = abs(pc->getX() - x); 
     int yDiff1 = abs(pc->getY() - y);  

@@ -4,7 +4,6 @@ Orc::Orc(AsciiArt *next, int xCoord, int yCoord)
     : Enemy(next, 'O', xCoord, yCoord, 180, 30, 25) {}
 
 void Orc::atkOrMv(Player *pc, Dungeon *d) {
-    announcement = "";
     if (isDead()) return; 
     std::vector<int> arr = {-1, 0, 1}; 
 

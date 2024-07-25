@@ -1,20 +1,18 @@
-#include "orc.h"
+#include "elf.h"
 
-Orc::Orc(AsciiArt *next, int xCoord, int yCoord)
-    : Enemy(next, 'O', xCoord, yCoord, 180, 30, 25) {}
+Elf::Elf(AsciiArt *next, int xCoord, int yCoord)
+    : Enemy(next, 'E', xCoord, yCoord, 140, 30, 10) {}
 
-void Orc::atkOrMv(Player *pc, Dungeon *d) {
-    announcement = "";
+void Elf::atkOrMv(Player *pc, Dungeon *d) {
     if (isDead()) return; 
+    announcement = "";
     std::vector<int> arr = {-1, 0, 1}; 
 
     int xDiff = abs(pc->getX() - x); 
     int yDiff = abs(pc->getY() - y);  
 
-    if (xDiff <= 1 && yDiff <= 1) { 
-        int atk = getAtk(); 
-        if (pc->getRace() == 'g') atk *= 1.5; 
-        int damage = ceil((100/(100 + pc->getDef())) * atk); 
+    if (xDiff <= 1 && yDiff <= 1) {
+        int damage = ceil((100/(100 + pc->getDef())) * getAtk()); 
         if (rand() % 2 == 0) {
             pc->changeHP(-damage); 
             announcement = std::string(1, getRace())  // Convert char to std::string
@@ -23,6 +21,19 @@ void Orc::atkOrMv(Player *pc, Dungeon *d) {
                             + " damage to PC. ";
         } else {
             announcement = std::string(1, getRace()) + " missed. "; 
+        } 
+        
+        if (pc->getRace() != 'd') {
+            if (rand() % 2 == 0) {
+                pc->changeHP(-damage); 
+                announcement += "On the second try "
+                                + std::string(1, getRace())  // Convert char to std::string
+                                + " deals " 
+                                + std::to_string(damage)  // Convert int to std::string
+                                + " damage to PC. ";
+            } else {
+                announcement += "On the second try " + std::string(1, getRace()) + " missed. "; 
+            }
         }
     } else { 
         for (int i : arr) {
@@ -42,7 +53,7 @@ void Orc::atkOrMv(Player *pc, Dungeon *d) {
                             return; // Exit the function once the position is updated
                         }
                     }
-                }
+                } 
             }
         }
         return; 

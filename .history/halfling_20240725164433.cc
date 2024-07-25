@@ -1,28 +1,31 @@
-#include "orc.h"
+#include "halfling.h"
 
-Orc::Orc(AsciiArt *next, int xCoord, int yCoord)
-    : Enemy(next, 'O', xCoord, yCoord, 180, 30, 25) {}
+Halfling::Halfling(AsciiArt *next, int xCoord, int yCoord)
+    : Enemy(next, 'L', xCoord, yCoord, 100, 15, 20) {}
 
-void Orc::atkOrMv(Player *pc, Dungeon *d) {
-    announcement = "";
+void Halfling::atkOrMv(Player *pc, Dungeon *d) {
     if (isDead()) return; 
+    announcement = "";
     std::vector<int> arr = {-1, 0, 1}; 
 
     int xDiff = abs(pc->getX() - x); 
     int yDiff = abs(pc->getY() - y);  
 
-    if (xDiff <= 1 && yDiff <= 1) { 
-        int atk = getAtk(); 
-        if (pc->getRace() == 'g') atk *= 1.5; 
-        int damage = ceil((100/(100 + pc->getDef())) * atk); 
+    if (xDiff <= 1 && yDiff <= 1) {
+        int damage = ceil((100/(100 + pc->getDef())) * getAtk()); 
         if (rand() % 2 == 0) {
             pc->changeHP(-damage); 
+            pc->getHitbyHalfing(); 
             announcement = std::string(1, getRace())  // Convert char to std::string
                             + " deals " 
                             + std::to_string(damage)  // Convert int to std::string
                             + " damage to PC. ";
         } else {
             announcement = std::string(1, getRace()) + " missed. "; 
+        } 
+        if (rand() % 2 == 0) {
+            pc->getHitbyHalfing(); 
+            announcement += "PC is poisoned by Halfling. "; 
         }
     } else { 
         for (int i : arr) {
