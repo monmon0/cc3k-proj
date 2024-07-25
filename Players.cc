@@ -4,6 +4,7 @@
 #include "Potion.h"
 #include "item.h"
 #include <ctime>
+#include <climits>
 #include <string>
 
 Player::Player(AsciiArt *next, char race, int x, int y, int hp, int atk, int def, int location): 
@@ -84,27 +85,25 @@ bool Player::attack(AsciiArt * d, std::string dir) {
     srand(time(0));
     char curr = atPostion(d, dir);
 
-
-    if (!hitbyH) {
-        if (curr == 'H' || curr == 'W' || curr == 'E' || curr == 'L'
-        ||  curr == 'O' || curr == 'M' || curr == 'D') {
+    if (hitbyH == false) {
+        if (curr == 'H' || curr == 'W' || curr == 'E' || 
+            curr == 'L' || curr == 'O' || curr == 'M' || curr == 'D') {
             if (race == 'v') {
                 if (curr == 'W') hp -= 5;
                 else hp += 5;
             }
             if (curr == 'M') hitMerchant = true;
-            return 1;
+            return true;
         } 
-        announcement += "PC missed. ";
         move(dir, d);
     } else { 
         announcement = "PC missed the attack due to Halfing Poison. ";
         // reset if get hit by halfing
         move(dir, d);
-        hitbyH = 0;
+        hitbyH = false;
     } 
 
-    return 0;
+    return false;
 };
 
 void Player::takePotion(AsciiArt * m, std::string dir) {
@@ -148,7 +147,7 @@ void Player::nextLevel(int n_x, int n_y) {
 
 char Player::getRace() {return race;}
 void Player::addGold(int amt) {gold += amt;}
-void Player::getHitbyHalfing() {hitbyH = 1;}
+void Player::getHitbyHalfing() {hitbyH = true;}
 bool Player::isFriend() { return hitMerchant == false; }
 void Player::setAtk(int x) {atk = x;}
 int Player::getLocation() { return location; }

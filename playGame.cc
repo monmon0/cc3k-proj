@@ -27,14 +27,6 @@ void PlayGame::play(Blank *map) {
     spawn(map);
 }
 
-void PlayGame::restart() {
-    levelUp();
-    d->resetLevel();  
-    d->clearAction();
-    std::cout << RESTART << std::endl;
-    std::cout << "RESTART by choosing your race again: ";
-}
-
 void PlayGame::levelUp() {
     // delete all decorator until player
     uint32_t seed = getpid();
@@ -56,6 +48,27 @@ void PlayGame::levelUp() {
     eVec.clear();
     play();
 }
+
+void PlayGame::restart() {
+    // levelUp();
+    AsciiArt * curr = p->nextChar();
+    p->nextChar() = nullptr;
+    delete d->picture();
+
+    d->picture() = curr;
+    p = nullptr;
+    sc = nullptr;
+    eVec.clear();
+    d->resetLevel();  
+    d->clearAction();
+
+    std::cout << RESTART << std::endl;
+    std::cout << "RESTART by choosing your race again: ";
+}
+void PlayGame::attachPC(Player * pc) {
+    p = pc; 
+    std::cout << pc << std::endl;
+    }
 
 void PlayGame::spawnStaircase(uint32_t seed) { 
     CheckCoord c{d, seed}; 
@@ -79,7 +92,6 @@ void PlayGame::deadOrQuit() {
 }
 
 void PlayGame::spawn(Blank *map) {
-    int x, y; 
     int idx = map->getMap().find('\\');
     Staircase *sp = new Staircase(d->picture(), idx % 79, idx / 79);
     sc = sp;
@@ -360,8 +372,13 @@ void PlayGame::defeatEnemies(int x, int y, std::string dir) {
             d->setAction("PC deals " +
                             std::to_string(damage) + 
                             " damage to " + std::string(1, e->getRace()) + ". ");
-            if (e->isDead()) {
-                p->addGold( p->getRace() == 'g' ? 10 : 5 );
+            if (e->isDead()) { 
+                if (e->getRace() == 'H' || e->getRace() == 'M') {
+                    Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_MERCHANT, d->picture(), e->getX(), e->getY());
+                    d->picture() = treasure;
+                } else {
+                    p->addGold( p->getRace() == 'g' ? 10 : 5 );
+                }
                 d->setAction(std::string(1, e->getRace()) + " is slained. ");
             }
         }
