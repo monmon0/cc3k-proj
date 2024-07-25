@@ -12,26 +12,10 @@ class Player;
 class Enemies;
 
 class Treasure: public Item {
-    // protected:
-    //     Subject *subject;
-    //     bool isGuarded;
     public:
         Treasure(AsciiArt *next, int x, int y, double val);
         char charAt(int row, int col) override;
         void applyEffect(Player *player) override;
-        // virtual bool collectable();
-};
-
-class Dragon_Hoard: public Treasure {
-    protected:
-        bool isGuarded;
-
-    public:
-        Dragon_Hoard(AsciiArt *next, int x, int y);
-        void unGuarded();
-        void applyEffect(Player *player) override;
-        char charAt(int row, int col) override;
-        bool collectable() override;
 };
 
 #endif

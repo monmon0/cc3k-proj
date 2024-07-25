@@ -6,9 +6,8 @@ using namespace std;
 
 class Blank; 
 
-
 PlayGame::PlayGame(Dungeon *d) : d{d} {
-     // --------------- START GAME ------------------------- //
+    // --------------- START GAME ------------------------- //
     std::cout << WELCOME << '\n'
               << "         WELCOME to SYLVIA, EASON & MONICA CC3k    "              << std::endl
     << "Please start by entering one of the following command to choose your hero:" << std::endl
@@ -41,7 +40,8 @@ void PlayGame::levelUp() {
     uint32_t seed = getpid();
     CheckCoord c{d, seed}; 
     c.setPos(); 
-    int r1 = c.getX(), r2 = c.getY();
+    int r1 = c.getX();
+    int  r2 = c.getY();
 
     p->nextLevel(r1, r2);
     sc->nextChar() = nullptr;
@@ -71,13 +71,6 @@ void PlayGame::spawnStaircase(uint32_t seed) {
     }
 }
 
-// void PlayGame::spawnStaircase(Blank *map) {
-//     int idx = map->getMap.find('\\');
-//     Staircase *sp = new Staircase(d->picture(), idx % 79, idx / 79);
-//     sc = sp;
-//     d->picture() = sp; 
-// }
-
 void PlayGame::deadOrQuit() {
     p->setAtk(0);
     std::cout << WOMP_WOMP << std::endl;
@@ -86,7 +79,6 @@ void PlayGame::deadOrQuit() {
 }
 
 void PlayGame::spawn(Blank *map) {
-    int x, y; 
     int idx = map->getMap().find('\\');
     Staircase *sp = new Staircase(d->picture(), idx % 79, idx / 79);
     sc = sp;
@@ -125,20 +117,19 @@ void PlayGame::spawn(Blank *map) {
                 d->picture() = treasure;
             } else if (letter == '9') {
                 Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_DRAGON, d->picture(), col, row);
-                d->picture() = treasure;
 
-                // Enemy *dp; 
-                // if (map->charAt(row - 1, col - 1) == 'D') dp = new Dragon(d->picture(), col - 1, row - 1, static_cast<Dragon_Hoard*>(treasure));
-                // else if (map->charAt(row - 1, col) == 'D') dp = new Dragon(d->picture(), col, row - 1, static_cast<Dragon_Hoard*>(treasure));
-                // else if (map->charAt(row, col - 1) == 'D') dp = new Dragon(d->picture(), col - 1, row, static_cast<Dragon_Hoard*>(treasure));
-                // else if (map->charAt(row + 1, col + 1) == 'D') dp = new Dragon(d->picture(), col + 1, row + 1, static_cast<Dragon_Hoard*>(treasure));
-                // else if (map->charAt(row + 1, col) == 'D') dp = new Dragon(d->picture(), col, row + 1, static_cast<Dragon_Hoard*>(treasure));
-                // else if (map->charAt(row, col + 1) == 'D') dp = new Dragon(d->picture(), col + 1, row, static_cast<Dragon_Hoard*>(treasure));
-                // else if (map->charAt(row + 1, col - 1) == 'D') dp = new Dragon(d->picture(), col - 1, row + 1, static_cast<Dragon_Hoard*>(treasure));
-                // else if (map->charAt(row - 1, col + 1) == 'D') dp = new Dragon(d->picture(), col + 1, row - 1, static_cast<Dragon_Hoard*>(treasure));
+                Enemy *dp; 
+                if (map->charAt(row - 1, col - 1) == 'D') dp = new Dragon(d->picture(), col - 1, row - 1, static_cast<Dragon_Hoard*>(treasure));
+                else if (map->charAt(row - 1, col) == 'D') dp = new Dragon(d->picture(), col, row - 1, static_cast<Dragon_Hoard*>(treasure));
+                else if (map->charAt(row, col - 1) == 'D') dp = new Dragon(d->picture(), col - 1, row, static_cast<Dragon_Hoard*>(treasure));
+                else if (map->charAt(row + 1, col + 1) == 'D') dp = new Dragon(d->picture(), col + 1, row + 1, static_cast<Dragon_Hoard*>(treasure));
+                else if (map->charAt(row + 1, col) == 'D') dp = new Dragon(d->picture(), col, row + 1, static_cast<Dragon_Hoard*>(treasure));
+                else if (map->charAt(row, col + 1) == 'D') dp = new Dragon(d->picture(), col + 1, row, static_cast<Dragon_Hoard*>(treasure));
+                else if (map->charAt(row + 1, col - 1) == 'D') dp = new Dragon(d->picture(), col - 1, row + 1, static_cast<Dragon_Hoard*>(treasure));
+                else if (map->charAt(row - 1, col + 1) == 'D') dp = new Dragon(d->picture(), col + 1, row - 1, static_cast<Dragon_Hoard*>(treasure));
                 
-                // d->picture() = dp;
-                // eVec.emplace_back(dp);
+                d->picture() = dp;
+                eVec.emplace_back(dp);
             } else if (letter == 'H') {
                 Enemy *hp = new Human(d->picture(), col, row); 
                 d->picture() = hp;  
@@ -165,6 +156,11 @@ void PlayGame::spawn(Blank *map) {
                 eVec.emplace_back(lp);
             }
 
+            Staircase *sp = new Staircase(d->picture(), x, y); 
+            sc = sp;
+            d->picture() = sp; 
+            break; 
+            
             int counter = 0; 
             for (auto e : eVec) {
                 eMap[counter] = make_pair(e->getX(), e->getY());
@@ -264,39 +260,40 @@ void PlayGame::spawnTreasure(uint32_t seed) {
 }
 
 void PlayGame::spawnEnemies(uint32_t seed) { 
-    vector<char> characters = {'H', 'W', 'E', 'O', 'M', 'L'};
+    vector<char> characters = {'H', 'H', 'H', 'H', 'W', 'W', 'W', 'E', 'E', 'O', 'O', 'M', 'M', 'L', 'L', 'L', 'L', 'L'};
     for (int i = 0; i < 20; i++) {
-        int idx = rand() % 6;
+        int idx = rand() % 18;
         char name = characters[idx]; 
 
         CheckCoord c{d, seed}; 
         c.setPos(); 
         int r1 = c.getX(), r2 = c.getY();
 
+        Enemy *e;
         if (name == 'H') {
-            Enemy *hp = new Human(d->picture(), r1, r2); 
-            d->picture() = hp;  
-            eVec.emplace_back(hp);
+            e = EnemyFactory::createEnemy(EnemyFactory::Type::HUMAN, d->picture(), r1, r2);
+            d->picture() = e;
+            eVec.emplace_back(e);
         } else if (name == 'W') {
-            Enemy *wp = new Dwarf(d->picture(), r1, r2); 
-            d->picture() = wp; 
-            eVec.emplace_back(wp);
+            e = EnemyFactory::createEnemy(EnemyFactory::Type::DWARF, d->picture(), r1, r2);
+            d->picture() = e;
+            eVec.emplace_back(e);
         } else if (name == 'E') {
-            Enemy *ep = new Elf(d->picture(),r1, r2); 
-            d->picture() = ep; 
-            eVec.emplace_back(ep);
+            e = EnemyFactory::createEnemy(EnemyFactory::Type::ELF, d->picture(), r1, r2);
+            d->picture() = e;
+            eVec.emplace_back(e);
         } else if (name == 'O') {
-            Enemy *op = new Orc(d->picture(), r1, r2); 
-            d->picture() = op; 
-            eVec.emplace_back(op);
+            e = EnemyFactory::createEnemy(EnemyFactory::Type::ORC, d->picture(), r1, r2);
+            d->picture() = e;
+            eVec.emplace_back(e);
         } else if (name == 'M') {
-            Enemy *mp = new Merchant(d->picture(), r1, r2); 
-            d->picture() = mp; 
-            eVec.emplace_back(mp);
-        } else {
-            Enemy *lp = new Halfling(d->picture(), r1, r2); 
-            d->picture() = lp; 
-            eVec.emplace_back(lp);
+            e = EnemyFactory::createEnemy(EnemyFactory::Type::MERCHANT, d->picture(), r1, r2);
+            d->picture() = e;
+            eVec.emplace_back(e);
+        } else if (name == 'L') {
+            e = EnemyFactory::createEnemy(EnemyFactory::Type::HALFLING, d->picture(), r1, r2);
+            d->picture() = e;
+            eVec.emplace_back(e);
         }
     } 
 
@@ -368,10 +365,6 @@ void PlayGame::defeatEnemies(int x, int y, std::string dir) {
                             std::to_string(damage) + 
                             " damage to " + std::string(1, e->getRace()) + ". ");
             if (e->isDead()) {
-                if (e->getRace() == 'H' || e->getRace() == 'M') {
-                    Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_MERCHANT, d->picture(), e->getX(), e->getY());
-                    d->picture() = treasure;
-                }
                 p->addGold( p->getRace() == 'g' ? 10 : 5 );
                 d->setAction(std::string(1, e->getRace()) + " is slained. ");
             }

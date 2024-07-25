@@ -2,8 +2,15 @@
 #define ITEMFACTORY_H
 
 #include <memory>
-#include "Potion.h"
+#include "item.h"
 #include "Treasure.h"
+#include "BA.h"
+#include "BD.h"
+#include "PH.h"
+#include "RH.h"
+#include "WA.h"
+#include "WD.h"
+#include "Dragon_Hoard.h"
 
 class ItemFactory {
     public:

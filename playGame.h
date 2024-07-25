@@ -7,6 +7,7 @@
 #include "Potion.h"
 #include "Treasure.h"
 #include "itemFactory.h"
+#include "enemyFactory.h"
 #include "checkCoord.h"
 #include "dungeon.h"
 #include "Players.h"
@@ -31,7 +32,6 @@ class PlayGame {
     std::vector<Enemy *> eVec;
     std::map<int, std::pair<int, int>> eMap; 
     Staircase * sc;
-
 
     public:
         PlayGame(Dungeon * d);

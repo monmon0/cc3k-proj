@@ -1,3 +1,3 @@
 checkCoord.o: checkCoord.cc checkCoord.h dungeon.h Players.h asciiart.h \
   decorator.h item.h character.h Enemies.h Subject.h PRNG.h Treasure.h \
-  Observer.h itemFactory.h Potion.h
+  Observer.h itemFactory.h Potion.h BA.h BD.h PH.h RH.h WA.h WD.h

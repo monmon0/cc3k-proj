@@ -1,52 +1,19 @@
-// #include "enemyFactory.h"
+#include "enemyFactory.h"
+// using namespace ItemFactory;
 
-// std::unique_ptr<Enemy> EnemyFactory::createEnemy(const char type, AsciiArt* next, int x, int y) {
-//     switch (type) {
-//         case 'H': 
-//             std::unique_ptr<Enemy> hp = std::make_unique<Human>(next, x, y);
-//             next = hp;
-//             return hp;
-//         case 'W': 
-//             std::unique_ptr<Enemy> wp = std::make_unique<Dwarf>(next, x, y);
-//             next = wp;
-//         case 'E': 
-//             std::unique_ptr<Enemy> wp = std::make_unique<Elf>(next, x, y);
-//             next = wp;
-//         case 'O': 
-//             std::unique_ptr<Enemy> wp = std::make_unique<Orc>(next, x, y);
-//             next = wp;
-//         case 'M': 
-//             std::unique_ptr<Enemy> wp = std::make_unique<Merchant>(next, x, y);
-//             next = wp;
-//         case 'D': 
-//             std::unique_ptr<Enemy> wp = std::make_unique<Dragon>(next, x, y);
-//             next = wp;
-//         case 'L': 
-//             std::unique_ptr<Enemy> wp = std::make_unique<Halfling>(next, x, y);
-//             next = wp;
-//         default: return nullptr;
-//     }
-// }
-
-// std::vector<std::unique_ptr<Enemy>> EnemyFactory::spawn20Enemies(AsciiArt *next, int tick) {
-//     // std::vector<char> characters = {'H', 'H', 'H', 'H', 'W', 'W', 'W', 'L', 'L', 'L', 'L', 'L', 'E', 'E', 'O', 'O', 'M', 'M'};
-//     std::vector<char> characters = {'H', 'H', 'H', 'H'};
-//     std::vector<std::unique_ptr<Enemy>> e;
-
-//     std::random_device rd;
-//     std::mt19937 g(rd());
-//     std::shuffle(characters.begin(), characters.end(), g);
-
-//     for (int i = 0; i < 20; i++) {
-//         int x = rand() % 79;
-//         int y = rand() % 25;
-
-//         if (next->charAt(x, y, tick) == '.') {
-//             e.emplace_back(createEnemy(characters[i], next, x, y));
-//         } else {
-//             i--; // Retry the placement
-//         }
-//     }
-
-//     return e;
-// }
+Enemy *EnemyFactory::createEnemy(Type type, AsciiArt *next, int x, int y) {
+    // Create Potions
+    if (type == Type::HUMAN) {
+        return new Human(next, x, y);
+    } else if (type == Type::DWARF) {
+        return new Dwarf(next, x, y);
+    } else if (type == Type::ELF) {
+        return new Elf(next, x, y);
+    } else if (type == Type::ORC) {
+        return new Orc(next, x, y);
+    } else if (type == Type::MERCHANT) {
+        return new Merchant(next, x, y);
+    } else if (type == Type::HALFLING) {
+        return new Halfling(next, x, y);
+    } 
+}

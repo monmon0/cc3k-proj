@@ -1,7 +1,6 @@
 #ifndef ENEMIES_H
 #define ENEMIES_H
 
-#include "asciiart.h"
 #include "Subject.h"
 #include "Players.h"
 #include "decorator.h"
@@ -14,9 +13,9 @@
 #include <cmath>
 #include <string>
 #include <vector>
+#include <random>
 #include <cstdlib> 
 #include <algorithm>
-#include <random>
 
 class Dungeon; 
 // class Dragon_Hoard;
@@ -33,18 +32,6 @@ public:
     void loseHP(double damage) { hp -= damage; }
     bool isDead() const;
     virtual void atkOrMv(Player *pc, Dungeon *d) = 0; 
-};
-
-class Human : public Enemy {
-public:
-    Human(AsciiArt *next, int xCoord, int yCoord); 
-    void atkOrMv(Player *pc, Dungeon *d) override; 
-};
-
-class Dwarf : public Enemy {
-public:
-    Dwarf(AsciiArt *next, int xCoord, int yCoord);
-    void atkOrMv(Player *pc, Dungeon *d) override; 
 };
 
 class Elf : public Enemy {

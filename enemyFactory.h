@@ -1,16 +1,20 @@
-// #ifndef ENEMYFACTORY_H
-// #define ENEMYFACTORY_H
+#ifndef ENEMYFACTORY_H
+#define ENEMYFACTORY_H
 
-// #include <vector>
-// #include <algorithm>
-// #include <random>
-// #include <memory>
-// #include "Enemies.h"
+#include <memory>
 
-// class EnemyFactory {
-//     std::unique_ptr<Enemy> createEnemy(const char type, AsciiArt* next, int x, int y);
-// public:
-//     std::vector<std::unique_ptr<Enemy>> spawn20Enemies(AsciiArt *next, int tick);
-// };
+#include "human.h"
+#include "dwarf.h"
+#include "elf.h"
+#include "orc.h"
+#include "merchant.h"
+#include "halfling.h"
+#include "dragon.h"
 
-// #endif // ENEMYFACTORY_H
+class EnemyFactory {
+    public:
+        enum Type {HUMAN, DWARF, ELF, ORC, MERCHANT, HALFLING};
+        static Enemy *createEnemy(Type type, AsciiArt *next, int x, int y);
+};
+
+#endif

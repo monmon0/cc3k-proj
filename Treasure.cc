@@ -9,17 +9,6 @@ char Treasure::charAt(int row, int col) {
     return next->charAt(row, col);
 }
 
-char Dragon_Hoard::charAt(int row, int col) {
-    if (active && isGuarded && col == this->x && row == this->y) {
-        if (next->charAt(row, col) == '@') {
-            return '@';
-        } else {
-            return 'G';
-        }   
-    }
-    return next->charAt(row, col);
-}
-
 Treasure::Treasure(AsciiArt *next, int x, int y, double val): Item{next, x, y, val}{}
 
 
@@ -29,22 +18,5 @@ void Treasure::applyEffect(Player *player) {
     announcement = "PC obtained" + std::to_string(getAmt()) + "gold";
 }
 
-Dragon_Hoard::Dragon_Hoard(AsciiArt *next, int x, int y): Treasure{next, x, y, 6},
-                                                                isGuarded{true}{}
-
-void Dragon_Hoard::applyEffect(Player *player) {
-    if (!isGuarded) {
-        player->addGold(getAmt());
-        active = false;
-        announcement = "PC obtained" + std::to_string(getAmt()) + "gold";
-    }
-}
-
-void Dragon_Hoard::unGuarded() {
-    isGuarded = false;
-}
-
-bool Dragon_Hoard::collectable() {
-    return !isGuarded;
-}
+bool Treasure::collectable() {}
 

@@ -3,6 +3,7 @@
 #include "asciiart.h"
 #include <fstream>
 #include <vector>
+#include <iostream>
 
 class Blank: public AsciiArt {
     std::string dungeonMap;
