@@ -79,6 +79,7 @@ void PlayGame::deadOrQuit() {
 }
 
 void PlayGame::spawn(Blank *map) {
+    int x, y; 
     int idx = map->getMap().find('\\');
     Staircase *sp = new Staircase(d->picture(), idx % 79, idx / 79);
     sc = sp;
@@ -263,6 +264,8 @@ void PlayGame::spawnEnemies(uint32_t seed) {
         CheckCoord c{d, seed}; 
         c.setPos(); 
         int r1 = c.getX(), r2 = c.getY();
+
+        
 
         Enemy *e;
         if (name == 'H') {

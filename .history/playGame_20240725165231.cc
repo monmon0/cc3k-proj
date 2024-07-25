@@ -264,6 +264,11 @@ void PlayGame::spawnEnemies(uint32_t seed) {
         c.setPos(); 
         int r1 = c.getX(), r2 = c.getY();
 
+        if (c.getChamber() == p->getLocation()) {
+            i--; 
+            continue; 
+        }
+
         Enemy *e;
         if (name == 'H') {
             e = EnemyFactory::createEnemy(EnemyFactory::Type::HUMAN, d->picture(), r1, r2);

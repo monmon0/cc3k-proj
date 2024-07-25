@@ -6,8 +6,9 @@ using namespace std;
 
 class Blank; 
 
+
 PlayGame::PlayGame(Dungeon *d) : d{d} {
-    // --------------- START GAME ------------------------- //
+     // --------------- START GAME ------------------------- //
     std::cout << WELCOME << '\n'
               << "         WELCOME to SYLVIA, EASON & MONICA CC3k    "              << std::endl
     << "Please start by entering one of the following command to choose your hero:" << std::endl
@@ -40,8 +41,7 @@ void PlayGame::levelUp() {
     uint32_t seed = getpid();
     CheckCoord c{d, seed}; 
     c.setPos(); 
-    int r1 = c.getX();
-    int  r2 = c.getY();
+    int r1 = c.getX(), r2 = c.getY();
 
     p->nextLevel(r1, r2);
     sc->nextChar() = nullptr;
@@ -71,6 +71,13 @@ void PlayGame::spawnStaircase(uint32_t seed) {
     }
 }
 
+// void PlayGame::spawnStaircase(Blank *map) {
+//     int idx = map->getMap.find('\\');
+//     Staircase *sp = new Staircase(d->picture(), idx % 79, idx / 79);
+//     sc = sp;
+//     d->picture() = sp; 
+// }
+
 void PlayGame::deadOrQuit() {
     p->setAtk(0);
     std::cout << WOMP_WOMP << std::endl;
@@ -79,6 +86,7 @@ void PlayGame::deadOrQuit() {
 }
 
 void PlayGame::spawn(Blank *map) {
+    int x, y; 
     int idx = map->getMap().find('\\');
     Staircase *sp = new Staircase(d->picture(), idx % 79, idx / 79);
     sc = sp;
@@ -360,6 +368,10 @@ void PlayGame::defeatEnemies(int x, int y, std::string dir) {
                             std::to_string(damage) + 
                             " damage to " + std::string(1, e->getRace()) + ". ");
             if (e->isDead()) {
+                if (e->getRace() == 'H' || e->getRace() == 'M') {
+                    Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_MERCHANT, d->picture(), e->getX(), e->getY());
+                    d->picture() = treasure;
+                }
                 p->addGold( p->getRace() == 'g' ? 10 : 5 );
                 d->setAction(std::string(1, e->getRace()) + " is slained. ");
             }

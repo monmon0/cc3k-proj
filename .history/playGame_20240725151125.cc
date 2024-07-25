@@ -6,8 +6,9 @@ using namespace std;
 
 class Blank; 
 
+
 PlayGame::PlayGame(Dungeon *d) : d{d} {
-    // --------------- START GAME ------------------------- //
+     // --------------- START GAME ------------------------- //
     std::cout << WELCOME << '\n'
               << "         WELCOME to SYLVIA, EASON & MONICA CC3k    "              << std::endl
     << "Please start by entering one of the following command to choose your hero:" << std::endl
@@ -40,8 +41,7 @@ void PlayGame::levelUp() {
     uint32_t seed = getpid();
     CheckCoord c{d, seed}; 
     c.setPos(); 
-    int r1 = c.getX();
-    int  r2 = c.getY();
+    int r1 = c.getX(), r2 = c.getY();
 
     p->nextLevel(r1, r2);
     sc->nextChar() = nullptr;
@@ -71,6 +71,13 @@ void PlayGame::spawnStaircase(uint32_t seed) {
     }
 }
 
+// void PlayGame::spawnStaircase(Blank *map) {
+//     int idx = map->getMap.find('\\');
+//     Staircase *sp = new Staircase(d->picture(), idx % 79, idx / 79);
+//     sc = sp;
+//     d->picture() = sp; 
+// }
+
 void PlayGame::deadOrQuit() {
     p->setAtk(0);
     std::cout << WOMP_WOMP << std::endl;
@@ -79,6 +86,7 @@ void PlayGame::deadOrQuit() {
 }
 
 void PlayGame::spawn(Blank *map) {
+    int x, y; 
     int idx = map->getMap().find('\\');
     Staircase *sp = new Staircase(d->picture(), idx % 79, idx / 79);
     sc = sp;
@@ -131,29 +139,29 @@ void PlayGame::spawn(Blank *map) {
                 d->picture() = dp;
                 eVec.emplace_back(dp);
             } else if (letter == 'H') {
-                Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::HUMAN, d->picture(), col, row);
-                d->picture() = e;
-                eVec.emplace_back(e);
+                Enemy *hp = new Human(d->picture(), col, row); 
+                d->picture() = hp;  
+                eVec.emplace_back(hp);
             } else if (letter == 'W') {
-                Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::DWARF, d->picture(), col, row);
-                d->picture() = e;
-                eVec.emplace_back(e);
+                Enemy *wp = new Dwarf(d->picture(), col, row); 
+                d->picture() = wp; 
+                eVec.emplace_back(wp);
             } else if (letter == 'E') {
-                Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::ELF, d->picture(), col, row);
-                d->picture() = e;
-                eVec.emplace_back(e);
+                Enemy *ep = new Elf(d->picture(), col, row); 
+                d->picture() = ep; 
+                eVec.emplace_back(ep);
             } else if (letter == 'O') {
-                Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::ORC, d->picture(), col, row);
-                d->picture() = e;
-                eVec.emplace_back(e);
+                Enemy *op = new Orc(d->picture(), col, row); 
+                d->picture() = op; 
+                eVec.emplace_back(op);
             } else if (letter == 'M') {
-                Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::MERCHANT, d->picture(), col, row);
-                d->picture() = e;
-                eVec.emplace_back(e);
+                Enemy *mp = new Merchant(d->picture(), col, row); 
+                d->picture() = mp; 
+                eVec.emplace_back(mp);
             } else if (letter == 'L') {
-                Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::HALFLING, d->picture(), col, row);
-                d->picture() = e;
-                eVec.emplace_back(e);
+                Enemy *lp = new Halfling(d->picture(), col, row); 
+                d->picture() = lp; 
+                eVec.emplace_back(lp);
             }
 
             int counter = 0; 
@@ -255,9 +263,9 @@ void PlayGame::spawnTreasure(uint32_t seed) {
 }
 
 void PlayGame::spawnEnemies(uint32_t seed) { 
-    vector<char> characters = {'H', 'H', 'H', 'H', 'W', 'W', 'W', 'E', 'E', 'O', 'O', 'M', 'M', 'L', 'L', 'L', 'L', 'L'};
+    vector<char> characters = {'H', 'W', 'E', 'O', 'M', 'L'};
     for (int i = 0; i < 20; i++) {
-        int idx = rand() % 18;
+        int idx = rand() % 6;
         char name = characters[idx]; 
 
         CheckCoord c{d, seed}; 
@@ -266,29 +274,31 @@ void PlayGame::spawnEnemies(uint32_t seed) {
 
         Enemy *e;
         if (name == 'H') {
-            e = EnemyFactory::createEnemy(EnemyFactory::Type::HUMAN, d->picture(), r1, r2);
-            d->picture() = e;
-            eVec.emplace_back(e);
+            treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_NORMAL, d->picture(), r1, r2);
+            d->picture() = treasure;
+            Enemy *hp = new Human(d->picture(), r1, r2); 
+            d->picture() = hp;  
+            eVec.emplace_back(hp);
         } else if (name == 'W') {
-            e = EnemyFactory::createEnemy(EnemyFactory::Type::DWARF, d->picture(), r1, r2);
-            d->picture() = e;
-            eVec.emplace_back(e);
+            Enemy *wp = new Dwarf(d->picture(), r1, r2); 
+            d->picture() = wp; 
+            eVec.emplace_back(wp);
         } else if (name == 'E') {
-            e = EnemyFactory::createEnemy(EnemyFactory::Type::ELF, d->picture(), r1, r2);
-            d->picture() = e;
-            eVec.emplace_back(e);
+            Enemy *ep = new Elf(d->picture(),r1, r2); 
+            d->picture() = ep; 
+            eVec.emplace_back(ep);
         } else if (name == 'O') {
-            e = EnemyFactory::createEnemy(EnemyFactory::Type::ORC, d->picture(), r1, r2);
-            d->picture() = e;
-            eVec.emplace_back(e);
+            Enemy *op = new Orc(d->picture(), r1, r2); 
+            d->picture() = op; 
+            eVec.emplace_back(op);
         } else if (name == 'M') {
-            e = EnemyFactory::createEnemy(EnemyFactory::Type::MERCHANT, d->picture(), r1, r2);
-            d->picture() = e;
-            eVec.emplace_back(e);
-        } else if (name == 'L') {
-            e = EnemyFactory::createEnemy(EnemyFactory::Type::HALFLING, d->picture(), r1, r2);
-            d->picture() = e;
-            eVec.emplace_back(e);
+            Enemy *mp = new Merchant(d->picture(), r1, r2); 
+            d->picture() = mp; 
+            eVec.emplace_back(mp);
+        } else {
+            Enemy *lp = new Halfling(d->picture(), r1, r2); 
+            d->picture() = lp; 
+            eVec.emplace_back(lp);
         }
     } 
 
@@ -360,6 +370,10 @@ void PlayGame::defeatEnemies(int x, int y, std::string dir) {
                             std::to_string(damage) + 
                             " damage to " + std::string(1, e->getRace()) + ". ");
             if (e->isDead()) {
+                if (e->getRace() == 'H' || e->getRace() == 'M') {
+                    Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_MERCHANT, d->picture(), e->getX(), e->getY());
+                    d->picture() = treasure;
+                }
                 p->addGold( p->getRace() == 'g' ? 10 : 5 );
                 d->setAction(std::string(1, e->getRace()) + " is slained. ");
             }
