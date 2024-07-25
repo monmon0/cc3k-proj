@@ -79,11 +79,11 @@ void PlayGame::deadOrQuit() {
 }
 
 void PlayGame::spawn(Blank *map) {
+    int x, y; 
     int idx = map->getMap().find('\\');
     Staircase *sp = new Staircase(d->picture(), idx % 79, idx / 79);
     sc = sp;
     d->picture() = sp; 
-    
     for (int row = 0; row < 25; row++) {
         for (int col = 0; col < 79; col++) {
             char letter = map->charAt(row, col);
@@ -117,6 +117,7 @@ void PlayGame::spawn(Blank *map) {
                 d->picture() = treasure;
             } else if (letter == '9') {
                 Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_DRAGON, d->picture(), col, row);
+                d->picture() = treasure;
 
                 Enemy *dp; 
                 if (map->charAt(row - 1, col - 1) == 'D') dp = new Dragon(d->picture(), col - 1, row - 1, static_cast<Dragon_Hoard*>(treasure));
@@ -131,36 +132,31 @@ void PlayGame::spawn(Blank *map) {
                 d->picture() = dp;
                 eVec.emplace_back(dp);
             } else if (letter == 'H') {
-                Enemy *hp = new Human(d->picture(), col, row); 
-                d->picture() = hp;  
-                eVec.emplace_back(hp);
+                Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::HUMAN, d->picture(), col, row);
+                d->picture() = e;
+                eVec.emplace_back(e);
             } else if (letter == 'W') {
-                Enemy *wp = new Dwarf(d->picture(), col, row); 
-                d->picture() = wp; 
-                eVec.emplace_back(wp);
+                Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::DWARF, d->picture(), col, row);
+                d->picture() = e;
+                eVec.emplace_back(e);
             } else if (letter == 'E') {
-                Enemy *ep = new Elf(d->picture(), col, row); 
-                d->picture() = ep; 
-                eVec.emplace_back(ep);
+                Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::ELF, d->picture(), col, row);
+                d->picture() = e;
+                eVec.emplace_back(e);
             } else if (letter == 'O') {
-                Enemy *op = new Orc(d->picture(), col, row); 
-                d->picture() = op; 
-                eVec.emplace_back(op);
+                Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::ORC, d->picture(), col, row);
+                d->picture() = e;
+                eVec.emplace_back(e);
             } else if (letter == 'M') {
-                Enemy *mp = new Merchant(d->picture(), col, row); 
-                d->picture() = mp; 
-                eVec.emplace_back(mp);
+                Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::MERCHANT, d->picture(), col, row);
+                d->picture() = e;
+                eVec.emplace_back(e);
             } else if (letter == 'L') {
-                Enemy *lp = new Halfling(d->picture(), col, row); 
-                d->picture() = lp; 
-                eVec.emplace_back(lp);
+                Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::HALFLING, d->picture(), col, row);
+                d->picture() = e;
+                eVec.emplace_back(e);
             }
 
-            Staircase *sp = new Staircase(d->picture(), x, y); 
-            sc = sp;
-            d->picture() = sp; 
-            break; 
-            
             int counter = 0; 
             for (auto e : eVec) {
                 eMap[counter] = make_pair(e->getX(), e->getY());

@@ -7,8 +7,7 @@
 #include "PRNG.h"
 #include "dungeon.h"
 #include "checkCoord.h"
-#include "Treasure.h"
-#include "itemFactory.h"
+#include "character.h"
 
 #include <cmath>
 #include <string>
@@ -32,39 +31,6 @@ public:
     void loseHP(double damage) { hp -= damage; }
     bool isDead() const;
     virtual void atkOrMv(Player *pc, Dungeon *d) = 0; 
-};
-
-class Elf : public Enemy {
-public:
-    Elf(AsciiArt *next, int xCoord, int yCoord);
-    void atkOrMv(Player *pc, Dungeon *d) override; 
-};
-
-class Orc : public Enemy {
-public:
-    Orc(AsciiArt *next, int xCoord, int yCoord);
-    void atkOrMv(Player *pc, Dungeon *d) override; 
-};
-
-class Merchant : public Enemy {
-public:
-    Merchant(AsciiArt *next, int xCoord, int yCoord);
-    void atkOrMv(Player *pc, Dungeon *d) override; 
-};
-
-class Halfling : public Enemy {
-public:
-    Halfling(AsciiArt *next, int xCoord, int yCoord);
-    void atkOrMv(Player *pc, Dungeon *d) override; 
-};
-
-class Dragon_Hoard;
-
-class Dragon : public Enemy {
-    Dragon_Hoard *dh;
-public:
-    Dragon(AsciiArt *next, int xCoord, int yCoord, Dragon_Hoard *dh); 
-    void atkOrMv(Player *pc, Dungeon *d) override; 
 };
 
 #endif // ENEMIES_H

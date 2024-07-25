@@ -18,5 +18,3 @@ void Treasure::applyEffect(Player *player) {
     announcement = "PC obtained" + std::to_string(getAmt()) + "gold";
 }
 
-bool Treasure::collectable() {}
-

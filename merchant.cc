@@ -1,9 +1,9 @@
-#include "dwarf.h" 
+#include "merchant.h"
 
-Dwarf::Dwarf(AsciiArt *next, int xCoord, int yCoord)
-    : Enemy(next, 'W', xCoord, yCoord, 100, 20, 30) {} 
+Merchant::Merchant(AsciiArt *next, int xCoord, int yCoord)
+    : Enemy(next, 'M', xCoord, yCoord, 30, 70, 5) {}
 
-void Dwarf::atkOrMv(Player *pc, Dungeon *d) {
+void Merchant::atkOrMv(Player *pc, Dungeon *d) {
     if (isDead()) return; 
     announcement = "";
     std::vector<int> arr = {-1, 0, 1}; 
@@ -11,7 +11,7 @@ void Dwarf::atkOrMv(Player *pc, Dungeon *d) {
     int xDiff = abs(pc->getX() - x); 
     int yDiff = abs(pc->getY() - y);  
 
-    if (xDiff <= 1 && yDiff <= 1) {
+    if (xDiff <= 1 && yDiff <= 1 && !pc->isFriend()) {
         int damage = ceil((100/(100 + pc->getDef())) * getAtk()); 
         if (rand() % 2 == 0) {
             pc->changeHP(-damage); 
@@ -40,7 +40,7 @@ void Dwarf::atkOrMv(Player *pc, Dungeon *d) {
                             return; // Exit the function once the position is updated
                         }
                     }
-                } 
+                }
             }
         }
         return; 

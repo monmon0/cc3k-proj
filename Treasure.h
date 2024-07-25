@@ -2,14 +2,9 @@
 #define TREASURE_H
 #include "Players.h"
 #include "decorator.h"
-#include "Enemies.h"
 #include "item.h"
-#include "Observer.h"
 #include <map>
 #include <utility>
-
-class Player;
-class Enemies;
 
 class Treasure: public Item {
     public:

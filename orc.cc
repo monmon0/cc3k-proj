@@ -1,9 +1,9 @@
-#include "dwarf.h" 
+#include "orc.h"
 
-Dwarf::Dwarf(AsciiArt *next, int xCoord, int yCoord)
-    : Enemy(next, 'W', xCoord, yCoord, 100, 20, 30) {} 
+Orc::Orc(AsciiArt *next, int xCoord, int yCoord)
+    : Enemy(next, 'O', xCoord, yCoord, 180, 30, 25) {}
 
-void Dwarf::atkOrMv(Player *pc, Dungeon *d) {
+void Orc::atkOrMv(Player *pc, Dungeon *d) {
     if (isDead()) return; 
     announcement = "";
     std::vector<int> arr = {-1, 0, 1}; 
@@ -11,8 +11,10 @@ void Dwarf::atkOrMv(Player *pc, Dungeon *d) {
     int xDiff = abs(pc->getX() - x); 
     int yDiff = abs(pc->getY() - y);  
 
-    if (xDiff <= 1 && yDiff <= 1) {
-        int damage = ceil((100/(100 + pc->getDef())) * getAtk()); 
+    if (xDiff <= 1 && yDiff <= 1) { 
+        int atk = getAtk(); 
+        if (pc->getRace() == 'g') atk *= 1.5; 
+        int damage = ceil((100/(100 + pc->getDef())) * atk); 
         if (rand() % 2 == 0) {
             pc->changeHP(-damage); 
             announcement = std::string(1, getRace())  // Convert char to std::string
@@ -40,7 +42,7 @@ void Dwarf::atkOrMv(Player *pc, Dungeon *d) {
                             return; // Exit the function once the position is updated
                         }
                     }
-                } 
+                }
             }
         }
         return; 

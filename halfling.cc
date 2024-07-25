@@ -1,9 +1,9 @@
-#include "dwarf.h" 
+#include "halfling.h"
 
-Dwarf::Dwarf(AsciiArt *next, int xCoord, int yCoord)
-    : Enemy(next, 'W', xCoord, yCoord, 100, 20, 30) {} 
+Halfling::Halfling(AsciiArt *next, int xCoord, int yCoord)
+    : Enemy(next, 'L', xCoord, yCoord, 100, 15, 20) {}
 
-void Dwarf::atkOrMv(Player *pc, Dungeon *d) {
+void Halfling::atkOrMv(Player *pc, Dungeon *d) {
     if (isDead()) return; 
     announcement = "";
     std::vector<int> arr = {-1, 0, 1}; 
@@ -15,12 +15,17 @@ void Dwarf::atkOrMv(Player *pc, Dungeon *d) {
         int damage = ceil((100/(100 + pc->getDef())) * getAtk()); 
         if (rand() % 2 == 0) {
             pc->changeHP(-damage); 
+            pc->getHitbyHalfing(); 
             announcement = std::string(1, getRace())  // Convert char to std::string
                             + " deals " 
                             + std::to_string(damage)  // Convert int to std::string
                             + " damage to PC. ";
         } else {
             announcement = std::string(1, getRace()) + " missed. "; 
+        } 
+        if (rand() % 2 == 0) {
+            pc->getHitbyHalfing(); 
+            announcement += "PC is poisoned by Halfling. "; 
         }
     } else { 
         for (int i : arr) {
@@ -40,7 +45,7 @@ void Dwarf::atkOrMv(Player *pc, Dungeon *d) {
                             return; // Exit the function once the position is updated
                         }
                     }
-                } 
+                }
             }
         }
         return; 

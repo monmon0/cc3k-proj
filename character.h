@@ -3,6 +3,7 @@
 #include <map>
 #include "decorator.h"
 #include "asciiart.h"
+#include <vector>
 #include <string>
 
 class Character : public Decorator {
@@ -16,6 +17,9 @@ class Character : public Decorator {
                                                      {"sw", "South West"}};
         std::map<char, std::string> raceMap = {{'d', "Drow"},  {'v', "Vampire"}, {'t', "Troll"},
                                                {'g',"Goblin"}, {'s', "Shade"}};
+
+        std::map<char, std::vector<int>> raceAbilities = {{'d', {125,2,3}},  {'v', {125,2,3}}, {'t', {125,2,3}},
+                                                        {'g',{125,2,3}}, {'s', {125,2,3}}};
 
 
     public:

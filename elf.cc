@@ -1,9 +1,9 @@
-#include "dwarf.h" 
+#include "elf.h"
 
-Dwarf::Dwarf(AsciiArt *next, int xCoord, int yCoord)
-    : Enemy(next, 'W', xCoord, yCoord, 100, 20, 30) {} 
+Elf::Elf(AsciiArt *next, int xCoord, int yCoord)
+    : Enemy(next, 'E', xCoord, yCoord, 140, 30, 10) {}
 
-void Dwarf::atkOrMv(Player *pc, Dungeon *d) {
+void Elf::atkOrMv(Player *pc, Dungeon *d) {
     if (isDead()) return; 
     announcement = "";
     std::vector<int> arr = {-1, 0, 1}; 
@@ -21,6 +21,19 @@ void Dwarf::atkOrMv(Player *pc, Dungeon *d) {
                             + " damage to PC. ";
         } else {
             announcement = std::string(1, getRace()) + " missed. "; 
+        } 
+        
+        if (pc->getRace() != 'd') {
+            if (rand() % 2 == 0) {
+                pc->changeHP(-damage); 
+                announcement += "On the second try "
+                                + std::string(1, getRace())  // Convert char to std::string
+                                + " deals " 
+                                + std::to_string(damage)  // Convert int to std::string
+                                + " damage to PC. ";
+            } else {
+                announcement += "On the second try " + std::string(1, getRace()) + " missed. "; 
+            }
         }
     } else { 
         for (int i : arr) {

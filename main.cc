@@ -10,12 +10,12 @@
 #include "Enemies.h"
 #include "playGame.h"
 #include "PRNG.h"
-#include "checkCoord.h"
 #include "Shade.h"
-#include "Drow.h"
+#include "Troll.h"
 #include "Goblin.h"
 #include "Vampire.h"
-#include "Troll.h"
+#include "Drow.h"
+#include "checkCoord.h"
 #include <string>
 
 int main(int argc, char *argv[]) {
@@ -54,7 +54,7 @@ int main(int argc, char *argv[]) {
                 int location = 0;
                 if (hasCommand) {
                     int pos = newMap.find("@");
-                    //int pos = map->getMap().find("@");
+                    // int pos = map->getMap().find("@");
                     r1 = pos % 79;
                     r2 = pos / 79;
 
@@ -82,7 +82,6 @@ int main(int argc, char *argv[]) {
                 } else {
                     curr_g.play();
                 }
-                delete map;
                 initialized = 1;
                 s.setAction(pc->getAnnouncement());
                 s.render(pc);
@@ -120,11 +119,13 @@ int main(int argc, char *argv[]) {
             // --------------- RESTART GAME ------------------------- //
             } else if (command == "r" ) {   // restart game
                 curr_g.restart();
+                hasCommand = 0;
                 initialized = 0;
             }
             
             if (pc->isLevelUp() && s.getLevel() < 5) {
                 curr_g.levelUp();
+                hasCommand = 0;
             }
 
              // --------------- END GAME ------------------------- //
@@ -154,4 +155,5 @@ int main(int argc, char *argv[]) {
             
         }
     }
+    delete map;
 }
