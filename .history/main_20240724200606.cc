@@ -12,15 +12,8 @@
 #include "checkCoord.h"
 #include <string>
 
-int main(int argc, char *argv[]) {
+int main() {
     // creating new Dungeon
-    string fileName = "map.txt";
-    bool hasCommand = false;
-    if (argc > 1) {
-        fileName = argv[1];
-        hasCommand = true;
-    }
-    Blank * map = new Blank(fileName);
     Blank * floor = new Blank("map.txt");
     Dungeon s{floor};
     std::string command;
@@ -33,31 +26,7 @@ int main(int argc, char *argv[]) {
         s.clearAction();
         //  s, d, v, g, t:
         if (!initialized) {
-            if (command == "s" || command == "d" ||command == "v" 
-                || command == "g" || command == "t") {
-                // set races
-                uint32_t seed = getpid();
-                CheckCoord c{&s, seed}; 
-                c.setPos(); 
-                int r1 = c.getX(), r2 = c.getY();
-                int location = c.getChamber(); 
-
-                if      (command == "s") pc = new Shade{s.picture(), 's', r1, r2, 125, 25, 25, location};
-                else if (command == "d") pc = new Drow{s.picture(), 'd', r1, r2, 150, 25, 15, location};
-                else if (command == "v") pc = new Vampire{s.picture(), 'v', r1, r2, 50, 25, 25, location};
-                else if (command == "t") pc = new Troll{s.picture(), 't', r1, r2, 120, 25, 15, location};
-                else if (command == "g") pc = new Goblin{s.picture(), 'g', r1, r2, 110, 15, 20, location};
-
-                s.picture() = pc;
-                curr_g.attachPC(pc); 
-
-                // --------- start game, spawn enemies, spawn potions -----------  //
-                curr_g.play();
-                initialized = 1;
-                s.setAction(pc->getAnnouncement());
-                s.render(pc);
-                std::cout << "Your command: ";
-            }   else std::cout << "Please choose an appropriate command: ";
+            
         } else if (initialized) {
             if (command == "a") {   // attack
                 std::cout << "Please specify direction: ";
@@ -92,6 +61,8 @@ int main(int argc, char *argv[]) {
                 curr_g.restart();
                 initialized = 0;
             }
+            // --------------- QUIT GAME ------------------------- //
+            
             
             if (pc->isLevelUp() && s.getLevel() < 5) {
                 curr_g.levelUp();
@@ -107,11 +78,11 @@ int main(int argc, char *argv[]) {
             if (command == "a" || command == "u") {
                 curr_g.attackOrMove(); 
             }
-            // --------------- QUIT GAME ------------------------- //
+
             if (pc->isDead() || command == "q") {
                 curr_g.deadOrQuit();
                 std::cin >> command;
-                if (command == "r" ) {               // restart game
+                if (command == "r" ) {          // restart game
                     curr_g.restart();  
                     initialized = 0;
                 } else break;

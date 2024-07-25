@@ -12,15 +12,8 @@
 #include "checkCoord.h"
 #include <string>
 
-int main(int argc, char *argv[]) {
+int main() {
     // creating new Dungeon
-    string fileName = "map.txt";
-    bool hasCommand = false;
-    if (argc > 1) {
-        fileName = argv[1];
-        hasCommand = true;
-    }
-    Blank * map = new Blank(fileName);
     Blank * floor = new Blank("map.txt");
     Dungeon s{floor};
     std::string command;
@@ -41,7 +34,7 @@ int main(int argc, char *argv[]) {
                 c.setPos(); 
                 int r1 = c.getX(), r2 = c.getY();
                 int location = c.getChamber(); 
-
+                
                 if      (command == "s") pc = new Shade{s.picture(), 's', r1, r2, 125, 25, 25, location};
                 else if (command == "d") pc = new Drow{s.picture(), 'd', r1, r2, 150, 25, 15, location};
                 else if (command == "v") pc = new Vampire{s.picture(), 'v', r1, r2, 50, 25, 25, location};
@@ -85,13 +78,14 @@ int main(int argc, char *argv[]) {
             } else if (command == "lu") {   // Level up, for testing purposes, not actual command
                 curr_g.levelUp();
             } else if (command == "f" ) {   // stop enemies from moving;
-                curr_g.fPressed(); 
-                s.setAction("Something happened to the enemies... "); 
+                
             // --------------- RESTART GAME ------------------------- //
             } else if (command == "r" ) {   // restart game
                 curr_g.restart();
                 initialized = 0;
             }
+            // --------------- QUIT GAME ------------------------- //
+            
             
             if (pc->isLevelUp() && s.getLevel() < 5) {
                 curr_g.levelUp();
@@ -107,11 +101,11 @@ int main(int argc, char *argv[]) {
             if (command == "a" || command == "u") {
                 curr_g.attackOrMove(); 
             }
-            // --------------- QUIT GAME ------------------------- //
+
             if (pc->isDead() || command == "q") {
                 curr_g.deadOrQuit();
                 std::cin >> command;
-                if (command == "r" ) {               // restart game
+                if (command == "r" ) {          // restart game
                     curr_g.restart();  
                     initialized = 0;
                 } else break;

@@ -27,7 +27,7 @@ class PlayGame {
     Dungeon * d;
     Player *p = nullptr;
     std::vector<Enemy *> eVec;
-    std::map<int, std::pair<int, int>> eMap; 
+    std::map<std::pair<int, int>, int> eMap; 
     Staircase * sc;
 
 
