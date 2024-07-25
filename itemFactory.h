@@ -4,6 +4,12 @@
 #include <memory>
 #include "Potion.h"
 #include "Treasure.h"
+#include "BA.h"
+#include "BD.h"
+#include "PH.h"
+#include "RH.h"
+#include "WA.h"
+#include "WD.h"
 
 class ItemFactory {
     public:

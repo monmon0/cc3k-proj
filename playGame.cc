@@ -71,13 +71,6 @@ void PlayGame::spawnStaircase(uint32_t seed) {
     }
 }
 
-// void PlayGame::spawnStaircase(Blank *map) {
-//     int idx = map->getMap.find('\\');
-//     Staircase *sp = new Staircase(d->picture(), idx % 79, idx / 79);
-//     sc = sp;
-//     d->picture() = sp; 
-// }
-
 void PlayGame::deadOrQuit() {
     p->setAtk(0);
     std::cout << WOMP_WOMP << std::endl;
