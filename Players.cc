@@ -4,6 +4,7 @@
 #include "Potion.h"
 #include "item.h"
 #include <ctime>
+#include <climits>
 #include <string>
 
 Player::Player(AsciiArt *next, char race, int x, int y, int hp, int atk, int def, int location): 

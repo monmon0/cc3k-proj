@@ -70,7 +70,7 @@ int main(int argc, char *argv[]) {
 
                 }
 
-                
+                std::cout << "here" << std::endl;
                 if      (command == "s") pc = new Shade{s.picture(), 's', r1, r2, 125, 25, 25, location};
                 else if (command == "d") pc = new Drow{s.picture(), 'd', r1, r2, 150, 25, 15, location};
                 else if (command == "v") pc = new Vampire{s.picture(), 'v', r1, r2, 50, 25, 25, location};
@@ -124,16 +124,24 @@ int main(int argc, char *argv[]) {
                 curr_g.fPressed(); 
                 s.setAction("Something happened to the enemies... "); 
             // --------------- RESTART GAME ------------------------- //
-            } 
+            } else if (command == "r" ) {   // restart game
+                std::cout << "restart" << std::endl;
+                curr_g.restart();
+                hasCommand = 0;
+                initialized = 0;
+            }
             if (pc->isLevelUp() && s.getLevel() < 5) {
                 curr_g.levelUp();
-            }
+            } 
 
              // --------------- END GAME ------------------------- //
             if (s.getLevel() == 5) {
                 curr_g.end();
                 std::cin >> command;
-                if (command == "r" ) curr_g.restart();
+                if (command == "r" ) {
+                    curr_g.restart();
+                    initialized = 0;
+                }
                 else break;
             }
             if (command == "a" || command == "u") {
@@ -148,13 +156,6 @@ int main(int argc, char *argv[]) {
                     initialized = 0;
                 } else break;
             } 
-
-            if (command == "r" ) {   // restart game
-                curr_g.restart();
-                hasCommand = 0;
-                initialized = 0;
-            }
-            
 
             if (command != "r" && command != "q") {
                 s.render(pc);
