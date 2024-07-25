@@ -9,11 +9,11 @@ void WA::applyEffect(Player *player) {
     }
     player->attach(this);
     active = false;
-    player->changeDef(amt);
+    player->changeAtk(amt);
     announcement = "PC uses " + getName() + ". ";
 }
 
 void WA::undoEffect(Player *player) {
     player->detach(this);
-    player->changeDef(-1 * amt);
+    player->changeAtk(-1 * amt);
 }
