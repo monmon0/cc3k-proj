@@ -40,7 +40,7 @@ class PlayGame {
         void play(Blank *map);
         void end(); 
         bool checkCoord(int x, int y); 
-        void attachPC(Player * pc) {p = pc;}
+        void attachPC(Player * pc);
         void spawn(Blank *map); 
         void spawnStaircase(uint32_t seed); 
         void spawnPotions(uint32_t seed);

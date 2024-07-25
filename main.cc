@@ -52,21 +52,25 @@ int main(int argc, char *argv[]) {
                 // set races
                 int r1 = 1, r2 = 1;
                 int location = 0;
+
                 if (hasCommand) {
+                    
                     int pos = newMap.find("@");
-                    // int pos = map->getMap().find("@");
                     r1 = pos % 79;
                     r2 = pos / 79;
 
                 } else {
                     uint32_t seed = getpid();
                     CheckCoord c{&s, seed}; 
+
                     c.setPos(); 
                     r1 = c.getX();
                     r2 = c.getY();
                     location = c.getChamber(); 
+
                 }
 
+                
                 if      (command == "s") pc = new Shade{s.picture(), 's', r1, r2, 125, 25, 25, location};
                 else if (command == "d") pc = new Drow{s.picture(), 'd', r1, r2, 150, 25, 15, location};
                 else if (command == "v") pc = new Vampire{s.picture(), 'v', r1, r2, 50, 25, 25, location};
@@ -80,6 +84,7 @@ int main(int argc, char *argv[]) {
                 if (hasCommand) {
                     curr_g.play(map);
                 } else {
+                    std::cout << "play" << std::endl;
                     curr_g.play();
                 }
                 initialized = 1;
@@ -122,15 +127,9 @@ int main(int argc, char *argv[]) {
                 curr_g.fPressed(); 
                 s.setAction("Something happened to the enemies... "); 
             // --------------- RESTART GAME ------------------------- //
-            } else if (command == "r" ) {   // restart game
-                curr_g.restart();
-                hasCommand = 0;
-                initialized = 0;
-            }
-            
+            } 
             if (pc->isLevelUp() && s.getLevel() < 5) {
                 curr_g.levelUp();
-                hasCommand = 0;
             }
 
              // --------------- END GAME ------------------------- //
@@ -149,6 +148,13 @@ int main(int argc, char *argv[]) {
                     initialized = 0;
                 } else break;
             } 
+
+            if (command == "r" ) {   // restart game
+                curr_g.restart();
+                hasCommand = 0;
+                initialized = 0;
+            }
+            
 
             if (command != "r" && command != "q") {
                 s.render(pc);
