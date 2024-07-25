@@ -27,14 +27,6 @@ void PlayGame::play(Blank *map) {
     spawn(map);
 }
 
-void PlayGame::restart() {
-    levelUp();
-    d->resetLevel();  
-    d->clearAction();
-    std::cout << RESTART << std::endl;
-    std::cout << "RESTART by choosing your race again: ";
-}
-
 void PlayGame::levelUp() {
     // delete all decorator until player
     uint32_t seed = getpid();
@@ -56,6 +48,25 @@ void PlayGame::levelUp() {
     eVec.clear();
     play();
 }
+
+void PlayGame::restart() {
+    // levelUp();
+    AsciiArt * curr = p->nextChar();
+    p->nextChar() = nullptr;
+    delete d->picture();
+
+    d->picture() = curr;
+    p = nullptr;
+    sc = nullptr;
+    d->resetLevel();  
+    d->clearAction();
+    std::cout << RESTART << std::endl;
+    std::cout << "RESTART by choosing your race again: ";
+}
+void PlayGame::attachPC(Player * pc) {
+    p = pc; 
+    std::cout << pc << std::endl;
+    }
 
 void PlayGame::spawnStaircase(uint32_t seed) { 
     CheckCoord c{d, seed}; 
