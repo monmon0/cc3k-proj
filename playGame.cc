@@ -58,8 +58,10 @@ void PlayGame::restart() {
     d->picture() = curr;
     p = nullptr;
     sc = nullptr;
+    eVec.clear();
     d->resetLevel();  
     d->clearAction();
+
     std::cout << RESTART << std::endl;
     std::cout << "RESTART by choosing your race again: ";
 }
