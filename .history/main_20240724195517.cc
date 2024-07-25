@@ -3,7 +3,6 @@
 #include <memory>   
 #include "dungeon.h"
 #include "asciiart.h"
-#include <fstream>
 #include "blank.h"
 #include "decorator.h"
 #include "Players.h"
@@ -13,22 +12,8 @@
 #include "checkCoord.h"
 #include <string>
 
-int main(int argc, char *argv[]) {
+int main() {
     // creating new Dungeon
-    std::string fileName = "map.txt";
-    std::string newMap = "";
-    bool hasCommand = false;
-
-    if (argc > 1) {
-        fileName = argv[1];
-        hasCommand = true;
-
-        std::ifstream file(fileName);
-        std::string line;
-        while (std::getline(file, line)) {
-            newMap += line;
-        }
-    }
     Blank * floor = new Blank("map.txt");
     Dungeon s{floor};
     std::string command;
@@ -44,22 +29,11 @@ int main(int argc, char *argv[]) {
             if (command == "s" || command == "d" ||command == "v" 
                 || command == "g" || command == "t") {
                 // set races
-                int r1 = 1, r2 = 1;
-                int location = 0;
-                if (hasCommand) {
-                    int pos = newMap.find("@");
-                    std::cout << "POS" << pos << std::endl;
-                    r1 = pos / 79;
-                    r2 = pos % 79;
-
-                } else {
-                    uint32_t seed = getpid();
-                    CheckCoord c{&s, seed}; 
-                    c.setPos(); 
-                    r1 = c.getX();
-                    r2 = c.getY();
-                    location = c.getChamber(); 
-                }
+                uint32_t seed = getpid();
+                CheckCoord c{&s, seed}; 
+                c.setPos(); 
+                int r1 = c.getX(), r2 = c.getY();
+                int location = c.getChamber(); 
 
                 if      (command == "s") pc = new Shade{s.picture(), 's', r1, r2, 125, 25, 25, location};
                 else if (command == "d") pc = new Drow{s.picture(), 'd', r1, r2, 150, 25, 15, location};
@@ -105,12 +79,13 @@ int main(int argc, char *argv[]) {
                 curr_g.levelUp();
             } else if (command == "f" ) {   // stop enemies from moving;
                 curr_g.fPressed(); 
-                s.setAction("Something happened to the enemies... "); 
             // --------------- RESTART GAME ------------------------- //
             } else if (command == "r" ) {   // restart game
                 curr_g.restart();
                 initialized = 0;
             }
+            // --------------- QUIT GAME ------------------------- //
+            
             
             if (pc->isLevelUp() && s.getLevel() < 5) {
                 curr_g.levelUp();
@@ -126,11 +101,11 @@ int main(int argc, char *argv[]) {
             if (command == "a" || command == "u") {
                 curr_g.attackOrMove(); 
             }
-            // --------------- QUIT GAME ------------------------- //
+
             if (pc->isDead() || command == "q") {
                 curr_g.deadOrQuit();
                 std::cin >> command;
-                if (command == "r" ) {               // restart game
+                if (command == "r" ) {          // restart game
                     curr_g.restart();  
                     initialized = 0;
                 } else break;

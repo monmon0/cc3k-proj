@@ -1,5 +1,6 @@
 #ifndef PLAYGAME_H
 #define PLAYGAME_H
+#include "asciiart.h"
 #include "Enemies.h"
 #include "staircase.h"
 #include "decorator.h"
@@ -8,26 +9,21 @@
 #include "Treasure.h"
 #include "itemFactory.h"
 #include "checkCoord.h"
-#include "dungeon.h"
-#include "Players.h"
-
 #include <algorithm>
 #include <cstdlib> 
 #include <ctime>
+#include "dungeon.h"
+#include "Players.h"
 #include <memory>
 #include <string>
 #include <vector>
-#include <cstdlib> 
-#include <ctime>
-#include <map>
-
 
 class PlayGame {
 
     Dungeon * d;
     Player *p = nullptr;
     std::vector<Enemy *> eVec;
-    std::map<int, std::pair<int, int>> eMap; 
+    std::map<std::pair<int, int>, int> eMap; 
     Staircase * sc;
 
 

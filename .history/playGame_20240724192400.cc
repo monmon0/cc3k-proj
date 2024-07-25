@@ -32,14 +32,7 @@ void PlayGame::restart() {
 
 void PlayGame::levelUp() {
     // delete all decorator until player
-    uint32_t seed = getpid();
-    CheckCoord c{d, seed}; 
-    c.setPos(); 
-    int r1 = c.getX(), r2 = c.getY();
-
-    p->nextLevel(r1, r2);
     sc->nextChar() = nullptr;
-    
     delete d->picture();
     d->picture() = p;
 
@@ -48,6 +41,13 @@ void PlayGame::levelUp() {
     d->setAction("Next Floor Unlocked! Good job! ");
 
     eVec.clear();
+
+    uint32_t seed = getpid();
+    CheckCoord c{d, seed}; 
+    c.setPos(); 
+    int r1 = c.getX(), r2 = c.getY();
+
+    p->nextLevel(r1, r2);
     play();
 }
 
@@ -69,7 +69,7 @@ void PlayGame::deadOrQuit() {
     p->setAtk(0);
     std::cout << WOMP_WOMP << std::endl;
     std::cout << "             WOULD YOU LIKE TO PLAY AGAIN?" << std::endl;
-    std::cout << "                 (enter r to restart)"     << std::endl;
+    std::cout << "                 (enter -r to restart)"     << std::endl;
 }
 
 
@@ -141,7 +141,7 @@ void PlayGame::spawnTreasure(uint32_t seed) {
                 x = treasure->getX() + dx;
                 y = treasure->getY() + dy; 
 
-                if (d->picture()->charAt(y, x) == '.') {
+                if (d->picture()->charAt(y, x, 1) == '.') {
                     break; 
                 } 
             } 
@@ -167,6 +167,7 @@ void PlayGame::spawnEnemies(uint32_t seed) {
         CheckCoord c{d, seed}; 
         c.setPos(); 
         int r1 = c.getX(), r2 = c.getY();
+        // int r2 = 4 + d->getLevel(), r1 = i + 4;
 
         if (name == 'H') {
             Enemy *hp = new Human(d->picture(), r1, r2); 
@@ -194,7 +195,7 @@ void PlayGame::spawnEnemies(uint32_t seed) {
             eVec.emplace_back(lp);
         }
         
-        eMap[i] = make_pair(r1, r2); 
+        eMap[make_pair(r1, r2)] = i; 
     } 
 }
 
@@ -205,29 +206,12 @@ void PlayGame::fPressed() {
 }
 
 void PlayGame::attackOrMove() {
-    // Define the lambda function for custom comparison
-    auto comparePairs = [](const std::pair<int, std::pair<int, int>>& a, const std::pair<int, std::pair<int, int>>& b) {
-        if (a.second.second == b.second.second) { // Compare y-coordinates
-            return a.second.first < b.second.first; // Compare x-coordinates if y-coordinates are the same
-        }
-        return a.second.second < b.second.second;
-    };
-
-    // Create a vector of pairs to sort because std::map can't be sorted directly
-    std::vector<std::pair<int, std::pair<int, int>>> sortedMap(eMap.begin(), eMap.end());
-
-    // Sort the vector using the custom comparator
-    std::sort(sortedMap.begin(), sortedMap.end(), comparePairs);
-
-    // Iterate over the sorted vector and perform the actions
-    for (const auto& it : sortedMap) {
-        int index = it.first;
-        eVec[index]->atkOrMv(p, d);
-        d->setAction(eVec[index]->getAnnouncement());
-        eMap[index] = std::make_pair(eVec[index]->getX(), eVec[index]->getY());
+    for (auto it = eMap.begin(); it != eMap.end(); it++) { 
+        eVec[it->second
+        it->atkOrMv(p, d); 
+        d->setAction(it->getAnnouncement());
     }
 }
-
 
 void PlayGame::defeatEnemies(int x, int y, std::string dir) {
     if (dir == "no") {
