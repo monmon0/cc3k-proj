@@ -20,6 +20,7 @@ int main(int argc, char *argv[]) {
         fileName = argv[1];
         hasCommand = true;
     }
+    Blank * map = new Blank(fileName);
     Blank * floor = new Blank("map.txt");
     Dungeon s{floor};
     std::string command;
