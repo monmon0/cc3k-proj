@@ -20,20 +20,21 @@
 
 int main(int argc, char *argv[]) {
     // creating new Dungeon
-
     std::string fileName = "map.txt";
     std::string newMap = "";
-
     bool hasCommand = false;
-    int floorCnt = 1;
-    Blank * map = nullptr;
 
     if (argc > 1) {
         fileName = argv[1];
         hasCommand = true;
+
+        std::ifstream file(fileName);
+        std::string line;
+        while (std::getline(file, line)) {
+            newMap += line;
+        }
     }
-    
-    std::ifstream file(fileName);
+    Blank * map = new Blank(fileName);
     Blank * floor = new Blank("map.txt");
     Dungeon s{floor};
     std::string command;
@@ -52,13 +53,8 @@ int main(int argc, char *argv[]) {
                 int r1 = 1, r2 = 1;
                 int location = 0;
                 if (hasCommand) {
-                    newMap = "";
-                    std::string line;
-                    for (int i = (floorCnt - 1) * 25; i < floorCnt * 25; i++) {
-                        std::getline(file, line);
-                        newMap += line;
-                    }
-                    int pos = newMap.find("@");     // spawn player
+                    int pos = newMap.find("@");
+                    //int pos = map->getMap().find("@");
                     r1 = pos % 79;
                     r2 = pos / 79;
 
@@ -82,13 +78,11 @@ int main(int argc, char *argv[]) {
 
                 // --------- start game, spawn enemies, spawn potions -----------  //
                 if (hasCommand) {
-                    delete map;
-                    map = new Blank(newMap, floorCnt);
-                    // std::cout << map->getMap() << std::endl;
                     curr_g.play(map);
                 } else {
                     curr_g.play();
                 }
+                delete map;
                 initialized = 1;
                 s.setAction(pc->getAnnouncement());
                 s.render(pc);
@@ -96,6 +90,7 @@ int main(int argc, char *argv[]) {
             }   else std::cout << "Please choose an appropriate command: ";
         } else if (initialized) {
             if (command == "a") {   // attack
+                std::cout << "Please specify direction: ";
                 std::string dir;
                 std::cin >> dir;
                 // attack enemies
@@ -112,12 +107,13 @@ int main(int argc, char *argv[]) {
                 curr_g.attackOrMove();
 
             } else if (command == "u" ) {   // use potion
+                std::cout << "Please specify direction: ";
                 std::string dir;
                 std::cin >> dir;
                 pc->takePotion(s.picture(), dir);
                 s.setAction(pc->getAnnouncement());
             } else if (command == "lu") {   // Level up, for testing purposes, not actual command
-                curr_g.levelUp(map, hasCommand);
+                curr_g.levelUp();
             } else if (command == "f" ) {   // stop enemies from moving;
                 curr_g.fPressed(); 
                 s.setAction("Something happened to the enemies... "); 
@@ -128,32 +124,13 @@ int main(int argc, char *argv[]) {
             }
             
             if (pc->isLevelUp() && s.getLevel() < 5) {
-                    if (hasCommand) {
-                        newMap = "";
-                        std::string line;
-                        for (int i = (floorCnt - 1) * 25; i < floorCnt * 25; i++) {
-                            std::getline(file, line);
-                            newMap += line;
-                        }
-                        // std::cout << newMap << std::endl;
-                        int pos = newMap.find("@");     // spawn player
-                        int r1 = pos % 79;
-                        int r2 = pos / 79;
-                        delete map;
-                        map = new Blank(newMap, floorCnt);
-                        curr_g.levelUp(map, hasCommand, r1, r2);
-                    } else {
-                        curr_g.levelUp(map, hasCommand);
-                    }
-
-                floorCnt++;
+                curr_g.levelUp();
             }
 
              // --------------- END GAME ------------------------- //
             if (s.getLevel() == 5) {
                 curr_g.end();
                 std::cin >> command;
-                delete map;
                 if (command == "r" ) curr_g.restart();
                 else break;
             }
