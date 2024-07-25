@@ -3,13 +3,14 @@
 
 #include <memory>
 
+#include "Enemies.h"
 #include "human.h"
 #include "dwarf.h"
 #include "elf.h"
 #include "orc.h"
 #include "merchant.h"
 #include "halfling.h"
-#include "dragon.h"
+#include "dragon.h" 
 
 class EnemyFactory {
     public:

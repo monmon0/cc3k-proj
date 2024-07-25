@@ -1,5 +1,4 @@
 #include "enemyFactory.h"
-// using namespace ItemFactory;
 
 Enemy *EnemyFactory::createEnemy(Type type, AsciiArt *next, int x, int y) {
     // Create Potions
