@@ -32,6 +32,7 @@ int main(int argc, char *argv[]) {
             newMap += line;
         }
     }
+    Blank * map = new Blank(fileName);
     Blank * floor = new Blank("map.txt");
     Dungeon s{floor};
     std::string command;
@@ -51,11 +52,17 @@ int main(int argc, char *argv[]) {
                 int location = 0;
                 if (hasCommand) {
                     int pos = newMap.find("@");
+<<<<<<< HEAD
                     std::cout << "POS: " << pos << std::endl;
                     r1 = pos % 79;
                     r2 = pos / 79;
                     std::cout << newMap << std::endl;
 
+=======
+                    // int pos = map->getMap().find("@");
+                    r1 = pos / 79;
+                    r2 = pos % 79;
+>>>>>>> 7f782495b73542ece8643760fbfbd165f559ee73
 
                 } else {
                     uint32_t seed = getpid();
@@ -76,7 +83,11 @@ int main(int argc, char *argv[]) {
                 curr_g.attachPC(pc); 
 
                 // --------- start game, spawn enemies, spawn potions -----------  //
-                curr_g.play();
+                if (hasCommand) {
+                    curr_g.play(map);
+                } else {
+                    curr_g.play();
+                }
                 initialized = 1;
                 s.setAction(pc->getAnnouncement());
                 s.render(pc);
@@ -148,4 +159,5 @@ int main(int argc, char *argv[]) {
             
         }
     }
+    delete map;
 }

@@ -4,7 +4,9 @@
 #include "asciitext.h"
 using namespace std;
 
- 
+class Blank; 
+
+
 PlayGame::PlayGame(Dungeon *d) : d{d} {
      // --------------- START GAME ------------------------- //
     std::cout << WELCOME << '\n'
@@ -20,6 +22,10 @@ void PlayGame::play() {
     spawnPotions(seed);
     spawnTreasure(seed);
     spawnEnemies(seed);
+}
+
+void PlayGame::play(Blank *map) {
+    spawn(map);
 }
 
 void PlayGame::restart() {
@@ -65,12 +71,115 @@ void PlayGame::spawnStaircase(uint32_t seed) {
     }
 }
 
+// void PlayGame::spawnStaircase(Blank *map) {
+//     int idx = map->getMap.find('\\');
+//     Staircase *sp = new Staircase(d->picture(), idx % 79, idx / 79);
+//     sc = sp;
+//     d->picture() = sp; 
+// }
+
 void PlayGame::deadOrQuit() {
     p->setAtk(0);
     std::cout << WOMP_WOMP << std::endl;
     std::cout << "             WOULD YOU LIKE TO PLAY AGAIN?" << std::endl;
     std::cout << "                 (enter r to restart)"     << std::endl;
 }
+
+void PlayGame::spawn(Blank *map) {
+    int x, y; 
+    int idx = map->getMap().find('\\');
+    Staircase *sp = new Staircase(d->picture(), idx % 79, idx / 79);
+    sc = sp;
+    d->picture() = sp; 
+    
+    for (int row = 0; row < 25; row++) {
+        for (int col = 0; col < 79; col++) {
+            char letter = map->charAt(row, col);
+            
+            if (letter == '0') {
+                Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_RH, d->picture(), col, row);
+                d->picture() = potion;
+            } else if (letter == '1') {
+                Item * potion  = ItemFactory::createItem(ItemFactory::Type::POTION_BA, d->picture(), col, row);
+                d->picture() = potion;
+            } else if (letter == '2') {
+                Item * potion  = ItemFactory::createItem(ItemFactory::Type::POTION_BD, d->picture(), col, row);
+                d->picture() = potion;
+            } else if (letter == '3') {
+                Item * potion  = ItemFactory::createItem(ItemFactory::Type::POTION_PH, d->picture(), col, row);
+                d->picture() = potion;
+            } else if (letter == '4') {
+                Item * potion  = ItemFactory::createItem(ItemFactory::Type::POTION_WA, d->picture(), col, row);
+                d->picture() = potion;
+            } else if (letter == '5') {
+                Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_WD, d->picture(), col, row);
+                d->picture() = potion;
+            } else if (letter == '6') {
+                Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_NORMAL, d->picture(), col, row);
+                d->picture() = treasure;
+            } else if (letter == '7') {
+                Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_SMALL, d->picture(), col, row);
+                d->picture() = treasure;
+            } else if (letter == '8') {
+                Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_MERCHANT, d->picture(), col, row);
+                d->picture() = treasure;
+            } else if (letter == '9') {
+                Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_DRAGON, d->picture(), col, row);
+
+                // Enemy *dp; 
+                // if (map->charAt(row - 1, col - 1) == 'D') dp = new Dragon(d->picture(), col - 1, row - 1, static_cast<Dragon_Hoard*>(treasure));
+                // else if (map->charAt(row - 1, col) == 'D') dp = new Dragon(d->picture(), col, row - 1, static_cast<Dragon_Hoard*>(treasure));
+                // else if (map->charAt(row, col - 1) == 'D') dp = new Dragon(d->picture(), col - 1, row, static_cast<Dragon_Hoard*>(treasure));
+                // else if (map->charAt(row + 1, col + 1) == 'D') dp = new Dragon(d->picture(), col + 1, row + 1, static_cast<Dragon_Hoard*>(treasure));
+                // else if (map->charAt(row + 1, col) == 'D') dp = new Dragon(d->picture(), col, row + 1, static_cast<Dragon_Hoard*>(treasure));
+                // else if (map->charAt(row, col + 1) == 'D') dp = new Dragon(d->picture(), col + 1, row, static_cast<Dragon_Hoard*>(treasure));
+                // else if (map->charAt(row + 1, col - 1) == 'D') dp = new Dragon(d->picture(), col - 1, row + 1, static_cast<Dragon_Hoard*>(treasure));
+                // else if (map->charAt(row - 1, col + 1) == 'D') dp = new Dragon(d->picture(), col + 1, row - 1, static_cast<Dragon_Hoard*>(treasure));
+                
+                // d->picture() = dp;
+                // eVec.emplace_back(dp);
+            } else if (letter == 'H') {
+                Enemy *hp = new Human(d->picture(), col, row); 
+                d->picture() = hp;  
+                eVec.emplace_back(hp);
+            } else if (letter == 'W') {
+                Enemy *wp = new Dwarf(d->picture(), col, row); 
+                d->picture() = wp; 
+                eVec.emplace_back(wp);
+            } else if (letter == 'E') {
+                Enemy *ep = new Elf(d->picture(), col, row); 
+                d->picture() = ep; 
+                eVec.emplace_back(ep);
+            } else if (letter == 'O') {
+                Enemy *op = new Orc(d->picture(), col, row); 
+                d->picture() = op; 
+                eVec.emplace_back(op);
+            } else if (letter == 'M') {
+                Enemy *mp = new Merchant(d->picture(), col, row); 
+                d->picture() = mp; 
+                eVec.emplace_back(mp);
+            } else if (letter == 'L') {
+                Enemy *lp = new Halfling(d->picture(), col, row); 
+                d->picture() = lp; 
+                eVec.emplace_back(lp);
+            }
+
+            Staircase *sp = new Staircase(d->picture(), x, y); 
+            sc = sp;
+            d->picture() = sp; 
+            break; 
+            
+            int counter = 0; 
+            for (auto e : eVec) {
+                eMap[counter] = make_pair(e->getX(), e->getY());
+                counter++;  
+            }
+
+        }
+    }
+}
+
+
 
 
 void PlayGame::spawnPotions(uint32_t seed) {  
@@ -193,9 +302,13 @@ void PlayGame::spawnEnemies(uint32_t seed) {
             d->picture() = lp; 
             eVec.emplace_back(lp);
         }
-        
-        eMap[i] = make_pair(r1, r2); 
     } 
+
+    int counter = 0; 
+    for (auto e : eVec) {
+        eMap[counter] = make_pair(e->getX(), e->getY());
+        counter++;  
+    }
 }
 
 void PlayGame::fPressed() {
