@@ -7,7 +7,7 @@ Enemy::Enemy(AsciiArt *next, char race, int x, int y, int hp, int atk, int def)
     : Character(next, race, x, y, hp, atk, def) {}
 
 // Implement the virtual charAt method
-char Enemy::charAt(int row, int col) {
+char Enemy::charAt(int row, int col, int tick) {
     if (col == x && row == y && !isDead()) {
         char id = getRace(); 
         if (id == 'H') return 'H'; 
@@ -18,11 +18,9 @@ char Enemy::charAt(int row, int col) {
         else if (id == 'D') return 'D'; 
         else if (id == 'L') return 'L'; 
     } else {
-        return next->charAt(row, col);; 
+        return next->charAt(row, col, tick);; 
     }
 }
-
-bool Enemy::isDead() const { return hp <= 0; } 
 
 // --------------------- Human --------------------- //
 Human::Human(AsciiArt *next, int xCoord, int yCoord)
@@ -63,6 +61,12 @@ void Human::atkOrMv(Player *pc, Dungeon *d) {
             } 
         } 
     }
+}
+
+bool Human::isDead() const {
+    Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_MERCHANT, d->picture(), col, row);
+    d->picture() = treasure;
+    
 }
 
 // --------------------- Dwarf --------------------- //
@@ -279,6 +283,7 @@ void Dragon::atkOrMv(Player *pc, Dungeon *d) {
         }
     }
 }
+
 
 // --------------------- Halfling --------------------- //
 

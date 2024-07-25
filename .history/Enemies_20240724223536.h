@@ -8,8 +8,7 @@
 #include "PRNG.h"
 #include "dungeon.h"
 #include "checkCoord.h"
-#include "Treasure.h"
-#include "itemFactory.h"
+#include "Treasure.h
 
 #include <cmath>
 #include <string>
@@ -31,7 +30,7 @@ public:
     void attack(Player& pc) { pc.changeHP(-getAtk()); }
     char charAt(int row, int col) override;
     void loseHP(double damage) { hp -= damage; }
-    bool isDead() const;
+    bool isDead() const { return hp <= 0; }; 
     virtual void atkOrMv(Player *pc, Dungeon *d) = 0; 
 };
 
@@ -39,36 +38,42 @@ class Human : public Enemy {
 public:
     Human(AsciiArt *next, int xCoord, int yCoord); 
     void atkOrMv(Player *pc, Dungeon *d) override; 
+    bool isDead() const; 
 };
 
 class Dwarf : public Enemy {
 public:
     Dwarf(AsciiArt *next, int xCoord, int yCoord);
     void atkOrMv(Player *pc, Dungeon *d) override; 
+    bool isDead() const; 
 };
 
 class Elf : public Enemy {
 public:
     Elf(AsciiArt *next, int xCoord, int yCoord);
     void atkOrMv(Player *pc, Dungeon *d) override; 
+    bool isDead() const; 
 };
 
 class Orc : public Enemy {
 public:
     Orc(AsciiArt *next, int xCoord, int yCoord);
     void atkOrMv(Player *pc, Dungeon *d) override; 
+    bool isDead() const; 
 };
 
 class Merchant : public Enemy {
 public:
     Merchant(AsciiArt *next, int xCoord, int yCoord);
     void atkOrMv(Player *pc, Dungeon *d) override; 
+    bool isDead() const; 
 };
 
 class Halfling : public Enemy {
 public:
     Halfling(AsciiArt *next, int xCoord, int yCoord);
     void atkOrMv(Player *pc, Dungeon *d) override; 
+    bool isDead() const; 
 };
 
 class Dragon_Hoard;
@@ -78,6 +83,7 @@ class Dragon : public Enemy {
 public:
     Dragon(AsciiArt *next, int xCoord, int yCoord, Dragon_Hoard *dh); 
     void atkOrMv(Player *pc, Dungeon *d) override; 
+    bool isDead() const; 
 };
 
 #endif // ENEMIES_H

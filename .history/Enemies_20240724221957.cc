@@ -22,8 +22,6 @@ char Enemy::charAt(int row, int col) {
     }
 }
 
-bool Enemy::isDead() const { return hp <= 0; } 
-
 // --------------------- Human --------------------- //
 Human::Human(AsciiArt *next, int xCoord, int yCoord)
     : Enemy(next, 'H', xCoord, yCoord, 140, 20, 20) {}
@@ -63,6 +61,15 @@ void Human::atkOrMv(Player *pc, Dungeon *d) {
             } 
         } 
     }
+}
+
+bool Human::isDead() {
+    if (!goldDropped) {
+        Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_MERCHANT, d->picture(), col, row);
+        d->picture() = treasure;
+        goldDropped = true; 
+    } 
+    return hp <= 0; 
 }
 
 // --------------------- Dwarf --------------------- //
@@ -105,6 +112,10 @@ void Dwarf::atkOrMv(Player *pc, Dungeon *d) {
             } 
         } 
     }
+}
+
+bool Dwarf::isDead() {
+    return hp <= 0; 
 }
 
 // --------------------- Elf --------------------- //
@@ -162,6 +173,10 @@ void Elf::atkOrMv(Player *pc, Dungeon *d) {
     }
 }
 
+bool Elf::isDead() {
+    return hp <= 0; 
+}
+
 // --------------------- Orc --------------------- //
 
 Orc::Orc(AsciiArt *next, int xCoord, int yCoord)
@@ -206,6 +221,10 @@ void Orc::atkOrMv(Player *pc, Dungeon *d) {
     }
 }
 
+bool Orc::isDead() {
+    return hp <= 0; 
+}
+
 // --------------------- Merchant --------------------- //
 
 Merchant::Merchant(AsciiArt *next, int xCoord, int yCoord)
@@ -248,6 +267,15 @@ void Merchant::atkOrMv(Player *pc, Dungeon *d) {
     }
 }
 
+bool Merchant::isDead() {
+    if (!goldDropped) {
+        Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_MERCHANT, d->picture(), col, row);
+        d->picture() = treasure;
+        goldDropped = true; 
+    } 
+    return hp <= 0; 
+}
+
 // --------------------- Dragon --------------------- //
 
 Dragon::Dragon(AsciiArt *next, int xCoord, int yCoord, Dragon_Hoard *dh)
@@ -255,7 +283,6 @@ Dragon::Dragon(AsciiArt *next, int xCoord, int yCoord, Dragon_Hoard *dh)
 
 void Dragon::atkOrMv(Player *pc, Dungeon *d) {
     if (isDead()) {
-        dh->unGuarded(); 
         return; 
     }; 
     announcement = "";
@@ -278,6 +305,11 @@ void Dragon::atkOrMv(Player *pc, Dungeon *d) {
             announcement = std::string(1, getRace()) + " missed. "; 
         }
     }
+}
+
+bool Dwarf::isDead() {
+    dh->unGuarded(); 
+    return hp <= 0; 
 }
 
 // --------------------- Halfling --------------------- //

@@ -22,7 +22,7 @@ char Enemy::charAt(int row, int col) {
     }
 }
 
-bool Enemy::isDead() const { return hp <= 0; } 
+bool Enemy::idDead() const { return hp <= 0; } 
 
 // --------------------- Human --------------------- //
 Human::Human(AsciiArt *next, int xCoord, int yCoord)

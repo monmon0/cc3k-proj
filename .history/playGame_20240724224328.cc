@@ -367,6 +367,7 @@ void PlayGame::defeatEnemies(int x, int y, std::string dir) {
                             std::to_string(damage) + 
                             " damage to " + std::string(1, e->getRace()) + ". ");
             if (e->isDead()) {
+            if (e->isDead()) {
                 if (e->getRace() == 'H' || e->getRace() == 'M') {
                     Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_MERCHANT, d->picture(), e->getX(), e->getY());
                     d->picture() = treasure;

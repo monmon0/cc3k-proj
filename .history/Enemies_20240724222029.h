@@ -27,11 +27,11 @@ public:
     ~Enemy() = default; 
 
     bool fPressed = false; 
-    bool goldDropped = false; 
+    bool goldDropped = false;
     void attack(Player& pc) { pc.changeHP(-getAtk()); }
     char charAt(int row, int col) override;
     void loseHP(double damage) { hp -= damage; }
-    bool isDead() const;
+    bool isDead() const = 0; 
     virtual void atkOrMv(Player *pc, Dungeon *d) = 0; 
 };
 
@@ -39,6 +39,7 @@ class Human : public Enemy {
 public:
     Human(AsciiArt *next, int xCoord, int yCoord); 
     void atkOrMv(Player *pc, Dungeon *d) override; 
+    bool isDead() const; 
 };
 
 class Dwarf : public Enemy {

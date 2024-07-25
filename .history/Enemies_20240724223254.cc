@@ -22,8 +22,6 @@ char Enemy::charAt(int row, int col) {
     }
 }
 
-bool Enemy::isDead() const { return hp <= 0; } 
-
 // --------------------- Human --------------------- //
 Human::Human(AsciiArt *next, int xCoord, int yCoord)
     : Enemy(next, 'H', xCoord, yCoord, 140, 20, 20) {}

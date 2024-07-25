@@ -7,7 +7,7 @@ Enemy::Enemy(AsciiArt *next, char race, int x, int y, int hp, int atk, int def)
     : Character(next, race, x, y, hp, atk, def) {}
 
 // Implement the virtual charAt method
-char Enemy::charAt(int row, int col) {
+char Enemy::charAt(int row, int col, int tick) {
     if (col == x && row == y && !isDead()) {
         char id = getRace(); 
         if (id == 'H') return 'H'; 
@@ -21,8 +21,6 @@ char Enemy::charAt(int row, int col) {
         return next->charAt(row, col);; 
     }
 }
-
-bool Enemy::isDead() const { return hp <= 0; } 
 
 // --------------------- Human --------------------- //
 Human::Human(AsciiArt *next, int xCoord, int yCoord)
@@ -65,6 +63,10 @@ void Human::atkOrMv(Player *pc, Dungeon *d) {
     }
 }
 
+bool Human::isDead() const { 
+    return hp <= 0;
+}
+
 // --------------------- Dwarf --------------------- //
 
 Dwarf::Dwarf(AsciiArt *next, int xCoord, int yCoord)
@@ -105,6 +107,10 @@ void Dwarf::atkOrMv(Player *pc, Dungeon *d) {
             } 
         } 
     }
+}
+
+bool Dwarf::isDead() const { 
+    return hp <= 0;
 }
 
 // --------------------- Elf --------------------- //
@@ -162,6 +168,10 @@ void Elf::atkOrMv(Player *pc, Dungeon *d) {
     }
 }
 
+bool Elf::isDead() const { 
+    return hp <= 0;
+}
+
 // --------------------- Orc --------------------- //
 
 Orc::Orc(AsciiArt *next, int xCoord, int yCoord)
@@ -206,6 +216,10 @@ void Orc::atkOrMv(Player *pc, Dungeon *d) {
     }
 }
 
+bool Orc::isDead() const { 
+    return hp <= 0;
+}
+
 // --------------------- Merchant --------------------- //
 
 Merchant::Merchant(AsciiArt *next, int xCoord, int yCoord)
@@ -248,6 +262,10 @@ void Merchant::atkOrMv(Player *pc, Dungeon *d) {
     }
 }
 
+bool Merchant::isDead() const { 
+    return hp <= 0;
+}
+
 // --------------------- Dragon --------------------- //
 
 Dragon::Dragon(AsciiArt *next, int xCoord, int yCoord, Dragon_Hoard *dh)
@@ -278,6 +296,10 @@ void Dragon::atkOrMv(Player *pc, Dungeon *d) {
             announcement = std::string(1, getRace()) + " missed. "; 
         }
     }
+}
+
+bool Dragon::isDead() const { 
+    return hp <= 0;
 }
 
 // --------------------- Halfling --------------------- //
@@ -325,4 +347,8 @@ void Halfling::atkOrMv(Player *pc, Dungeon *d) {
             } 
         } 
     }
+}
+
+bool Halfling::isDead() const { 
+    return hp <= 0;
 }

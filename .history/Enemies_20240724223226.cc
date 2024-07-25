@@ -7,7 +7,7 @@ Enemy::Enemy(AsciiArt *next, char race, int x, int y, int hp, int atk, int def)
     : Character(next, race, x, y, hp, atk, def) {}
 
 // Implement the virtual charAt method
-char Enemy::charAt(int row, int col) {
+char Enemy::charAt(int row, int col, int tick) {
     if (col == x && row == y && !isDead()) {
         char id = getRace(); 
         if (id == 'H') return 'H'; 
@@ -21,8 +21,6 @@ char Enemy::charAt(int row, int col) {
         return next->charAt(row, col);; 
     }
 }
-
-bool Enemy::isDead() const { return hp <= 0; } 
 
 // --------------------- Human --------------------- //
 Human::Human(AsciiArt *next, int xCoord, int yCoord)

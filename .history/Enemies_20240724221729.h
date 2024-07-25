@@ -9,7 +9,7 @@
 #include "dungeon.h"
 #include "checkCoord.h"
 #include "Treasure.h"
-#include "itemFactory.h"
+#include "ItemFactory."
 
 #include <cmath>
 #include <string>
@@ -27,11 +27,11 @@ public:
     ~Enemy() = default; 
 
     bool fPressed = false; 
-    bool goldDropped = false; 
+    bool goldDropped = false;
     void attack(Player& pc) { pc.changeHP(-getAtk()); }
     char charAt(int row, int col) override;
     void loseHP(double damage) { hp -= damage; }
-    bool isDead() const;
+    bool isDead() const = 0; 
     virtual void atkOrMv(Player *pc, Dungeon *d) = 0; 
 };
 

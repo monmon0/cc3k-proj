@@ -368,8 +368,9 @@ void PlayGame::defeatEnemies(int x, int y, std::string dir) {
                             " damage to " + std::string(1, e->getRace()) + ". ");
             if (e->isDead()) {
                 if (e->getRace() == 'H' || e->getRace() == 'M') {
-                    Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_MERCHANT, d->picture(), e->getX(), e->getY());
+                    Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_MERCHANT, d->picture(), getX(), getY());
                     d->picture() = treasure;
+        goldDropped = true;
                 }
                 p->addGold( p->getRace() == 'g' ? 10 : 5 );
                 d->setAction(std::string(1, e->getRace()) + " is slained. ");

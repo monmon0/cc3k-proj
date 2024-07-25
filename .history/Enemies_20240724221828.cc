@@ -22,8 +22,6 @@ char Enemy::charAt(int row, int col) {
     }
 }
 
-bool Enemy::isDead() const { return hp <= 0; } 
-
 // --------------------- Human --------------------- //
 Human::Human(AsciiArt *next, int xCoord, int yCoord)
     : Enemy(next, 'H', xCoord, yCoord, 140, 20, 20) {}
@@ -62,6 +60,14 @@ void Human::atkOrMv(Player *pc, Dungeon *d) {
                 break; 
             } 
         } 
+    }
+}
+
+bool Human::isDead() {
+    if (!goldDropped) {
+        Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_MERCHANT, d->picture(), col, row);
+        d->picture() = treasure;
+        goldDropped = tre
     }
 }
 
@@ -248,6 +254,13 @@ void Merchant::atkOrMv(Player *pc, Dungeon *d) {
     }
 }
 
+bool Merchant::isDead() {
+    if (!goldDropped) {
+        Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_MERCHANT, d->picture(), col, row);
+        d->picture() = treasure;
+    }
+}
+
 // --------------------- Dragon --------------------- //
 
 Dragon::Dragon(AsciiArt *next, int xCoord, int yCoord, Dragon_Hoard *dh)
@@ -279,6 +292,7 @@ void Dragon::atkOrMv(Player *pc, Dungeon *d) {
         }
     }
 }
+
 
 // --------------------- Halfling --------------------- //
 
