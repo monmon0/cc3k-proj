@@ -22,13 +22,6 @@ void PlayGame::play() {
     spawnEnemies(seed);
 }
 
-void PlayGame::play(Blank *map) {
-    spawnStaircase(map); 
-    spawnPotions(map);
-    spawnTreasure(map);
-    spawnEnemies(map);
-}
-
 void PlayGame::restart() {
     levelUp();
     d->resetLevel();  
@@ -72,13 +65,6 @@ void PlayGame::spawnStaircase(uint32_t seed) {
     }
 }
 
-void PlayGame::spawnStaircase(Blank *map) {
-    int idx = map->getMap.find('\\');
-    Staircase *sp = new Staircase(d->picture(), idx % 79, idx / 79);
-    sc = sp;
-    d->picture() = sp; 
-}
-
 void PlayGame::deadOrQuit() {
     p->setAtk(0);
     std::cout << WOMP_WOMP << std::endl;
@@ -86,27 +72,7 @@ void PlayGame::deadOrQuit() {
     std::cout << "                 (enter r to restart)"     << std::endl;
 }
 
-// void PlayGame::spawnPotions(Blank *map) {
-//     for (int row = 0; row < 25; row++) {
-//         for (int col = 0; col < 79; col++) {
-//             char letter = map->charAt(row, col);
-//             if (letter == '0') {
-//                 Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_RH, d->picture(), r1, r2);
-//                 d->picture() = potion;
-//             } else if (letter == '1') {
-//                 Item * potion  = ItemFactory::createItem(ItemFactory::Type::POTION_BA, d->picture(), r1, r2);
-//                 d->picture() = potion;
-//             } else if (letter == '2') {
-//                 Item * potion  = ItemFactory::createItem(ItemFactory::Type::POTION_BD, d->picture(), r1, r2);
-//                 d->picture() = potion;
-//             } else if (letter == '3') {
-
-//             }
-//         }
-//     }
-// }
-
-
+void
 
 
 void PlayGame::spawnPotions(uint32_t seed) {  
