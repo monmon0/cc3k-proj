@@ -31,6 +31,7 @@ int main(int argc, char *argv[]) {
             newMap += line;
         }
     }
+    
     Blank * map = new Blank(fileName);
     Blank * floor = new Blank("map.txt");
     Dungeon s{floor};
@@ -50,7 +51,7 @@ int main(int argc, char *argv[]) {
                 int r1 = 1, r2 = 1;
                 int location = 0;
                 if (hasCommand) {
-                    int pos = newMap.find("@", (s.getLevel() - 1) * 25);
+                    int pos = newMap.find("@");
                     r1 = pos / 79;
                     r2 = pos % 79;
 
