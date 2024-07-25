@@ -3,6 +3,7 @@
 #include <memory>   
 #include "dungeon.h"
 #include "asciiart.h"
+#include <fstream>
 #include "blank.h"
 #include "decorator.h"
 #include "Players.h"
@@ -12,8 +13,23 @@
 #include "checkCoord.h"
 #include <string>
 
-int main() {
+int main(int argc, char *argv[]) {
     // creating new Dungeon
+    std::string fileName = "map.txt";
+    std::string newMap = "";
+    bool hasCommand = false;
+    
+    if (argc > 1) {
+        fileName = argv[1];
+        hasCommand = true;
+
+        std::ifstream file(fileName);
+        std::string line;
+        while (std::getline(file, line)) {
+            newMap += line;
+        }
+    }
+
     Blank * floor = new Blank("map.txt");
     Dungeon s{floor};
     std::string command;
@@ -29,12 +45,14 @@ int main() {
             if (command == "s" || command == "d" ||command == "v" 
                 || command == "g" || command == "t") {
                 // set races
-                int r_1 = 0, r_2 = 0;
+                int r1 = 1, r2 = 1;
                 int location = 0;
                 if (hasCommand) {
-                    int pos = fileName.find("@");
-                    r_1 = pos / 79;
-                    r_2 = pos % 79;
+                    int pos = newMap.find("@");
+                    std::cout << "POS" << pos << std::endl;
+                    r1 = pos / 79;
+                    r2 = pos % 79;
+
                 } else {
                     uint32_t seed = getpid();
                     CheckCoord c{&s, seed}; 
