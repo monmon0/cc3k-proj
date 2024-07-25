@@ -77,6 +77,7 @@ int main(int argc, char *argv[]) {
                 } else {
                     curr_g.play();
                 }
+                delete map;
                 initialized = 1;
                 s.setAction(pc->getAnnouncement());
                 s.render(pc);
@@ -148,5 +149,4 @@ int main(int argc, char *argv[]) {
             
         }
     }
-    delete map;
 }

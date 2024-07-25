@@ -36,7 +36,7 @@ void PlayGame::restart() {
     std::cout << "RESTART by choosing your race again: ";
 }
 
-void PlayGame::levelUp(Blank *map, bool hasCommand) {
+void PlayGame::levelUp() {
     // delete all decorator until player
     uint32_t seed = getpid();
     CheckCoord c{d, seed}; 
@@ -54,11 +54,7 @@ void PlayGame::levelUp(Blank *map, bool hasCommand) {
     d->setAction("Next Floor Unlocked! Good job! ");
 
     eVec.clear();
-    if (hasCommand) {
-        play(map);
-    } else {
-        play();
-    }
+    play();
 }
 
 void PlayGame::spawnStaircase(uint32_t seed) { 
