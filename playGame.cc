@@ -29,7 +29,8 @@ void PlayGame::play(Blank *map) {
 
 void PlayGame::levelUp(bool hasCommand, Blank *map) {
     // delete all decorator until player
-    int r1, r2;
+
+    int r1 = 0, r2 = 0;
     if (hasCommand) {
         int pos = map->getMap().find("@");
         r1 = pos % 79;
@@ -38,8 +39,8 @@ void PlayGame::levelUp(bool hasCommand, Blank *map) {
         uint32_t seed = getpid();
         CheckCoord c{d, seed}; 
         c.setPos(); 
-        int r1 = c.getX();
-        int r2 = c.getY();
+        r1 = c.getX();
+        r2 = c.getY();
     }
 
     p->nextLevel(r1, r2);
@@ -54,11 +55,13 @@ void PlayGame::levelUp(bool hasCommand, Blank *map) {
 
     eVec.clear();
     eMap.clear();
+
     if (hasCommand) {
         play(map);
     } else {
         play();
     }
+
 }
 
 void PlayGame::restart() {

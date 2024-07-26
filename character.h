@@ -21,7 +21,6 @@ class Character : public Decorator {
         std::map<char, std::vector<int>> raceAbilities = {{'d', {125,2,3}},  {'v', {125,2,3}}, {'t', {125,2,3}},
                                                         {'g',{125,2,3}}, {'s', {125,2,3}}};
 
-
     public:
         Character(AsciiArt *next, char id, int x, int y, double hp, double atk, double def);
         ~Character() = default; 

@@ -16,7 +16,6 @@
 #include <algorithm>
 
 class Dungeon; 
-// class Dragon_Hoard;
 
 class Enemy : public Character {
 public:

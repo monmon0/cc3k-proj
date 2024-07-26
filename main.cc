@@ -125,32 +125,31 @@ int main(int argc, char *argv[]) {
             }
 
             if (!restart) {
+                // ---------------LEVEL UP ------------------------- //
                 if (pc->isLevelUp() && s.getLevel() < 5) {
-                curr_g.levelUp(hasCommand, map);
-            } 
-
-             // --------------- END GAME ------------------------- //
-            if (s.getLevel() == 5) {
-                curr_g.end();
-                std::cin >> command;
-                if (command == "r" ) {
-                    curr_g.restart();
-                    initialized = 0;
+                    curr_g.levelUp(hasCommand, map);
+                } 
+                // --------------- END GAME ------------------------- //
+                if (s.getLevel() == 5) {
+                    curr_g.end();
+                    std::cin >> command;
+                    if (command == "r" ) {
+                        curr_g.restart();
+                        initialized = 0;
+                    }
+                    else break;
                 }
-                else break;
-            }
-            // --------------- QUIT GAME ------------------------- //
-            if (pc->isDead() || command == "q") {
-                curr_g.deadOrQuit();
-                std::cin >> command;
-                if (command == "r" ) {               // restart game
-                    curr_g.restart();  
-                    initialized = 0;
-                } else break;
-            } 
+                // --------------- QUIT GAME ------------------------- //
+                else if (pc->isDead() || command == "q") {
+                    curr_g.deadOrQuit();
+                    std::cin >> command;
+                    if (command == "r" ) {               // restart game
+                        curr_g.restart();  
+                        initialized = 0;
+                    } else break;
+                } 
             }
             
-
             if (command != "r" && command != "q") {
                 s.render(pc);
                 std::cout << "Your command: ";
