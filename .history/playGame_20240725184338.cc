@@ -99,10 +99,8 @@ void PlayGame::spawn(Blank *map) {
     for (int row = 0; row < 25; row++) {
         for (int col = 0; col < 79; col++) {
             char letter = map->charAt(row, col);
-
-            if (letter == '.') { 
-                continue;
-            } else if (letter == '0') {
+            
+            if (letter == '0') {
                 Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_RH, d->picture(), col, row);
                 d->picture() = potion;
             } else if (letter == '1') {
@@ -180,6 +178,9 @@ void PlayGame::spawn(Blank *map) {
         }
     }
 }
+
+
+
 
 void PlayGame::spawnPotions(uint32_t seed) {  
     vector<string> names = {"RH", "BA", "BD", "PH", "WA", "WD"};
@@ -276,28 +277,29 @@ void PlayGame::spawnEnemies(uint32_t seed) {
         c.setPos(); 
         int r1 = c.getX(), r2 = c.getY();
 
+        Enemy *e;
         if (name == 'H') {
-            Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::HUMAN, d->picture(), r1, r2);
+            e = EnemyFactory::createEnemy(EnemyFactory::Type::HUMAN, d->picture(), r1, r2);
             d->picture() = e;
             eVec.emplace_back(e);
         } else if (name == 'W') {
-            Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::DWARF, d->picture(), r1, r2);
+            e = EnemyFactory::createEnemy(EnemyFactory::Type::DWARF, d->picture(), r1, r2);
             d->picture() = e;
             eVec.emplace_back(e);
         } else if (name == 'E') {
-            Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::ELF, d->picture(), r1, r2);
+            e = EnemyFactory::createEnemy(EnemyFactory::Type::ELF, d->picture(), r1, r2);
             d->picture() = e;
             eVec.emplace_back(e);
         } else if (name == 'O') {
-            Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::ORC, d->picture(), r1, r2);
+            e = EnemyFactory::createEnemy(EnemyFactory::Type::ORC, d->picture(), r1, r2);
             d->picture() = e;
             eVec.emplace_back(e);
         } else if (name == 'M') {
-            Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::MERCHANT, d->picture(), r1, r2);
+            e = EnemyFactory::createEnemy(EnemyFactory::Type::MERCHANT, d->picture(), r1, r2);
             d->picture() = e;
             eVec.emplace_back(e);
         } else if (name == 'L') {
-            Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::HALFLING, d->picture(), r1, r2);
+            e = EnemyFactory::createEnemy(EnemyFactory::Type::HALFLING, d->picture(), r1, r2);
             d->picture() = e;
             eVec.emplace_back(e);
         }

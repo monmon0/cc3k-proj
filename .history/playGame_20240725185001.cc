@@ -277,27 +277,27 @@ void PlayGame::spawnEnemies(uint32_t seed) {
         int r1 = c.getX(), r2 = c.getY();
 
         if (name == 'H') {
-            Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::HUMAN, d->picture(), r1, r2);
+            e = EnemyFactory::createEnemy(EnemyFactory::Type::HUMAN, d->picture(), r1, r2);
             d->picture() = e;
             eVec.emplace_back(e);
         } else if (name == 'W') {
-            Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::DWARF, d->picture(), r1, r2);
+            e = EnemyFactory::createEnemy(EnemyFactory::Type::DWARF, d->picture(), r1, r2);
             d->picture() = e;
             eVec.emplace_back(e);
         } else if (name == 'E') {
-            Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::ELF, d->picture(), r1, r2);
+            e = EnemyFactory::createEnemy(EnemyFactory::Type::ELF, d->picture(), r1, r2);
             d->picture() = e;
             eVec.emplace_back(e);
         } else if (name == 'O') {
-            Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::ORC, d->picture(), r1, r2);
+            e = EnemyFactory::createEnemy(EnemyFactory::Type::ORC, d->picture(), r1, r2);
             d->picture() = e;
             eVec.emplace_back(e);
         } else if (name == 'M') {
-            Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::MERCHANT, d->picture(), r1, r2);
+            e = EnemyFactory::createEnemy(EnemyFactory::Type::MERCHANT, d->picture(), r1, r2);
             d->picture() = e;
             eVec.emplace_back(e);
         } else if (name == 'L') {
-            Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::HALFLING, d->picture(), r1, r2);
+            e = EnemyFactory::createEnemy(EnemyFactory::Type::HALFLING, d->picture(), r1, r2);
             d->picture() = e;
             eVec.emplace_back(e);
         }
