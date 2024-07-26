@@ -11,6 +11,7 @@
 
 Player::Player(AsciiArt *next, char race, int x, int y, int hp, int atk, int def, int location): 
     Character(next, race, x, y, hp, atk, def), location{location} {
+        inventoryNum = 0;
         if (race == 'v') max_hp = INT_MAX;
         else max_hp = hp;
 }
