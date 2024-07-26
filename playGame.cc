@@ -68,7 +68,6 @@ void PlayGame::restart() {
 }
 void PlayGame::attachPC(Player * pc) {
     p = pc; 
-    std::cout << pc << std::endl;
     }
 
 void PlayGame::spawnStaircase(uint32_t seed) { 
@@ -340,7 +339,6 @@ void PlayGame::attackOrMove() {
 
     for (const auto& it : sortedMap) {
         int index = it.first;
-        std::cout << eVec[index]->getRace() << std::endl;
         eVec[index]->atkOrMv(p, d);
         d->setAction(eVec[index]->getAnnouncement());
         eMap[index] = std::make_pair(eVec[index]->getX(), eVec[index]->getY());
