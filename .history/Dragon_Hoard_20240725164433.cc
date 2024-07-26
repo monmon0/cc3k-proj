@@ -24,7 +24,6 @@ void Dragon_Hoard::applyEffect(Player *player) {
 
 void Dragon_Hoard::unGuarded() {
     isGuarded = false;
-    active = true; 
 }
 
 bool Dragon_Hoard::collectable() {

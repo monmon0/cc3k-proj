@@ -27,20 +27,13 @@ void PlayGame::play(Blank *map) {
     spawn(map);
 }
 
-void PlayGame::levelUp(bool hasCommand, Blank *map) {
+void PlayGame::levelUp() {
     // delete all decorator until player
-    int r1, r2;
-    if (hasCommand) {
-        int pos = map->getMap().find("@");
-        r1 = pos % 79;
-        r2 = pos / 79;
-    } else {
-        uint32_t seed = getpid();
-        CheckCoord c{d, seed}; 
-        c.setPos(); 
-        int r1 = c.getX();
-        int r2 = c.getY();
-    }
+    uint32_t seed = getpid();
+    CheckCoord c{d, seed}; 
+    c.setPos(); 
+    int r1 = c.getX();
+    int  r2 = c.getY();
 
     p->nextLevel(r1, r2);
     sc->nextChar() = nullptr;
@@ -54,11 +47,7 @@ void PlayGame::levelUp(bool hasCommand, Blank *map) {
 
     eVec.clear();
     eMap.clear();
-    if (hasCommand) {
-        play(map);
-    } else {
-        play();
-    }
+    play();
 }
 
 void PlayGame::restart() {
@@ -385,7 +374,7 @@ void PlayGame::defeatEnemies(int x, int y, std::string dir) {
                     Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_MERCHANT, d->picture(), e->getX(), e->getY());
                     d->picture() = treasure;
                 } else {
-                    if (e->getRace() != 'D') p->addGold( p->getRace() == 'g' ? 10 : 5 );
+                    p->addGold( p->getRace() == 'g' ? 10 : 5 );
                 }
                 d->setAction(std::string(1, e->getRace()) + " is slained. ");
             }

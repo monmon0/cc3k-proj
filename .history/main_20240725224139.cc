@@ -110,8 +110,6 @@ int main(int argc, char *argv[]) {
                 std::cout << std::endl;
                 pc->takePotion(s.picture(), dir);
                 s.setAction(pc->getAnnouncement());
-
-                curr_g.attackOrMove(); 
             } else if (command == "lu") {   // Level up, for testing purposes, not actual command
                 curr_g.levelUp(hasCommand, map);
             } else if (command == "f" ) {   // stop enemies from moving;
@@ -138,6 +136,9 @@ int main(int argc, char *argv[]) {
                     initialized = 0;
                 }
                 else break;
+            }
+            if (command == "a" || command == "u") {
+                curr_g.attackOrMove(); 
             }
             // --------------- QUIT GAME ------------------------- //
             if (pc->isDead() || command == "q") {

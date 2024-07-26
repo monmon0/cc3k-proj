@@ -385,7 +385,7 @@ void PlayGame::defeatEnemies(int x, int y, std::string dir) {
                     Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_MERCHANT, d->picture(), e->getX(), e->getY());
                     d->picture() = treasure;
                 } else {
-                    if (e->getRace() != 'D') p->addGold( p->getRace() == 'g' ? 10 : 5 );
+                    if () p->addGold( p->getRace() == 'g' ? 10 : 5 );
                 }
                 d->setAction(std::string(1, e->getRace()) + " is slained. ");
             }

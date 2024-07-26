@@ -139,6 +139,9 @@ int main(int argc, char *argv[]) {
                 }
                 else break;
             }
+            if (command == "a" || command == "u") {
+                curr_g.attackOrMove(); 
+            }
             // --------------- QUIT GAME ------------------------- //
             if (pc->isDead() || command == "q") {
                 curr_g.deadOrQuit();
