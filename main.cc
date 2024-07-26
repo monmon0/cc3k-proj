@@ -21,7 +21,6 @@
 int main(int argc, char *argv[]) {
     // creating new Dungeon
     std::string fileName = "map.txt";
-    std::string newMap = "";
     bool hasCommand = false;
 
     bool restart = false;
@@ -29,12 +28,6 @@ int main(int argc, char *argv[]) {
     if (argc > 1) {
         fileName = argv[1];
         hasCommand = true;
-
-        // std::ifstream file(fileName);
-        // std::string line;
-        // while (std::getline(file, line)) {
-        //     newMap += line;
-        // }
     }
     Blank * map = new Blank(fileName);
     Blank * floor = new Blank("map.txt");
@@ -55,8 +48,7 @@ int main(int argc, char *argv[]) {
                 int r1 = 1, r2 = 1;
                 int location = 0;
 
-                if (hasCommand) {
-                    
+                if (hasCommand) {                   
                     int pos = map->getMap().find("@");
                     if (pos == -1) break;
                     r1 = pos % 79;
@@ -70,7 +62,6 @@ int main(int argc, char *argv[]) {
                     r1 = c.getX();
                     r2 = c.getY();
                     location = c.getChamber(); 
-
                 }
 
                 if      (command == "s") pc = new Shade{s.picture(), 's', r1, r2, 125, 25, 25, location};
@@ -119,21 +110,20 @@ int main(int argc, char *argv[]) {
                 pc->takePotion(s.picture(), dir);
                 s.setAction(pc->getAnnouncement());
             } else if (command == "lu") {   // Level up, for testing purposes, not actual command
-                curr_g.levelUp();
+                curr_g.levelUp(hasCommand, map);
             } else if (command == "f" ) {   // stop enemies from moving;
                 curr_g.fPressed(); 
                 s.setAction("Something happened to the enemies... "); 
             // --------------- RESTART GAME ------------------------- //
             } else if (command == "r" ) {   // restart game
                 curr_g.restart();
-                hasCommand = 0;
                 initialized = 0;
                 restart = true;
             }
 
             if (!restart) {
                 if (pc->isLevelUp() && s.getLevel() < 5) {
-                curr_g.levelUp();
+                curr_g.levelUp(hasCommand, map);
             } 
 
              // --------------- END GAME ------------------------- //
