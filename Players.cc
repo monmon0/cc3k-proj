@@ -194,6 +194,10 @@ void Player::shop(std::string name, AsciiArt * m) {
         return;
     } else {
         inventoryNum++;
+
+        if (name != "RH" && name != "RH" && name != "RH"&& name != "BA"
+        && name !=  "BD" && name !=  "PH" && name !=  "WA" && name !=  "WD") return;
+
         if (inventoryNum < 10) {
             Item * potion;
         if (name == "RH") {
