@@ -332,7 +332,6 @@ void PlayGame::attackOrMove() {
     std::sort(sortedMap.begin(), sortedMap.end(), comparePairs);
 
     // Iterate over the sorted vector and perform the actions
-    std::cout << sortedMap.size() << std::endl;
 
     for (const auto& it : sortedMap) {
         int index = it.first;
