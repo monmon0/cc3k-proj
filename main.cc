@@ -24,15 +24,17 @@ int main(int argc, char *argv[]) {
     std::string newMap = "";
     bool hasCommand = false;
 
+    bool restart = false;
+
     if (argc > 1) {
         fileName = argv[1];
         hasCommand = true;
 
-        std::ifstream file(fileName);
-        std::string line;
-        while (std::getline(file, line)) {
-            newMap += line;
-        }
+        // std::ifstream file(fileName);
+        // std::string line;
+        // while (std::getline(file, line)) {
+        //     newMap += line;
+        // }
     }
     Blank * map = new Blank(fileName);
     Blank * floor = new Blank("map.txt");
@@ -54,8 +56,7 @@ int main(int argc, char *argv[]) {
                 int location = 0;
 
                 if (hasCommand) {
-                    
-                    int pos = newMap.find("@");
+                    int pos = map->getMap().find("@");
                     r1 = pos % 79;
                     r2 = pos / 79;
 
@@ -78,12 +79,12 @@ int main(int argc, char *argv[]) {
 
                 s.picture() = pc;
                 curr_g.attachPC(pc); 
+                restart = false;
 
                 // --------- start game, spawn enemies, spawn potions -----------  //
                 if (hasCommand) {
                     curr_g.play(map);
                 } else {
-                    std::cout << "play" << std::endl;
                     curr_g.play();
                 }
                 initialized = 1;
@@ -93,7 +94,6 @@ int main(int argc, char *argv[]) {
             }   else std::cout << "Please choose an appropriate command: ";
         } else if (initialized) {
             if (command == "a") {   // attack
-                std::cout << "Please specify direction: ";
                 std::string dir;
                 std::cin >> dir;
                 std::cout << std::endl;
@@ -101,25 +101,21 @@ int main(int argc, char *argv[]) {
                 bool hit = pc->attack(s.picture(), dir);     
                 if (hit) curr_g.defeatEnemies(pc->getX(), pc->getY(), dir);
                 s.setAction(pc->getAnnouncement());
-                
-                curr_g.attackOrMove(); 
+
             } else if (command == "no" || command == "so" || command == "ea" 
                     || command == "we" || command == "ne" || command == "nw" 
                     || command == "se" || command =="sw") {
 
                 pc->move(command, s.picture());
                 s.setAction(pc->getAnnouncement());
+                curr_g.attackOrMove();
 
-                curr_g.attackOrMove(); 
             } else if (command == "u" ) {   // use potion
-                std::cout << "Please specify direction: ";
                 std::string dir;
                 std::cin >> dir;
                 std::cout << std::endl;
                 pc->takePotion(s.picture(), dir);
                 s.setAction(pc->getAnnouncement());
-
-                curr_g.attackOrMove(); 
             } else if (command == "lu") {   // Level up, for testing purposes, not actual command
                 curr_g.levelUp();
             } else if (command == "f" ) {   // stop enemies from moving;
@@ -127,12 +123,14 @@ int main(int argc, char *argv[]) {
                 s.setAction("Something happened to the enemies... "); 
             // --------------- RESTART GAME ------------------------- //
             } else if (command == "r" ) {   // restart game
-                std::cout << "restart" << std::endl;
                 curr_g.restart();
                 hasCommand = 0;
                 initialized = 0;
+                restart = true;
             }
-            if (pc->isLevelUp() && s.getLevel() < 5) {
+
+            if (!restart) {
+                if (pc->isLevelUp() && s.getLevel() < 5) {
                 curr_g.levelUp();
             } 
 
@@ -146,6 +144,9 @@ int main(int argc, char *argv[]) {
                 }
                 else break;
             }
+            if (command == "a" || command == "u") {
+                curr_g.attackOrMove(); 
+            }
             // --------------- QUIT GAME ------------------------- //
             if (pc->isDead() || command == "q") {
                 curr_g.deadOrQuit();
@@ -155,6 +156,8 @@ int main(int argc, char *argv[]) {
                     initialized = 0;
                 } else break;
             } 
+            }
+            
 
             if (command != "r" && command != "q") {
                 s.render(pc);

@@ -46,6 +46,7 @@ void PlayGame::levelUp() {
     d->setAction("Next Floor Unlocked! Good job! ");
 
     eVec.clear();
+    eMap.clear();
     play();
 }
 
@@ -59,16 +60,12 @@ void PlayGame::restart() {
     p = nullptr;
     sc = nullptr;
     eVec.clear();
+    eMap.clear();
     d->resetLevel();  
     d->clearAction();
-
     std::cout << RESTART << std::endl;
     std::cout << "RESTART by choosing your race again: ";
 }
-void PlayGame::attachPC(Player * pc) {
-    p = pc; 
-    std::cout << pc << std::endl;
-    }
 
 void PlayGame::spawnStaircase(uint32_t seed) { 
     CheckCoord c{d, seed}; 
@@ -325,6 +322,7 @@ void PlayGame::attackOrMove() {
         return a.second.second < b.second.second;
     };
 
+
     // Create a vector of pairs to sort because std::map can't be sorted directly
     std::vector<std::pair<int, std::pair<int, int>>> sortedMap(eMap.begin(), eMap.end());
 
@@ -332,6 +330,7 @@ void PlayGame::attackOrMove() {
     std::sort(sortedMap.begin(), sortedMap.end(), comparePairs);
 
     // Iterate over the sorted vector and perform the actions
+
     for (const auto& it : sortedMap) {
         int index = it.first;
         eVec[index]->atkOrMv(p, d);
@@ -393,3 +392,5 @@ void PlayGame::end() {
     std::cout << "    WOULD YOU LIKE TO PLAY AGAIN?"                  << std::endl;
     std::cout << " (enter -r to restart, any key to esc)"             << std::endl;
 }
+
+void PlayGame::attachPC(Player * pc) {p = pc; }
