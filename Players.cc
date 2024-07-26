@@ -219,10 +219,11 @@ void Player::shop(std::string name, AsciiArt * m) {
 
         }
             inventory.emplace_back(potion);
+            gold--;
+            announcement = "Purchase successully";
+
         }
-        announcement = "Purchase successully";
     }
-    gold--;
 }
 
 char Player::getRace() {return race;}
