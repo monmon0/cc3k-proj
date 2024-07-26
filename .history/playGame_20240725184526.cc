@@ -46,7 +46,6 @@ void PlayGame::levelUp() {
     d->setAction("Next Floor Unlocked! Good job! ");
 
     eVec.clear();
-    eMap.clear();
     play();
 }
 
@@ -60,12 +59,16 @@ void PlayGame::restart() {
     p = nullptr;
     sc = nullptr;
     eVec.clear();
-    eMap.clear();
     d->resetLevel();  
     d->clearAction();
+
     std::cout << RESTART << std::endl;
     std::cout << "RESTART by choosing your race again: ";
 }
+void PlayGame::attachPC(Player * pc) {
+    p = pc; 
+    std::cout << pc << std::endl;
+    }
 
 void PlayGame::spawnStaircase(uint32_t seed) { 
     CheckCoord c{d, seed}; 
@@ -88,95 +91,137 @@ void PlayGame::deadOrQuit() {
     std::cout << "                 (enter r to restart)"     << std::endl;
 }
 
-void PlayGame::spawn(Blank *map) { 
+void PlayGame::spawn(Blank *map) {
     int idx = map->getMap().find('\\');
     Staircase *sp = new Staircase(d->picture(), idx % 79, idx / 79);
     sc = sp;
-    d->picture() = sp; 
+    d->picture() = sp;
+
     for (int row = 0; row < 25; row++) {
         for (int col = 0; col < 79; col++) {
             char letter = map->charAt(row, col);
 
-            if (letter == '.') { 
+            // Skip iteration if the letter is '.' or space (or any other condition you want)
+            if (letter == '.') {
                 continue;
-            } else if (letter == '0') {
-                Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_RH, d->picture(), col, row);
-                d->picture() = potion;
-            } else if (letter == '1') {
-                Item * potion  = ItemFactory::createItem(ItemFactory::Type::POTION_BA, d->picture(), col, row);
-                d->picture() = potion;
-            } else if (letter == '2') {
-                Item * potion  = ItemFactory::createItem(ItemFactory::Type::POTION_BD, d->picture(), col, row);
-                d->picture() = potion;
-            } else if (letter == '3') {
-                Item * potion  = ItemFactory::createItem(ItemFactory::Type::POTION_PH, d->picture(), col, row);
-                d->picture() = potion;
-            } else if (letter == '4') {
-                Item * potion  = ItemFactory::createItem(ItemFactory::Type::POTION_WA, d->picture(), col, row);
-                d->picture() = potion;
-            } else if (letter == '5') {
-                Item * potion = ItemFactory::createItem(ItemFactory::Type::POTION_WD, d->picture(), col, row);
-                d->picture() = potion;
-            } else if (letter == '6') {
-                Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_NORMAL, d->picture(), col, row);
-                d->picture() = treasure;
-            } else if (letter == '7') {
-                Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_SMALL, d->picture(), col, row);
-                d->picture() = treasure;
-            } else if (letter == '8') {
-                Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_MERCHANT, d->picture(), col, row);
-                d->picture() = treasure;
-            } else if (letter == '9') {
-                Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_DRAGON, d->picture(), col, row);
-                d->picture() = treasure;
-
-                Enemy *dp; 
-                if (map->charAt(row - 1, col - 1) == 'D') dp = new Dragon(d->picture(), col - 1, row - 1, static_cast<Dragon_Hoard*>(treasure));
-                else if (map->charAt(row - 1, col) == 'D') dp = new Dragon(d->picture(), col, row - 1, static_cast<Dragon_Hoard*>(treasure));
-                else if (map->charAt(row, col - 1) == 'D') dp = new Dragon(d->picture(), col - 1, row, static_cast<Dragon_Hoard*>(treasure));
-                else if (map->charAt(row + 1, col + 1) == 'D') dp = new Dragon(d->picture(), col + 1, row + 1, static_cast<Dragon_Hoard*>(treasure));
-                else if (map->charAt(row + 1, col) == 'D') dp = new Dragon(d->picture(), col, row + 1, static_cast<Dragon_Hoard*>(treasure));
-                else if (map->charAt(row, col + 1) == 'D') dp = new Dragon(d->picture(), col + 1, row, static_cast<Dragon_Hoard*>(treasure));
-                else if (map->charAt(row + 1, col - 1) == 'D') dp = new Dragon(d->picture(), col - 1, row + 1, static_cast<Dragon_Hoard*>(treasure));
-                else if (map->charAt(row - 1, col + 1) == 'D') dp = new Dragon(d->picture(), col + 1, row - 1, static_cast<Dragon_Hoard*>(treasure));
-                
-                d->picture() = dp;
-                eVec.emplace_back(dp);
-            } else if (letter == 'H') {
-                Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::HUMAN, d->picture(), col, row);
-                d->picture() = e;
-                eVec.emplace_back(e);
-            } else if (letter == 'W') {
-                Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::DWARF, d->picture(), col, row);
-                d->picture() = e;
-                eVec.emplace_back(e);
-            } else if (letter == 'E') {
-                Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::ELF, d->picture(), col, row);
-                d->picture() = e;
-                eVec.emplace_back(e);
-            } else if (letter == 'O') {
-                Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::ORC, d->picture(), col, row);
-                d->picture() = e;
-                eVec.emplace_back(e);
-            } else if (letter == 'M') {
-                Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::MERCHANT, d->picture(), col, row);
-                d->picture() = e;
-                eVec.emplace_back(e);
-            } else if (letter == 'L') {
-                Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::HALFLING, d->picture(), col, row);
-                d->picture() = e;
-                eVec.emplace_back(e);
             }
 
-            int counter = 0; 
-            for (auto e : eVec) {
-                eMap[counter] = make_pair(e->getX(), e->getY());
-                counter++;  
-            }
+            switch (letter) {
+                case '0': {
+                    Item *potion = ItemFactory::createItem(ItemFactory::Type::POTION_RH, d->picture(), col, row);
+                    d->picture() = potion;
+                    break;
+                }
+                case '1': {
+                    Item *potion = ItemFactory::createItem(ItemFactory::Type::POTION_BA, d->picture(), col, row);
+                    d->picture() = potion;
+                    break;
+                }
+                case '2': {
+                    Item *potion = ItemFactory::createItem(ItemFactory::Type::POTION_BD, d->picture(), col, row);
+                    d->picture() = potion;
+                    break;
+                }
+                case '3': {
+                    Item *potion = ItemFactory::createItem(ItemFactory::Type::POTION_PH, d->picture(), col, row);
+                    d->picture() = potion;
+                    break;
+                }
+                case '4': {
+                    Item *potion = ItemFactory::createItem(ItemFactory::Type::POTION_WA, d->picture(), col, row);
+                    d->picture() = potion;
+                    break;
+                }
+                case '5': {
+                    Item *potion = ItemFactory::createItem(ItemFactory::Type::POTION_WD, d->picture(), col, row);
+                    d->picture() = potion;
+                    break;
+                }
+                case '6': {
+                    Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_NORMAL, d->picture(), col, row);
+                    d->picture() = treasure;
+                    break;
+                }
+                case '7': {
+                    Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_SMALL, d->picture(), col, row);
+                    d->picture() = treasure;
+                    break;
+                }
+                case '8': {
+                    Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_MERCHANT, d->picture(), col, row);
+                    d->picture() = treasure;
+                    break;
+                }
+                case '9': {
+                    Item *treasure = ItemFactory::createItem(ItemFactory::Type::GOLD_DRAGON, d->picture(), col, row);
+                    d->picture() = treasure;
 
+                    Enemy *dp;
+                    if (map->charAt(row - 1, col - 1) == 'D') dp = new Dragon(d->picture(), col - 1, row - 1, static_cast<Dragon_Hoard*>(treasure));
+                    else if (map->charAt(row - 1, col) == 'D') dp = new Dragon(d->picture(), col, row - 1, static_cast<Dragon_Hoard*>(treasure));
+                    else if (map->charAt(row, col - 1) == 'D') dp = new Dragon(d->picture(), col - 1, row, static_cast<Dragon_Hoard*>(treasure));
+                    else if (map->charAt(row + 1, col + 1) == 'D') dp = new Dragon(d->picture(), col + 1, row + 1, static_cast<Dragon_Hoard*>(treasure));
+                    else if (map->charAt(row + 1, col) == 'D') dp = new Dragon(d->picture(), col, row + 1, static_cast<Dragon_Hoard*>(treasure));
+                    else if (map->charAt(row, col + 1) == 'D') dp = new Dragon(d->picture(), col + 1, row, static_cast<Dragon_Hoard*>(treasure));
+                    else if (map->charAt(row + 1, col - 1) == 'D') dp = new Dragon(d->picture(), col - 1, row + 1, static_cast<Dragon_Hoard*>(treasure));
+                    else if (map->charAt(row - 1, col + 1) == 'D') dp = new Dragon(d->picture(), col + 1, row - 1, static_cast<Dragon_Hoard*>(treasure));
+
+                    d->picture() = dp;
+                    eVec.emplace_back(dp);
+                    break;
+                }
+                case 'H': {
+                    Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::HUMAN, d->picture(), col, row);
+                    d->picture() = e;
+                    eVec.emplace_back(e);
+                    break;
+                }
+                case 'W': {
+                    Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::DWARF, d->picture(), col, row);
+                    d->picture() = e;
+                    eVec.emplace_back(e);
+                    break;
+                }
+                case 'E': {
+                    Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::ELF, d->picture(), col, row);
+                    d->picture() = e;
+                    eVec.emplace_back(e);
+                    break;
+                }
+                case 'O': {
+                    Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::ORC, d->picture(), col, row);
+                    d->picture() = e;
+                    eVec.emplace_back(e);
+                    break;
+                }
+                case 'M': {
+                    Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::MERCHANT, d->picture(), col, row);
+                    d->picture() = e;
+                    eVec.emplace_back(e);
+                    break;
+                }
+                case 'L': {
+                    Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::HALFLING, d->picture(), col, row);
+                    d->picture() = e;
+                    eVec.emplace_back(e);
+                    break;
+                }
+                default:
+                    break; // If the letter doesn't match any case, do nothing
+            }
         }
     }
+
+    int counter = 0;
+    for (auto e : eVec) {
+        eMap[counter] = std::make_pair(e->getX(), e->getY());
+        counter++;
+    }
 }
+
+
+
+
 
 void PlayGame::spawnPotions(uint32_t seed) {  
     vector<string> names = {"RH", "BA", "BD", "PH", "WA", "WD"};
@@ -273,28 +318,29 @@ void PlayGame::spawnEnemies(uint32_t seed) {
         c.setPos(); 
         int r1 = c.getX(), r2 = c.getY();
 
+        Enemy *e;
         if (name == 'H') {
-            Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::HUMAN, d->picture(), r1, r2);
+            e = EnemyFactory::createEnemy(EnemyFactory::Type::HUMAN, d->picture(), r1, r2);
             d->picture() = e;
             eVec.emplace_back(e);
         } else if (name == 'W') {
-            Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::DWARF, d->picture(), r1, r2);
+            e = EnemyFactory::createEnemy(EnemyFactory::Type::DWARF, d->picture(), r1, r2);
             d->picture() = e;
             eVec.emplace_back(e);
         } else if (name == 'E') {
-            Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::ELF, d->picture(), r1, r2);
+            e = EnemyFactory::createEnemy(EnemyFactory::Type::ELF, d->picture(), r1, r2);
             d->picture() = e;
             eVec.emplace_back(e);
         } else if (name == 'O') {
-            Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::ORC, d->picture(), r1, r2);
+            e = EnemyFactory::createEnemy(EnemyFactory::Type::ORC, d->picture(), r1, r2);
             d->picture() = e;
             eVec.emplace_back(e);
         } else if (name == 'M') {
-            Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::MERCHANT, d->picture(), r1, r2);
+            e = EnemyFactory::createEnemy(EnemyFactory::Type::MERCHANT, d->picture(), r1, r2);
             d->picture() = e;
             eVec.emplace_back(e);
         } else if (name == 'L') {
-            Enemy *e = EnemyFactory::createEnemy(EnemyFactory::Type::HALFLING, d->picture(), r1, r2);
+            e = EnemyFactory::createEnemy(EnemyFactory::Type::HALFLING, d->picture(), r1, r2);
             d->picture() = e;
             eVec.emplace_back(e);
         }
@@ -322,7 +368,6 @@ void PlayGame::attackOrMove() {
         return a.second.second < b.second.second;
     };
 
-
     // Create a vector of pairs to sort because std::map can't be sorted directly
     std::vector<std::pair<int, std::pair<int, int>>> sortedMap(eMap.begin(), eMap.end());
 
@@ -330,7 +375,6 @@ void PlayGame::attackOrMove() {
     std::sort(sortedMap.begin(), sortedMap.end(), comparePairs);
 
     // Iterate over the sorted vector and perform the actions
-
     for (const auto& it : sortedMap) {
         int index = it.first;
         eVec[index]->atkOrMv(p, d);
@@ -392,5 +436,3 @@ void PlayGame::end() {
     std::cout << "    WOULD YOU LIKE TO PLAY AGAIN?"                  << std::endl;
     std::cout << " (enter -r to restart, any key to esc)"             << std::endl;
 }
-
-void PlayGame::attachPC(Player * pc) {p = pc; }
