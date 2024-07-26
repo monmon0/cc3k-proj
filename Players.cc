@@ -137,6 +137,7 @@ void Player::takePotion(AsciiArt * m, std::string dir, bool hasInventory) {
 
         }
             inventory.emplace_back(potion);
+
             p->changeActive();
         } else if (!hasInventory) {
             p->applyEffect(this);
@@ -185,6 +186,39 @@ void Player::nextLevel(int n_x, int n_y) {
         p->undoEffect(this);
     }
     potions.clear();
+}
+
+void Player::shop(std::string name, AsciiArt * m) {
+    if (gold < 1) {
+        announcement = "Unable to purchase due to being too broke ... ";
+        return;
+    } else {
+        inventoryNum++;
+        if (inventoryNum < 10) {
+            Item * potion;
+        if (name == "RH") {
+            potion = ItemFactory::createItem(ItemFactory::Type::POTION_RH, m, -1, -1);
+        } else if (name == "BA") { 
+            potion  = ItemFactory::createItem(ItemFactory::Type::POTION_BA, m, -1, -1);
+
+        } else if (name == "BD") { 
+            potion  = ItemFactory::createItem(ItemFactory::Type::POTION_BD, m, -1, -1);
+
+        } else if (name == "PH") { 
+            potion = ItemFactory::createItem(ItemFactory::Type::POTION_PH, m, -1, -1);
+
+        } else if (name == "WA") { 
+            potion = ItemFactory::createItem(ItemFactory::Type::POTION_WA, m,-1, -1);
+
+        } else if (name == "WD") { 
+            potion = ItemFactory::createItem(ItemFactory::Type::POTION_WD, m,-1, -1);
+
+        }
+            inventory.emplace_back(potion);
+        }
+        announcement = "Purchase successully";
+    }
+    gold--;
 }
 
 char Player::getRace() {return race;}

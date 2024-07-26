@@ -22,7 +22,6 @@ class Player : public Character {
         int location = -1;  
         std::vector <Potion * > potions;
         std::vector <Item * > inventory;
-
         int inventoryNum;
         
     public:
@@ -59,6 +58,9 @@ class Player : public Character {
         std::vector<Item *>::iterator getPotion() {return inventory.begin();};
 
         int getIsize() {return inventoryNum;}
+
+        void shop(std::string name, AsciiArt * m);
+
 }; 
 
 #endif // PLAYERS_H

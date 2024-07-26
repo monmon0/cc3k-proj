@@ -134,6 +134,10 @@ int main(int argc, char *argv[]) {
                 curr_g.restart();
                 initialized = 0;
                 restart = true;
+            } else if (command == "shop" && bonus) {   // restart game
+                std::cin >> command;
+                pc->shop(command, floor);
+                s.setAction(pc->getAnnouncement());
             }
 
             if (!restart) {
