@@ -15,7 +15,7 @@
 class Enemy;
 
 class Dungeon {
-    int rows = 30, cols = 79, ticks = 0;
+    int rows = 30, cols = 79;
     std::ostream &out = std::cout;          
     AsciiArt *thePicture;             
     std::string action = "";
@@ -31,6 +31,8 @@ public:
     void levelUp();
     void resetLevel();
     int getLevel();
+
+    void printInventory(Player * p);
 
     ~Dungeon();
 };

@@ -22,13 +22,19 @@ int main(int argc, char *argv[]) {
     // creating new Dungeon
     std::string fileName = "map.txt";
     bool hasCommand = false;
-
     bool restart = false;
+    bool bonus = false;
 
     if (argc > 1) {
-        fileName = argv[1];
-        hasCommand = true;
+        std::string cmdl = argv[1];
+        if (cmdl != "-enablebonus") {
+            fileName = argv[1];
+            hasCommand = true;
+        }
+        else bonus = true;
     }
+
+
     Blank * map = new Blank(fileName);
     Blank * floor = new Blank("map.txt");
     Dungeon s{floor};
@@ -108,10 +114,15 @@ int main(int argc, char *argv[]) {
                 std::string dir;
                 std::cin >> dir;
                 std::cout << std::endl;
-                pc->takePotion(s.picture(), dir);
+                pc->takePotion(s.picture(), dir, bonus);
                 s.setAction(pc->getAnnouncement());
 
                 curr_g.attackOrMove(); 
+            } else if (command == "drink" ) { 
+                int pos;
+                std::cin >> pos;
+                pc->drinkPotion(pos);
+
             } else if (command == "lu") {   // Level up, for testing purposes, not actual command
                 curr_g.levelUp(hasCommand, map);
             } else if (command == "f" ) {   // stop enemies from moving;
@@ -149,9 +160,10 @@ int main(int argc, char *argv[]) {
                     } else break;
                 } 
             }
-            
+
             if (command != "r" && command != "q") {
                 s.render(pc);
+                if (bonus) s.printInventory(pc);
                 std::cout << "Your command: ";
             }
             

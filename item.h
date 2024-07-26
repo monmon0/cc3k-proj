@@ -18,6 +18,7 @@ class Item: public Decorator {
         double amt;
         string announcement = "";
         bool active = true;
+        string name;
 
     public:
         Item(AsciiArt *next, int x, int y, double amt);
@@ -32,6 +33,9 @@ class Item: public Decorator {
         int getX();
         int getY();
         AsciiArt *&nextChar();
+        string getName() const {return name;}
+        void changeActive() {active = false;}
+
 };
 
 

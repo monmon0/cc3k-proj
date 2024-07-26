@@ -7,6 +7,7 @@
 #include "character.h"
 #include <string>
 
+class Item;
 class Potion;
 
 class Player : public Character {
@@ -20,12 +21,17 @@ class Player : public Character {
         bool hitMerchant = false; 
         int location = -1;  
         std::vector <Potion * > potions;
+        std::vector <Item * > inventory;
+
+        int inventoryNum;
         
     public:
 
         Player();
         Player(AsciiArt *next, char race, int x, int y, int hp, int atk, int def, int location);
-        ~Player() = default;
+        ~Player() {
+            inventory.clear();
+        };
         char charAt(int row, int col) override;
         void move(std::string dir, AsciiArt *next);
         char getRace();
@@ -41,13 +47,18 @@ class Player : public Character {
         int getGold() const;         
         
         bool attack(AsciiArt * d, std::string dir);              // Attack 
-        void takePotion(AsciiArt * m, std::string dir);         //  Use Potion
+        void takePotion(AsciiArt * m, std::string dir, bool hasInventory);         //  Use Potion
         void nextLevel(int x, int y);        
 
         bool isLevelUp() const;
         void attach(Potion * o);
         void detach(Potion* o);
         char atPostion(AsciiArt * d, std::string dir);
+
+        void drinkPotion(int pos);
+        std::vector<Item *>::iterator getPotion() {return inventory.begin();};
+
+        int getIsize() {return inventoryNum;}
 }; 
 
 #endif // PLAYERS_H

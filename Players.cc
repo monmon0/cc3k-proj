@@ -5,7 +5,9 @@
 #include "item.h"
 #include <ctime>
 #include <climits>
+#include "itemFactory.h"
 #include <string>
+
 
 Player::Player(AsciiArt *next, char race, int x, int y, int hp, int atk, int def, int location): 
     Character(next, race, x, y, hp, atk, def), location{location} {
@@ -106,17 +108,56 @@ bool Player::attack(AsciiArt * d, std::string dir) {
     return false;
 };
 
-void Player::takePotion(AsciiArt * m, std::string dir) {
+void Player::takePotion(AsciiArt * m, std::string dir, bool hasInventory) {
     char pos_check = atPostion(m, dir);
 
     if (pos_check == 'P') {
         Item * p = Item::getItem(x + new_block_x, y + new_block_y);
-        p->applyEffect(this);
-        announcement = p->getAnnouncement();
+        inventoryNum++;
+        if (hasInventory && inventoryNum < 10) {
+            std::string name = p->getName();
+            Item * potion;
+        if (name == "RH") {
+            potion = ItemFactory::createItem(ItemFactory::Type::POTION_RH, m, -1, -1);
+        } else if (name == "BA") { 
+            potion  = ItemFactory::createItem(ItemFactory::Type::POTION_BA, m, -1, -1);
+
+        } else if (name == "BD") { 
+            potion  = ItemFactory::createItem(ItemFactory::Type::POTION_BD, m, -1, -1);
+
+        } else if (name == "PH") { 
+            potion = ItemFactory::createItem(ItemFactory::Type::POTION_PH, m, -1, -1);
+
+        } else if (name == "WA") { 
+            potion = ItemFactory::createItem(ItemFactory::Type::POTION_WA, m,-1, -1);
+
+        } else { 
+            potion = ItemFactory::createItem(ItemFactory::Type::POTION_WD, m,-1, -1);
+
+        }
+            inventory.emplace_back(potion);
+            p->changeActive();
+        } else {
+            p->applyEffect(this);
+            announcement = p->getAnnouncement();
+        } 
     } else {
         announcement = "PC didn't find any potions in this direction. ";
     }
 }
+
+void Player::drinkPotion(int pos) {
+    if (pos > (inventoryNum - 1)) {
+        return;
+    }
+    inventory[pos]->applyEffect(this);
+
+    inventory[pos]->nextChar() = nullptr;
+    inventory.erase(inventory.begin() + pos);
+    announcement = "PC uses potion.";
+
+    inventoryNum--;
+};
 
 void Player::attach(Potion * o) {
     potions.emplace_back(o);

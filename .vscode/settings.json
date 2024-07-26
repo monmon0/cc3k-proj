@@ -71,6 +71,7 @@
         "fstream": "cpp",
         "iomanip": "cpp",
         "stack": "cpp",
-        "charconv": "cpp"
+        "charconv": "cpp",
+        "filesystem": "cpp"
     }
 }
