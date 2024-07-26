@@ -63,7 +63,7 @@ void Dungeon::printInventory(Player * p) {
 
 
   for (int i = 0; i < p->getIsize(); i++) {
-    out << "|    " << (*(p->getPotion() + i))->getName() << "    ";
+    out << "|  " << (*(p->getPotion() + i))->getName() << "  ";
   }
   
   out << std::endl << '+';

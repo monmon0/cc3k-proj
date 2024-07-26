@@ -137,7 +137,7 @@ void Player::takePotion(AsciiArt * m, std::string dir, bool hasInventory) {
         }
             inventory.emplace_back(potion);
             p->changeActive();
-        } else {
+        } else if (!hasInventory) {
             p->applyEffect(this);
             announcement = p->getAnnouncement();
         } 
