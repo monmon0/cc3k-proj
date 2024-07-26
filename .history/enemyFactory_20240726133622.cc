@@ -15,6 +15,6 @@ Enemy *EnemyFactory::createEnemy(Type type, AsciiArt *next, int x, int y) {
     } else if (type == Type::HALFLING) {
         return new Halfling(next, x, y);
     } else {
-        return nullptr; 
+        return null; 
     }
 }

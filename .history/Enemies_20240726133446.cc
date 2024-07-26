@@ -10,9 +10,8 @@ Enemy::Enemy(AsciiArt *next, char race, int x, int y, int hp, int atk, int def)
 char Enemy::charAt(int row, int col) {
     if (col == x && row == y && !isDead()) {
         return getRace(); 
-    } else {
-        return next->charAt(row, col);
-    }
+    } 
+    return next->charAt(row, col);; 
 }
 
 bool Enemy::isDead() const { return hp <= 0; } 

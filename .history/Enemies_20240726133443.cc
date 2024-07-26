@@ -11,7 +11,7 @@ char Enemy::charAt(int row, int col) {
     if (col == x && row == y && !isDead()) {
         return getRace(); 
     } else {
-        return next->charAt(row, col);
+        return next->charAt(row, col); 
     }
 }
 
