@@ -10,7 +10,7 @@ using namespace std;
 class Player;
 
 class Item: public Decorator {
-    static inline std::vector<Item *> iVec;
+    static inline std::vector<Item *> iVec;     // Keeps track of all items generated and their positions
 
     protected:
         int x;
