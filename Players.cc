@@ -154,7 +154,7 @@ void Player::drinkPotion(int pos) {
 
     inventory[pos]->nextChar() = nullptr;
     inventory.erase(inventory.begin() + pos);
-    announcement = "PC uses potion.";
+    announcement = "PC uses potion in inventory. ";
 
     inventoryNum--;
 };

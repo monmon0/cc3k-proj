@@ -122,6 +122,7 @@ int main(int argc, char *argv[]) {
                 int pos;
                 std::cin >> pos;
                 pc->drinkPotion(pos);
+                s.setAction(pc->getAnnouncement());
 
             } else if (command == "lu") {   // Level up, for testing purposes, not actual command
                 curr_g.levelUp(hasCommand, map);

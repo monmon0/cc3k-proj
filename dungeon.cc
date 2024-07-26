@@ -56,13 +56,14 @@ void Dungeon::resetLevel() { floor = 1; }
 int Dungeon::getLevel() {return floor;}
 
 void Dungeon::printInventory(Player * p) {
+
   out << '+';
   for (int j = 0; j < 79; ++j) out << '-';
   out << '+' << std::endl;
 
 
   for (int i = 0; i < p->getIsize(); i++) {
-    out << "|    " << (*(p->getPotion() + i))->getName() << "       ";
+    out << "|    " << (*(p->getPotion() + i))->getName() << "    ";
   }
   
   out << std::endl << '+';
