@@ -30,11 +30,11 @@ int main(int argc, char *argv[]) {
         fileName = argv[1];
         hasCommand = true;
 
-        std::ifstream file(fileName);
-        std::string line;
-        while (std::getline(file, line)) {
-            newMap += line;
-        }
+        // std::ifstream file(fileName);
+        // std::string line;
+        // while (std::getline(file, line)) {
+        //     newMap += line;
+        // }
     }
     Blank * map = new Blank(fileName);
     Blank * floor = new Blank("map.txt");
@@ -56,8 +56,7 @@ int main(int argc, char *argv[]) {
                 int location = 0;
 
                 if (hasCommand) {
-                    
-                    int pos = newMap.find("@");
+                    int pos = map->getMap().find("@");
                     r1 = pos % 79;
                     r2 = pos / 79;
 
