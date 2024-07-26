@@ -58,6 +58,7 @@ int main(int argc, char *argv[]) {
                 if (hasCommand) {
                     
                     int pos = newMap.find("@");
+                    if (pos == -1) break;
                     r1 = pos % 79;
                     r2 = pos / 79;
 
