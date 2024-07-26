@@ -127,11 +127,7 @@ int main(int argc, char *argv[]) {
                 curr_g.restart();
                 hasCommand = 0;
                 initialized = 0;
-
                 restart = true;
-
-
-
             }
 
             if (!restart) {
@@ -150,7 +146,7 @@ int main(int argc, char *argv[]) {
                 else break;
             }
             if (command == "a" || command == "u") {
-                // curr_g.attackOrMove(); 
+                curr_g.attackOrMove(); 
             }
             // --------------- QUIT GAME ------------------------- //
             if (pc->isDead() || command == "q") {
