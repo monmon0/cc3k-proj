@@ -17,4 +17,3 @@ void WD::undoEffect(Player *player) {
     player->detach(this);
     player->changeDef(-1 * amt);
 }
-

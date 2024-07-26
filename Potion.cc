@@ -15,5 +15,3 @@ string Potion::getName() const {
 }
 
 void Potion::undoEffect(Player *player) {}
-
-
