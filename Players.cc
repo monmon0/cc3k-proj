@@ -141,7 +141,7 @@ void Player::takePotion(AsciiArt * m, std::string dir, bool hasInventory) {
             potion = ItemFactory::createItem(ItemFactory::Type::POTION_WD, m,-1, -1);
 
         }
-            p->nextChar() = nullptr;
+            potion->nextChar() = nullptr;
             inventory.emplace_back(potion);
             p->changeActive();
         } else if (!hasInventory) {
@@ -222,7 +222,8 @@ void Player::shop(std::string name, AsciiArt * m) {
         } else if (name == "WD") { 
             potion = ItemFactory::createItem(ItemFactory::Type::POTION_WD, m,-1, -1);
 
-        }
+        }   
+            potion->nextChar() = nullptr;
             inventory.emplace_back(potion);
             gold--;
             announcement = "Purchase successully";
