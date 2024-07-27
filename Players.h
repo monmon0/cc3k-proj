@@ -28,9 +28,7 @@ class Player : public Character {
 
         Player();
         Player(AsciiArt *next, char race, int x, int y, int hp, int atk, int def, int location);
-        ~Player() {
-            inventory.clear();
-        };
+        ~Player();
         char charAt(int row, int col) override;
         void move(std::string dir, AsciiArt *next);
         char getRace();
