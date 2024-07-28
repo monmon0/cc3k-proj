@@ -16,6 +16,11 @@ Player::Player(AsciiArt *next, char race, int x, int y, int hp, int atk, int def
         else max_hp = hp;
 }
 
+Player::~Player() {
+    for (auto p = inventory.begin(); p != inventory.end(); p++) {
+        delete *p;
+    }
+}
 void Player::move(std::string dir, AsciiArt * curr) {
     announcement = "";
 
@@ -136,8 +141,8 @@ void Player::takePotion(AsciiArt * m, std::string dir, bool hasInventory) {
             potion = ItemFactory::createItem(ItemFactory::Type::POTION_WD, m,-1, -1);
 
         }
+            potion->nextChar() = nullptr;
             inventory.emplace_back(potion);
-
             p->changeActive();
         } else if (!hasInventory) {
             p->applyEffect(this);
@@ -217,7 +222,8 @@ void Player::shop(std::string name, AsciiArt * m) {
         } else if (name == "WD") { 
             potion = ItemFactory::createItem(ItemFactory::Type::POTION_WD, m,-1, -1);
 
-        }
+        }   
+            potion->nextChar() = nullptr;
             inventory.emplace_back(potion);
             gold--;
             announcement = "Purchase successully";
